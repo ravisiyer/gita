@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="m-2">
         <Navbar />
         {children}
         <Navbar idSuffix="2" />
