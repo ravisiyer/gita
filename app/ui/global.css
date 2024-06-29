@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.Navbar a {
+  padding-right: 0.5rem;
+}
+
+.disabled {
+  pointer-events: none;
+  color: rgb(161, 158, 158);
+}
+
+.SelectChapterVerse {
+  display: inline;
+
+  /* To put the component UI elements in a black border box ... */
+  /*
+  padding-top: 0.25rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.1rem;
+  padding-right: 0.1rem;
+  border: 2px solid black; */
+}
+
+.SelectChapterVerse label,
+.SelectChapterVerse input {
+  margin-right: 0.25rem;
+}
+
+.SelectChapterVerse input {
+  width: 40px;
+}
+
+.SelectChapterVerse input[type="submit"] {
+  width: 25px;
+  margin: 0;
+  padding: 0;
+  color: whitesmoke;
+  background-color: black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.SelectChapterVerse input[type="submit"]:hover {
+  color: black;
+  background-color: whitesmoke;
+}
+
+.SelectChapterVerse input[type="submit"]:active {
+  transform: scale(0.9);
+}
+
+.about {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  text-align: right;
+}
