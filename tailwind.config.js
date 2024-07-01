@@ -6,7 +6,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      lineHeight: {
+        1.1: "1.1",
+      },
+    },
   },
   plugins: [],
   // corePlugins: {

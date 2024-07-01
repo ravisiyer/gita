@@ -92,17 +92,45 @@ function Navbar({ idSuffix = "" }) {
   // console.log("Just before rendering Navbar div");
   // console.log("href values:", prevHref, nextHref, upHref);
   return (
-    <div className="Navbar">
-      <Link href="/">Home</Link>
+    // <div className="Navbar">
+    // <div className="ml-2 mt-2 mr-2">
+    <div className="mx-2 mt-2 leading-5">
+      <Link
+        href="/"
+        className="pr-2 text-blue-600 visited:text-purple-900 underline"
+      >
+        Home
+      </Link>
       {/* Disabling below Prev and Next links conditionally seems to require the code below. Ref: 
       https://stackoverflow.com/questions/73555618/how-can-i-disable-link-href-in-next-js-on-various-conditions */}
-      <Link href={prevHref} className={prevHref === "" ? "disabled" : ""}>
+      <Link
+        href={prevHref}
+        className={
+          prevHref === ""
+            ? "disabled pr-2 underline"
+            : "pr-2 text-blue-600 visited:text-purple-900 underline"
+        }
+      >
         Prev
       </Link>
-      <Link href={nextHref} className={nextHref === "" ? "disabled" : ""}>
+      <Link
+        href={nextHref}
+        className={
+          nextHref === ""
+            ? "disabled pr-2 underline"
+            : "pr-2 text-blue-600 visited:text-purple-900 underline"
+        }
+      >
         Next
       </Link>
-      <Link href={upHref} className={upHref === "" ? "disabled" : ""}>
+      <Link
+        href={upHref}
+        className={
+          upHref === ""
+            ? "disabled pr-2 underline"
+            : "pr-2 text-blue-600 visited:text-purple-900 underline"
+        }
+      >
         Up
       </Link>
       <SelectChapterVerse

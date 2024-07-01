@@ -87,6 +87,9 @@ function SelectChapterVerse({
     <form className="SelectChapterVerse" onSubmit={handleSubmit}>
       <label htmlFor={idChapterNumber}>Ch.</label>
       <input
+        className="border border-neutral-500 leading-none w-12 text-sm py-px px-0.5"
+        // className="border-2 border-zinc-500 leading-none w-11"
+        // className="border-2 border-black"
         type="number"
         id={idChapterNumber}
         size="2"
@@ -100,6 +103,7 @@ function SelectChapterVerse({
       />
       <label htmlFor={idVerseNumber}>Ve.</label>
       <input
+        className="border border-neutral-500 leading-none w-12 text-sm py-px px-0.5"
         type="number"
         id={idVerseNumber}
         size="2"
@@ -114,7 +118,7 @@ function SelectChapterVerse({
           setVerseNumber(e.target.value);
         }}
       />
-      <input type="submit" value="Go" />
+      <input type="submit" value="Go" className="text-sm" />
     </form>
   );
 }

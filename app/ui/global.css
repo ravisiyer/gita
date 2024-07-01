@@ -13,9 +13,9 @@ body {
   word-wrap: break-word;
 }
 
-.Navbar a {
+/* .Navbar a {
   padding-right: 0.5rem;
-}
+} */
 
 .disabled {
   pointer-events: none;
@@ -40,7 +40,8 @@ body {
 }
 
 .SelectChapterVerse input {
-  width: 40px;
+  /* width: 40px; */
+  font-family: Arial;
 }
 
 .SelectChapterVerse input[type="submit"] {
@@ -62,8 +63,8 @@ body {
   transform: scale(0.9);
 }
 
-.about {
+/* .about {
   margin-top: 0.5rem;
   margin-bottom: 0;
   text-align: right;
-}
+} */
