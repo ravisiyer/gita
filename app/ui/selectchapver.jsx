@@ -88,8 +88,6 @@ function SelectChapterVerse({
       <label htmlFor={idChapterNumber}>Ch.</label>
       <input
         className="border border-neutral-500 leading-none w-12 text-sm py-px px-0.5"
-        // className="border-2 border-zinc-500 leading-none w-11"
-        // className="border-2 border-black"
         type="number"
         id={idChapterNumber}
         size="2"

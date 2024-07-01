@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import Navbar from "./ui/navbar";
 
 export const metadata: Metadata = {
-  title: "Bhagavad Gita (Very Simple App)",
-  description: "Very Simple but functional Bhagavad Gita web app",
+  title: "Bhagavad Gita (Simple App using Tailwind)",
+  description: "Simple but functional Bhagavad Gita web app using Tailwind",
 };
 
 export default function RootLayout({
@@ -14,8 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {/* <body className="m-2"> */}
+      <body className="m-2">
         <Navbar />
         {children}
         <Navbar idSuffix="2" />

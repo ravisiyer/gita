@@ -13,10 +13,6 @@ body {
   word-wrap: break-word;
 }
 
-/* .Navbar a {
-  padding-right: 0.5rem;
-} */
-
 .disabled {
   pointer-events: none;
   color: rgb(161, 158, 158);
@@ -24,14 +20,6 @@ body {
 
 .SelectChapterVerse {
   display: inline;
-
-  /* To put the component UI elements in a black border box ... */
-  /*
-  padding-top: 0.25rem;
-  padding-bottom: 0.5rem;
-  padding-left: 0.1rem;
-  padding-right: 0.1rem;
-  border: 2px solid black; */
 }
 
 .SelectChapterVerse label,
@@ -40,7 +28,6 @@ body {
 }
 
 .SelectChapterVerse input {
-  /* width: 40px; */
   font-family: Arial;
 }
 
@@ -62,9 +49,3 @@ body {
 .SelectChapterVerse input[type="submit"]:active {
   transform: scale(0.9);
 }
-
-/* .about {
-  margin-top: 0.5rem;
-  margin-bottom: 0;
-  text-align: right;
-} */

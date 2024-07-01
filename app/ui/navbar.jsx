@@ -92,9 +92,7 @@ function Navbar({ idSuffix = "" }) {
   // console.log("Just before rendering Navbar div");
   // console.log("href values:", prevHref, nextHref, upHref);
   return (
-    // <div className="Navbar">
-    // <div className="ml-2 mt-2 mr-2">
-    <div className="mx-2 mt-2 leading-5">
+    <div className="leading-5">
       <Link
         href="/"
         className="pr-2 text-blue-600 visited:text-purple-900 underline"
@@ -106,9 +104,10 @@ function Navbar({ idSuffix = "" }) {
       <Link
         href={prevHref}
         className={
-          prevHref === ""
-            ? "disabled pr-2 underline"
-            : "pr-2 text-blue-600 visited:text-purple-900 underline"
+          "pr-2 underline " +
+          (prevHref === ""
+            ? "disabled "
+            : "text-blue-600 visited:text-purple-900")
         }
       >
         Prev
@@ -116,9 +115,10 @@ function Navbar({ idSuffix = "" }) {
       <Link
         href={nextHref}
         className={
-          nextHref === ""
-            ? "disabled pr-2 underline"
-            : "pr-2 text-blue-600 visited:text-purple-900 underline"
+          "pr-2 underline " +
+          (nextHref === ""
+            ? "disabled "
+            : "text-blue-600 visited:text-purple-900")
         }
       >
         Next
@@ -126,9 +126,10 @@ function Navbar({ idSuffix = "" }) {
       <Link
         href={upHref}
         className={
-          upHref === ""
-            ? "disabled pr-2 underline"
-            : "pr-2 text-blue-600 visited:text-purple-900 underline"
+          "pr-2 underline " +
+          (upHref === ""
+            ? "disabled "
+            : "text-blue-600 visited:text-purple-900")
         }
       >
         Up
