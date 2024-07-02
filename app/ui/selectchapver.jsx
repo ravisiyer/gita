@@ -84,10 +84,12 @@ function SelectChapterVerse({
   const idVerseNumber = `versenumber${idSuffix}`;
 
   return (
-    <form className="SelectChapterVerse" onSubmit={handleSubmit}>
-      <label htmlFor={idChapterNumber}>Ch.</label>
+    <form className="inline SelectChapterVerse" onSubmit={handleSubmit}>
+      <label htmlFor={idChapterNumber} className="mr-1">
+        Ch.
+      </label>
       <input
-        className="border border-neutral-500 leading-none w-12 text-sm py-px px-0.5"
+        className="mr-1 border border-neutral-500 leading-none w-12 text-sm py-px px-0.5 font-['Arial']"
         type="number"
         id={idChapterNumber}
         size="2"
@@ -99,9 +101,11 @@ function SelectChapterVerse({
           setChapterNumber(e.target.value);
         }}
       />
-      <label htmlFor={idVerseNumber}>Ve.</label>
+      <label htmlFor={idVerseNumber} className="mr-1">
+        Ve.
+      </label>
       <input
-        className="border border-neutral-500 leading-none w-12 text-sm py-px px-0.5"
+        className="mr-1 border border-neutral-500 leading-none w-12 text-sm py-px px-0.5 font-['Arial']"
         type="number"
         id={idVerseNumber}
         size="2"
@@ -116,7 +120,11 @@ function SelectChapterVerse({
           setVerseNumber(e.target.value);
         }}
       />
-      <input type="submit" value="Go" className="text-sm" />
+      <input
+        type="submit"
+        value="Go"
+        className="border-2 border-black text-sm w-7 text-violet-50 bg-black rounded-md cursor-pointer hover:text-black hover:bg-violet-50 active:scale-90"
+      />
     </form>
   );
 }

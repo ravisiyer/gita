@@ -106,7 +106,7 @@ function Navbar({ idSuffix = "" }) {
         className={
           "pr-2 underline " +
           (prevHref === ""
-            ? "disabled "
+            ? "text-neutral-400 pointer-events-none "
             : "text-blue-600 visited:text-purple-900")
         }
       >
@@ -117,7 +117,7 @@ function Navbar({ idSuffix = "" }) {
         className={
           "pr-2 underline " +
           (nextHref === ""
-            ? "disabled "
+            ? "text-neutral-400 pointer-events-none "
             : "text-blue-600 visited:text-purple-900")
         }
       >
@@ -128,7 +128,7 @@ function Navbar({ idSuffix = "" }) {
         className={
           "pr-2 underline " +
           (upHref === ""
-            ? "disabled "
+            ? "text-neutral-400 pointer-events-none "
             : "text-blue-600 visited:text-purple-900")
         }
       >
