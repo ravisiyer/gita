@@ -123,7 +123,7 @@ function SelectChapterVerse({
       <input
         type="submit"
         value="Go"
-        className="border-2 border-black text-sm w-7 text-violet-50 bg-black rounded-md cursor-pointer hover:text-black hover:bg-violet-50 active:scale-90"
+        className="border-2 border-black text-[13.33px] leading-4 w-[25px] text-violet-50 bg-black rounded-md cursor-pointer hover:text-black hover:bg-violet-50 active:scale-90 font-['Arial'] "
       />
     </form>
   );

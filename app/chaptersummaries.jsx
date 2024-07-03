@@ -15,7 +15,7 @@ async function ChapterSummaries() {
         <div key={chapter.id}>
           <Link
             href={`/${chapter.chapterNumber}`}
-            className="text-blue-600 visited:text-purple-900 underline"
+            className="text-blue-700 visited:text-purple-900 underline"
           >
             <h3 className="my-4 text-lg font-bold">{`${chapter.chapterNumber}: ${chapter.nameTranslated} ${chapter.name}`}</h3>
           </Link>
@@ -26,7 +26,7 @@ async function ChapterSummaries() {
           <p className="my-4 leading-snug">{chapter.chapterSummaryHindi}</p>
           <Link
             href={`/${chapter.chapterNumber}`}
-            className="text-blue-600 visited:text-purple-900 underline"
+            className="text-blue-700 visited:text-purple-900 underline"
           >
             <p className="my-4 leading-[1.1]">{`${chapter.versesCount} verses`}</p>
           </Link>

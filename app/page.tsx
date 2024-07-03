@@ -8,7 +8,7 @@ export default function Home() {
       <div className="mt-2 text-right">
         <Link
           href="/about"
-          className="text-blue-600 visited:text-purple-900 underline"
+          className="text-blue-700 visited:text-purple-900 underline"
         >
           About App & Data
         </Link>

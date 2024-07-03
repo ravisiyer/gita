@@ -95,7 +95,7 @@ function Navbar({ idSuffix = "" }) {
     <div className="leading-5">
       <Link
         href="/"
-        className="pr-2 text-blue-600 visited:text-purple-900 underline"
+        className="pr-2 text-blue-700 visited:text-purple-900 underline"
       >
         Home
       </Link>
@@ -107,7 +107,7 @@ function Navbar({ idSuffix = "" }) {
           "pr-2 underline " +
           (prevHref === ""
             ? "text-neutral-400 pointer-events-none "
-            : "text-blue-600 visited:text-purple-900")
+            : "text-blue-700 visited:text-purple-900")
         }
       >
         Prev
@@ -118,7 +118,7 @@ function Navbar({ idSuffix = "" }) {
           "pr-2 underline " +
           (nextHref === ""
             ? "text-neutral-400 pointer-events-none "
-            : "text-blue-600 visited:text-purple-900")
+            : "text-blue-700 visited:text-purple-900")
         }
       >
         Next
@@ -129,7 +129,7 @@ function Navbar({ idSuffix = "" }) {
           "pr-2 underline " +
           (upHref === ""
             ? "text-neutral-400 pointer-events-none "
-            : "text-blue-600 visited:text-purple-900")
+            : "text-blue-700 visited:text-purple-900")
         }
       >
         Up
