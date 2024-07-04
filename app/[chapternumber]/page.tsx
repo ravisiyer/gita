@@ -5,8 +5,39 @@ import { getChapter } from "../lib/data";
 import Link from "next/link";
 import { getValNumericChapterNumber } from "../lib/util";
 
-async function Page({ params }) {
-  const chapterNumber = params.chapternumber;
+type GitaTranslationNode = {
+  description: string;
+  verseId: number;
+  authorName: string;
+};
+
+type GitaTranslationsByVerseId = {
+  nodes: GitaTranslationNode[];
+};
+
+type GitaVersesInChapterNode = {
+  verseNumber: number;
+  transliteration: string;
+  id: number;
+  text: string;
+  wordMeanings: string;
+  gitaTranslationsByVerseId: GitaTranslationsByVerseId;
+};
+
+type GitaVersesInChapter = {
+  nodes: GitaVersesInChapterNode[];
+};
+type GitaChapter = {
+  versesCount: number;
+  name: string;
+  nameTranslated: string;
+  chapterSummary: string;
+  chapterSummaryHindi: string;
+  gitaVersesByChapterId: GitaVersesInChapter;
+};
+
+async function Page({ params }: { params: { chapternumber: string } }) {
+  const chapterNumber: string = params.chapternumber;
 
   const valChapterNumber = getValNumericChapterNumber(chapterNumber);
   if (!valChapterNumber.valid) {
@@ -15,7 +46,7 @@ async function Page({ params }) {
   const numericChapterNumber = valChapterNumber.numericChapterNumber;
 
   let data = await getChapter(chapterNumber);
-  let gitaChapter = data.gitaChapter;
+  let gitaChapter: GitaChapter = data.gitaChapter;
 
   return (
     <div>

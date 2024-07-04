@@ -5,7 +5,39 @@ import { Suspense } from "react";
 import { capitalizeFirstLetter } from "@/app/lib/util";
 import { getValNumericVerseId } from "@/app/lib/util";
 
-async function Page({ params }) {
+type GitaTranslationsByVerseIdNode = {
+  authorId: number;
+  authorName: string;
+  description: string;
+  language: string;
+};
+
+type GitaTranslationsByVerseId = {
+  nodes: GitaTranslationsByVerseIdNode[];
+};
+
+type GitaCommentariesByVerseIdNode = {
+  authorId: number;
+  authorName: string;
+  description: string;
+  language: string;
+};
+
+type GitaCommentariesByVerseId = {
+  nodes: GitaCommentariesByVerseIdNode[];
+};
+
+type GitaVerse = {
+  chapterNumber: number;
+  verseNumber: number;
+  text: string;
+  transliteration: string;
+  wordMeanings: string;
+  gitaTranslationsByVerseId: GitaTranslationsByVerseId;
+  gitaCommentariesByVerseId: GitaCommentariesByVerseId;
+};
+
+async function Page({ params }: { params: { id: string } }) {
   const verseId = params.id;
 
   const valVerseId = getValNumericVerseId(verseId);
@@ -15,7 +47,7 @@ async function Page({ params }) {
   const numericVerseId = valVerseId.numericVerseId;
 
   let data = await getVerse(verseId);
-  let gitaVerse = data.gitaVerse;
+  let gitaVerse: GitaVerse = data.gitaVerse;
 
   const numericChapterNumber = Number(gitaVerse.chapterNumber);
   return (

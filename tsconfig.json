@@ -26,9 +26,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/chaptersummaries.jsx",
-    "app/lib/data.js",
-    "app/[chapternumber]/page.jsx"
+    "app/chaptersummaries.tsx",
+    "app/lib/data.ts",
+    "app/[chapternumber]/page.tsx",
+    "app/constants.js"
   ],
   "exclude": ["node_modules"]
 }

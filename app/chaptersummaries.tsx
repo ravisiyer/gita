@@ -2,9 +2,23 @@ import Link from "next/link";
 import { getAllChapters } from "./lib/data";
 // import { getAllChapters } from "./lib/dummydata";
 
+type GitaChapterSummary = {
+  id: number;
+  chapterNumber: number;
+  chapterSummary: string;
+  chapterSummaryHindi: string;
+  name: string;
+  nameTranslated: string;
+  versesCount: number;
+};
+
+// type GitaChapterSummaries = {
+//     gitaChapterSummary: GitaChapterSummary[];
+// }
+
 async function ChapterSummaries() {
   let data = await getAllChapters();
-  let allGitaChapters = data.allGitaChapters;
+  let allGitaChapters: GitaChapterSummary[] = data.allGitaChapters;
 
   return (
     <div>
