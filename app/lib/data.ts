@@ -82,38 +82,6 @@ export async function getChapter(chapterNumber: string) {
   }
 }
 
-// type GitaTranslationsByVerseIdNode = {
-//   authorId: number;
-//   authorName: string;
-//   description: string;
-//   language: string;
-// };
-
-// type GitaTranslationsByVerseId = {
-//   nodes: GitaTranslationsByVerseIdNode[];
-// };
-
-// type GitaCommentariesByVerseIdNode = {
-//   authorId: number;
-//   authorName: string;
-//   description: string;
-//   language: string;
-// };
-
-// type GitaCommentariesByVerseId = {
-//   nodes: GitaCommentariesByVerseIdNode[];
-// };
-
-// type GitaVerse = {
-//   chapterNumber: number;
-//   verseNumber: number;
-//   text: string;
-//   transliteration: string;
-//   wordMeanings: string;
-//   gitaTranslationsByVerseId: GitaTranslationsByVerseId;
-//   gitaCommentariesByVerseId: GitaCommentariesByVerseId;
-// };
-
 export async function getVerse(verseId: string) {
   const client = createApolloClient();
   try {
