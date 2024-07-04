@@ -4,37 +4,42 @@ import { getChapter } from "../lib/data";
 // import { getChapter } from "../lib/dummydata";
 import Link from "next/link";
 import { getValNumericChapterNumber } from "../lib/util";
+import {
+  GitaChapter,
+  // GitaVersesConnection,
+  // GitaVerse,
+} from "../lib/gqltypes-d";
 
-type GitaTranslationNode = {
-  description: string;
-  verseId: number;
-  authorName: string;
-};
+// type GitaTranslationNode = {
+//   description: string;
+//   verseId: number;
+//   authorName: string;
+// };
 
-type GitaTranslationsByVerseId = {
-  nodes: GitaTranslationNode[];
-};
+// type GitaTranslationsByVerseId = {
+//   nodes: GitaTranslationNode[];
+// };
 
-type GitaVersesInChapterNode = {
-  verseNumber: number;
-  transliteration: string;
-  id: number;
-  text: string;
-  wordMeanings: string;
-  gitaTranslationsByVerseId: GitaTranslationsByVerseId;
-};
+// type GitaVersesInChapterNode = {
+//   verseNumber: number;
+//   transliteration: string;
+//   id: number;
+//   text: string;
+//   wordMeanings: string;
+//   gitaTranslationsByVerseId: GitaTranslationsByVerseId;
+// };
 
-type GitaVersesInChapter = {
-  nodes: GitaVersesInChapterNode[];
-};
-type GitaChapter = {
-  versesCount: number;
-  name: string;
-  nameTranslated: string;
-  chapterSummary: string;
-  chapterSummaryHindi: string;
-  gitaVersesByChapterId: GitaVersesInChapter;
-};
+// type GitaVersesInChapter = {
+//   nodes: GitaVersesInChapterNode[];
+// };
+// type GitaChapter = {
+//   versesCount: number;
+//   name: string;
+//   nameTranslated: string;
+//   chapterSummary: string;
+//   chapterSummaryHindi: string;
+//   gitaVersesByChapterId: GitaVersesInChapter;
+// };
 
 async function Page({ params }: { params: { chapternumber: string } }) {
   const chapterNumber: string = params.chapternumber;
@@ -59,25 +64,29 @@ async function Page({ params }: { params: { chapternumber: string } }) {
         <h4 className="my-4 font-bold">{`${gitaChapter.versesCount} verses`}</h4>
         <hr className="border border-gray-400" />
         {gitaChapter.gitaVersesByChapterId.nodes.map((verse) => (
-          <div key={verse.id}>
+          <div key={verse!.id}>
             <Link
-              href={`/verse/${verse.id}`}
+              href={`/verse/${verse!.id}`}
               className="text-blue-700 visited:text-purple-900 underline"
             >
-              <h3 className="my-4 text-lg font-bold">{`Verse ${verse.verseNumber}`}</h3>
+              <h3 className="my-4 text-lg font-bold">{`Verse ${
+                verse!.verseNumber
+              }`}</h3>
             </Link>
             <h4 className="my-4 font-bold">Text</h4>
-            <p className="my-4 leading-snug">{verse.text}</p>
+            <p className="my-4 leading-snug">{verse!.text}</p>
             <h4 className="my-4 font-bold">Transliteration</h4>
-            <p className="my-4 leading-[1.1]">{verse.transliteration}</p>
+            <p className="my-4 leading-[1.1]">{verse!.transliteration}</p>
             <h4 className="my-4 font-bold">Word Meanings</h4>
-            <p className="my-4 leading-[1.1]">{verse.wordMeanings}</p>
-            <h4 className="my-4 font-bold">{`English translation by ${verse.gitaTranslationsByVerseId.nodes[0].authorName}`}</h4>
+            <p className="my-4 leading-[1.1]">{verse!.wordMeanings}</p>
+            <h4 className="my-4 font-bold">{`English translation by ${
+              verse!.gitaTranslationsByVerseId.nodes[0]!.authorName
+            }`}</h4>
             <p className="my-4 leading-[1.1]">
-              {verse.gitaTranslationsByVerseId.nodes[0].description}
+              {verse!.gitaTranslationsByVerseId.nodes[0]!.description}
             </p>
             <Link
-              href={`/verse/${verse.id}`}
+              href={`/verse/${verse!.id}`}
               className="text-blue-700 visited:text-purple-900 underline"
             >
               Commentaries and more translations

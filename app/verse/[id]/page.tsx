@@ -4,38 +4,39 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { capitalizeFirstLetter } from "@/app/lib/util";
 import { getValNumericVerseId } from "@/app/lib/util";
+import { GitaVerse } from "@/app/lib/gqltypes-d";
 
-type GitaTranslationsByVerseIdNode = {
-  authorId: number;
-  authorName: string;
-  description: string;
-  language: string;
-};
+// type GitaTranslationsByVerseIdNode = {
+//   authorId: number;
+//   authorName: string;
+//   description: string;
+//   language: string;
+// };
 
-type GitaTranslationsByVerseId = {
-  nodes: GitaTranslationsByVerseIdNode[];
-};
+// type GitaTranslationsByVerseId = {
+//   nodes: GitaTranslationsByVerseIdNode[];
+// };
 
-type GitaCommentariesByVerseIdNode = {
-  authorId: number;
-  authorName: string;
-  description: string;
-  language: string;
-};
+// type GitaCommentariesByVerseIdNode = {
+//   authorId: number;
+//   authorName: string;
+//   description: string;
+//   language: string;
+// };
 
-type GitaCommentariesByVerseId = {
-  nodes: GitaCommentariesByVerseIdNode[];
-};
+// type GitaCommentariesByVerseId = {
+//   nodes: GitaCommentariesByVerseIdNode[];
+// };
 
-type GitaVerse = {
-  chapterNumber: number;
-  verseNumber: number;
-  text: string;
-  transliteration: string;
-  wordMeanings: string;
-  gitaTranslationsByVerseId: GitaTranslationsByVerseId;
-  gitaCommentariesByVerseId: GitaCommentariesByVerseId;
-};
+// type GitaVerse = {
+//   chapterNumber: number;
+//   verseNumber: number;
+//   text: string;
+//   transliteration: string;
+//   wordMeanings: string;
+//   gitaTranslationsByVerseId: GitaTranslationsByVerseId;
+//   gitaCommentariesByVerseId: GitaCommentariesByVerseId;
+// };
 
 async function Page({ params }: { params: { id: string } }) {
   const verseId = params.id;
@@ -63,27 +64,27 @@ async function Page({ params }: { params: { id: string } }) {
         <hr className="border border-gray-400" />
         <h4 className="my-4 font-bold">Translations</h4>
         {gitaVerse.gitaTranslationsByVerseId.nodes.map((translation) => (
-          <div key={translation.authorId}>
+          <div key={translation!.authorId}>
             <b>
               <i>
-                In {capitalizeFirstLetter(translation.language)} by{" "}
-                {translation.authorName}
+                In {capitalizeFirstLetter(translation!.language)} by{" "}
+                {translation!.authorName}
               </i>
             </b>
-            <p className="my-4 leading-snug">{translation.description}</p>
+            <p className="my-4 leading-snug">{translation!.description}</p>
           </div>
         ))}
         <hr className="border border-gray-400" />
         <h4 className="my-4 font-bold">Commentaries</h4>
         {gitaVerse.gitaCommentariesByVerseId.nodes.map((commentary) => (
-          <div key={commentary.authorId}>
+          <div key={commentary!.authorId}>
             <b>
               <i>
-                In {capitalizeFirstLetter(commentary.language)} by{" "}
-                {commentary.authorName}
+                In {capitalizeFirstLetter(commentary!.language)} by{" "}
+                {commentary!.authorName}
               </i>
             </b>
-            <p className="my-4 leading-snug">{commentary.description}</p>
+            <p className="my-4 leading-snug">{commentary!.description}</p>
           </div>
         ))}
         <hr className="border border-gray-400" />
