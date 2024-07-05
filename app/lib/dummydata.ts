@@ -34,7 +34,7 @@ export async function getAllChapters() {
   };
 }
 
-export async function getChapter(chapterNumber) {
+export async function getChapter(chapterNumber: string) {
   const dummyNodes = [
     {
       versesCount: 47,
@@ -70,7 +70,7 @@ export async function getChapter(chapterNumber) {
   };
 }
 
-export async function getVerse(verseId) {
+export async function getVerse(verseId: string) {
   const dummyNodes = [
     {
       chapterNumber: 1,

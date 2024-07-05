@@ -7,7 +7,7 @@ import {
   FIRST_VERSEID,
   LAST_VERSEID,
 } from "@/app/constants";
-import SelectChapterVerse from "../ui/selectchapver";
+import SelectChapterVerse from "./selectchapver";
 import { usePathname } from "next/navigation";
 import {
   getValNumericChapterNumber,

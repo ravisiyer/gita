@@ -4,42 +4,7 @@ import { getChapter } from "../lib/data";
 // import { getChapter } from "../lib/dummydata";
 import Link from "next/link";
 import { getValNumericChapterNumber } from "../lib/util";
-import {
-  GitaChapter,
-  // GitaVersesConnection,
-  // GitaVerse,
-} from "../lib/gqltypes-d";
-
-// type GitaTranslationNode = {
-//   description: string;
-//   verseId: number;
-//   authorName: string;
-// };
-
-// type GitaTranslationsByVerseId = {
-//   nodes: GitaTranslationNode[];
-// };
-
-// type GitaVersesInChapterNode = {
-//   verseNumber: number;
-//   transliteration: string;
-//   id: number;
-//   text: string;
-//   wordMeanings: string;
-//   gitaTranslationsByVerseId: GitaTranslationsByVerseId;
-// };
-
-// type GitaVersesInChapter = {
-//   nodes: GitaVersesInChapterNode[];
-// };
-// type GitaChapter = {
-//   versesCount: number;
-//   name: string;
-//   nameTranslated: string;
-//   chapterSummary: string;
-//   chapterSummaryHindi: string;
-//   gitaVersesByChapterId: GitaVersesInChapter;
-// };
+import { GitaChapter } from "../lib/gqltypes-d";
 
 async function Page({ params }: { params: { chapternumber: string } }) {
   const chapterNumber: string = params.chapternumber;

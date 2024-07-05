@@ -8,8 +8,8 @@ import {
   LAST_VERSEID,
 } from "@/app/constants";
 
-export function getValNumericChapterNumber(chapterNumber) {
-  if (isNaN(chapterNumber)) {
+export function getValNumericChapterNumber(chapterNumber: string) {
+  if (isNaN(Number(chapterNumber))) {
     return { valid: false, numericChapterNumber: 0 };
   }
   const numericChapterNumber = Number(chapterNumber);
@@ -23,8 +23,11 @@ export function getValNumericChapterNumber(chapterNumber) {
   return { valid: true, numericChapterNumber };
 }
 
-export function getValNumericVerseNumber(verseNumber, numericChapterNumber) {
-  if (isNaN(verseNumber)) {
+export function getValNumericVerseNumber(
+  verseNumber: string,
+  numericChapterNumber: number
+) {
+  if (isNaN(Number(verseNumber))) {
     return { valid: false, numericVerseNumber: 0 };
   }
   const numericVerseNumber = Number(verseNumber);
@@ -38,8 +41,8 @@ export function getValNumericVerseNumber(verseNumber, numericChapterNumber) {
   return { valid: true, numericVerseNumber };
 }
 
-export function getValNumericVerseId(verseId) {
-  if (isNaN(verseId)) {
+export function getValNumericVerseId(verseId: string) {
+  if (isNaN(Number(verseId))) {
     return { valid: false, numericVerseId: 0 };
   }
   const numericVerseId = Number(verseId);
@@ -53,7 +56,10 @@ export function getValNumericVerseId(verseId) {
   return { valid: true, numericVerseId };
 }
 
-export function calcNumericVerseId(numericChapterNumber, numericVerseNumber) {
+export function calcNumericVerseId(
+  numericChapterNumber: number,
+  numericVerseNumber: number
+) {
   let numericVerseId = 0;
   if (numericChapterNumber > 1) {
     const numVersesInChapters = NUMBER_OF_VERSES_IN_CHAPTERS.slice(
@@ -68,7 +74,7 @@ export function calcNumericVerseId(numericChapterNumber, numericVerseNumber) {
   return numericVerseId;
 }
 
-export function getMaxVersesInChapter(chapterNumber) {
+export function getMaxVersesInChapter(chapterNumber: string) {
   const valChapterNumber = getValNumericChapterNumber(chapterNumber);
   if (!valChapterNumber.valid) {
     // Log the error but rather than return an error, return a safe value
@@ -85,8 +91,8 @@ export function getMaxVersesInChapter(chapterNumber) {
   ];
 }
 
-export function getCVNumbersFromVerseId(verseId) {
-  if (isNaN(verseId)) {
+export function getCVNumbersFromVerseId(verseId: string) {
+  if (isNaN(Number(verseId))) {
     return { chapterNumber: "", verseNumber: "" };
   }
   const numericVerseId = Number(verseId);
@@ -122,7 +128,7 @@ export function getCVNumbersFromVerseId(verseId) {
   return { chapterNumber: "", verseNumber: "" };
 }
 
-export function capitalizeFirstLetter(word) {
+export function capitalizeFirstLetter(word: string) {
   if (!word || word.length < 1) {
     return word;
   } else if (word.length === 1) {

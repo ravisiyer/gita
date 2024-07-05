@@ -29,7 +29,7 @@
     "app/chaptersummaries.tsx",
     "app/lib/data.ts",
     "app/[chapternumber]/page.tsx",
-    "app/constants.js"
+    "app/constants.ts"
   ],
   "exclude": ["node_modules"]
 }

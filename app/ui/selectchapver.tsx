@@ -41,7 +41,7 @@ function SelectChapterVerse({
 
   const { replace } = useRouter();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     // console.log("SCV handleSubmit handler invoked.");
     e.preventDefault();
     const chapterErrorMessage =
@@ -92,7 +92,8 @@ function SelectChapterVerse({
         className="mr-1 border border-neutral-500 leading-none w-12 text-sm py-px px-0.5 font-['Arial']"
         type="number"
         id={idChapterNumber}
-        size="2"
+        size={2}
+        // size="2"
         min={FIRST_CHAPTERNUMBER}
         max={LAST_CHAPTERNUMBER}
         required
@@ -108,7 +109,8 @@ function SelectChapterVerse({
         className="mr-1 border border-neutral-500 leading-none w-12 text-sm py-px px-0.5 font-['Arial']"
         type="number"
         id={idVerseNumber}
-        size="2"
+        size={2}
+        // size="2"
         min={MIN_VERSE_NUMBER_IN_ALL_CHAPTERS}
         max={
           !chapterNumber || chapterNumber.trim() === ""
@@ -124,6 +126,7 @@ function SelectChapterVerse({
         type="submit"
         value="Go"
         className="border-2 border-black text-[13.33px] leading-4 w-[25px] text-violet-50 bg-black rounded-md cursor-pointer hover:text-black hover:bg-violet-50 active:scale-90 font-['Arial'] "
+        onSubmit={(e) => console.log(e)}
       />
     </form>
   );

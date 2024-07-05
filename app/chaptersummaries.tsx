@@ -3,20 +3,6 @@ import { getAllChapters } from "./lib/data";
 // import { getAllChapters } from "./lib/dummydata";
 import { GitaChapter } from "./lib/gqltypes-d";
 
-// type GitaChapterSummary = {
-//   id: number;
-//   chapterNumber: number;
-//   chapterSummary: string;
-//   chapterSummaryHindi: string;
-//   name: string;
-//   nameTranslated: string;
-//   versesCount: number;
-// };
-
-// type GitaChapterSummaries = {
-//     gitaChapterSummary: GitaChapterSummary[];
-// }
-
 async function ChapterSummaries() {
   let data = await getAllChapters();
   let allGitaChapters: GitaChapter[] = data.allGitaChapters;

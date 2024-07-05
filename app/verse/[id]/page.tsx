@@ -6,38 +6,6 @@ import { capitalizeFirstLetter } from "@/app/lib/util";
 import { getValNumericVerseId } from "@/app/lib/util";
 import { GitaVerse } from "@/app/lib/gqltypes-d";
 
-// type GitaTranslationsByVerseIdNode = {
-//   authorId: number;
-//   authorName: string;
-//   description: string;
-//   language: string;
-// };
-
-// type GitaTranslationsByVerseId = {
-//   nodes: GitaTranslationsByVerseIdNode[];
-// };
-
-// type GitaCommentariesByVerseIdNode = {
-//   authorId: number;
-//   authorName: string;
-//   description: string;
-//   language: string;
-// };
-
-// type GitaCommentariesByVerseId = {
-//   nodes: GitaCommentariesByVerseIdNode[];
-// };
-
-// type GitaVerse = {
-//   chapterNumber: number;
-//   verseNumber: number;
-//   text: string;
-//   transliteration: string;
-//   wordMeanings: string;
-//   gitaTranslationsByVerseId: GitaTranslationsByVerseId;
-//   gitaCommentariesByVerseId: GitaCommentariesByVerseId;
-// };
-
 async function Page({ params }: { params: { id: string } }) {
   const verseId = params.id;
 
@@ -67,7 +35,7 @@ async function Page({ params }: { params: { id: string } }) {
           <div key={translation!.authorId}>
             <b>
               <i>
-                In {capitalizeFirstLetter(translation!.language)} by{" "}
+                In {capitalizeFirstLetter(translation!.language!)} by{" "}
                 {translation!.authorName}
               </i>
             </b>
@@ -80,7 +48,7 @@ async function Page({ params }: { params: { id: string } }) {
           <div key={commentary!.authorId}>
             <b>
               <i>
-                In {capitalizeFirstLetter(commentary!.language)} by{" "}
+                In {capitalizeFirstLetter(commentary!.language!)} by{" "}
                 {commentary!.authorName}
               </i>
             </b>
