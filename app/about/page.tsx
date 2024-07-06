@@ -17,8 +17,7 @@ function Page() {
       </p>
       <p className="my-4 leading-[1.1]">
         In this app. I plan to add regular web UI features. I am using Tailwind
-        CSS. I also will use TypeScript. But it no longer will be a very simple
-        gita app.
+        CSS and TypeScript. But it no longer will be a very simple gita app.
       </p>
       <p className="my-4 leading-[1.1]">
         The app. uses Next.js and Apollo Client to retrieve Bhagavad Gita
@@ -63,7 +62,7 @@ function Page() {
         .
       </p>
       <p className="my-4 leading-[1.1]">
-        App version: In-progress, Date: 3rd July 2024
+        App version: In-progress, Date: 6th July 2024
         <br />
         App author: Ravi S. Iyer
       </p>
