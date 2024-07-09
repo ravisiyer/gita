@@ -26,6 +26,10 @@ function Navbar({ idSuffix = "" }) {
 
   const [chapterNumber, setChapterNumber] = useState("");
   const [verseNumber, setVerseNumber] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  function closeMobileMenuIfOpen(): void {
+    isMobileMenuOpen ? setIsMobileMenuOpen(false) : null;
+  }
 
   const pathname = usePathname();
 
@@ -92,54 +96,134 @@ function Navbar({ idSuffix = "" }) {
   // console.log("Just before rendering Navbar div");
   // console.log("href values:", prevHref, nextHref, upHref);
   return (
-    <div className="leading-5">
-      <Link
-        href="/"
-        className="pr-2 text-blue-700 visited:text-purple-900 underline"
-      >
-        Home
-      </Link>
-      {/* Disabling below Prev and Next links conditionally seems to require the code below. Ref: 
+    <header className="leading-5 sticky top-0 z-10 bg-blue-800">
+      <section className="mx-auto flex justify-between items-center max-w-4xl p-4">
+        <h1 className="text-2xl font-bold">
+          <Link
+            href="/"
+            className="flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 text-orange-400 hover:opacity-70"
+          >
+            Bhagavad Gita
+          </Link>
+        </h1>
+        <nav>
+          <button
+            className={"block cursor-pointer bg-blue-800 md:hidden"}
+            id="mobile-menu-btn"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <span
+              className={
+                "block w-6 h-[3px] mx-auto my-[5px] cursor-pointer caret-transparent bg-white transition-all" +
+                (isMobileMenuOpen ? " translate-y-2 rotate-45" : "")
+              }
+            ></span>
+            <span
+              className={
+                "block w-6 h-[3px] mx-auto my-[5px] cursor-pointer caret-transparent bg-white transition-all" +
+                (isMobileMenuOpen ? " opacity-0" : "")
+              }
+            ></span>
+            <span
+              className={
+                "block w-6 h-[3px] mx-auto my-[5px] cursor-pointer caret-transparent bg-white transition-all" +
+                (isMobileMenuOpen ? " -translate-y-2 -rotate-45" : "")
+              }
+            ></span>
+          </button>
+
+          <ul
+            className={
+              "grid grid-cols-1 absolute w-full h-[40vh] pb-4 text-3xl leading-4 list-none md:flex md:flex-row md:static md:h-auto md:pb-0 md:text-lg " +
+              (isMobileMenuOpen
+                ? " top-full left-0 bg-black text-white md:bg-blue-800"
+                : " top-[-9999px] left-0 bg-blue-800 text-white")
+            }
+          >
+            <li className="flex justify-center items-center w-full h-full  md:w-auto md:h-auto">
+              <Link
+                href="/"
+                className="flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 text-white hover:opacity-70"
+                onClick={() =>
+                  isMobileMenuOpen ? setIsMobileMenuOpen(false) : null
+                }
+              >
+                Home
+              </Link>
+            </li>
+            {/* Disabling below Prev and Next links conditionally seems to require the code below. Ref: 
       https://stackoverflow.com/questions/73555618/how-can-i-disable-link-href-in-next-js-on-various-conditions */}
-      <Link
-        href={prevHref}
-        className={
-          "pr-2 underline " +
-          (prevHref === ""
-            ? "text-neutral-400 pointer-events-none "
-            : "text-blue-700 visited:text-purple-900")
-        }
-      >
-        Prev
-      </Link>
-      <Link
-        href={nextHref}
-        className={
-          "pr-2 underline " +
-          (nextHref === ""
-            ? "text-neutral-400 pointer-events-none "
-            : "text-blue-700 visited:text-purple-900")
-        }
-      >
-        Next
-      </Link>
-      <Link
-        href={upHref}
-        className={
-          "pr-2 underline " +
-          (upHref === ""
-            ? "text-neutral-400 pointer-events-none "
-            : "text-blue-700 visited:text-purple-900")
-        }
-      >
-        Up
-      </Link>
-      <SelectChapterVerse
-        initialChapterNumber={chapterNumber}
-        initialVerseNumber={verseNumber}
-        idSuffix={idSuffix}
-      />
-    </div>
+            <li className="flex justify-center items-center w-full h-full md:w-auto md:h-auto">
+              <Link
+                href={prevHref}
+                className={
+                  "flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 hover:opacity-70" +
+                  (prevHref === ""
+                    ? " text-neutral-500 pointer-events-none "
+                    : " text-white")
+                }
+                onClick={() =>
+                  isMobileMenuOpen ? setIsMobileMenuOpen(false) : null
+                }
+              >
+                Prev
+              </Link>
+            </li>
+            <li className="flex justify-center items-center w-full h-full md:w-auto md:h-auto">
+              <Link
+                href={nextHref}
+                className={
+                  "flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 hover:opacity-70" +
+                  (nextHref === ""
+                    ? " text-neutral-500 pointer-events-none "
+                    : " text-white")
+                }
+                onClick={() =>
+                  isMobileMenuOpen ? setIsMobileMenuOpen(false) : null
+                }
+              >
+                Next
+              </Link>
+            </li>
+            <li className="flex justify-center items-center w-full h-full md:w-auto md:h-auto">
+              <Link
+                href={upHref}
+                className={
+                  "flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2  hover:opacity-70" +
+                  (upHref === ""
+                    ? " text-neutral-500 pointer-events-none "
+                    : " text-white")
+                }
+                onClick={() =>
+                  isMobileMenuOpen ? setIsMobileMenuOpen(false) : null
+                }
+              >
+                Up
+              </Link>
+            </li>
+            <li className="flex justify-center items-center w-full h-full md:w-auto md:h-auto">
+              <SelectChapterVerse
+                initialChapterNumber={chapterNumber}
+                initialVerseNumber={verseNumber}
+                idSuffix={idSuffix}
+                closeMobileMenuIfOpen={closeMobileMenuIfOpen}
+              />
+            </li>
+            <li className="flex justify-center items-center w-full h-full md:ml-8 md:w-auto md:h-auto">
+              <Link
+                href="/about"
+                className="flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 text-white hover:opacity-70"
+                onClick={() =>
+                  isMobileMenuOpen ? setIsMobileMenuOpen(false) : null
+                }
+              >
+                About
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </section>
+    </header>
   );
 }
 export default Navbar;

@@ -15,10 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="m-2 break-words">
+      <body className="mx-2 mb-2 break-words">
         <Navbar />
         {children}
-        <Navbar idSuffix="2" />
       </body>
     </html>
   );

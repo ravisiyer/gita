@@ -22,6 +22,12 @@ function SelectChapterVerse({
   initialChapterNumber = "",
   initialVerseNumber = "",
   idSuffix = "",
+  closeMobileMenuIfOpen,
+}: {
+  initialChapterNumber: string;
+  initialVerseNumber: string;
+  idSuffix: string;
+  closeMobileMenuIfOpen: () => void;
 }) {
   const [chapterNumber, setChapterNumber] = useState("");
   const [verseNumber, setVerseNumber] = useState("");
@@ -57,6 +63,7 @@ function SelectChapterVerse({
 
     if (verseNumber.trim() === "") {
       replace(`/${chapterNumber}`);
+      closeMobileMenuIfOpen();
       return;
     }
     const verseErrorMessage =
@@ -78,22 +85,22 @@ function SelectChapterVerse({
       numericVerseNumber
     );
     replace(`/verse/${numericVerseId}`);
+    closeMobileMenuIfOpen();
   }
 
   const idChapterNumber = `chapternumber${idSuffix}`;
   const idVerseNumber = `versenumber${idSuffix}`;
 
   return (
-    <form className="inline SelectChapterVerse" onSubmit={handleSubmit}>
+    <form className="inline" onSubmit={handleSubmit}>
       <label htmlFor={idChapterNumber} className="mr-1">
         Ch.
       </label>
       <input
-        className="mr-1 border border-neutral-500 leading-none w-12 text-sm py-px px-0.5 font-['Arial']"
+        className="mr-1 text-black border border-neutral-500 md:leading-none w-14 md:w-10 md:text-sm md:py-px md:px-0.5 font-['Arial']"
         type="number"
         id={idChapterNumber}
         size={2}
-        // size="2"
         min={FIRST_CHAPTERNUMBER}
         max={LAST_CHAPTERNUMBER}
         required
@@ -106,11 +113,10 @@ function SelectChapterVerse({
         Ve.
       </label>
       <input
-        className="mr-1 border border-neutral-500 leading-none w-12 text-sm py-px px-0.5 font-['Arial']"
+        className="mr-1 text-black border border-neutral-500 md:leading-none w-14 md:w-10 md:text-sm md:py-px md:px-0.5 font-['Arial']"
         type="number"
         id={idVerseNumber}
         size={2}
-        // size="2"
         min={MIN_VERSE_NUMBER_IN_ALL_CHAPTERS}
         max={
           !chapterNumber || chapterNumber.trim() === ""
@@ -125,7 +131,7 @@ function SelectChapterVerse({
       <input
         type="submit"
         value="Go"
-        className="border-2 border-black text-[13.33px] leading-4 w-[25px] text-violet-50 bg-black rounded-md cursor-pointer hover:text-black hover:bg-violet-50 active:scale-90 font-['Arial'] "
+        className="px-1 ml-1 leading-normal  text-black md:text-lg  bg-orange-400 rounded-md cursor-pointer hover:text-black hover:bg-violet-50 active:scale-90  "
         onSubmit={(e) => console.log(e)}
       />
     </form>
