@@ -3,9 +3,8 @@ import type { Metadata } from "next";
 import Navbar from "./ui/navbar";
 
 export const metadata: Metadata = {
-  title: "Bhagavad Gita (Simple App using Tailwind and TypeScript)",
-  description:
-    "Simple but functional Bhagavad Gita web app using Tailwind and TypeScript",
+  title: "Bhagavad Gita (Simple App)",
+  description: "Simple but functional Bhagavad Gita web app",
 };
 
 export default function RootLayout({

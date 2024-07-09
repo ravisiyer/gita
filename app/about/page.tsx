@@ -16,11 +16,12 @@ function Page() {
         Gita web app.
       </p>
       <p className="my-4 leading-[1.1]">
-        In this app. I plan to add regular web UI features. I am using Tailwind
-        CSS and TypeScript. But it no longer will be a very simple gita app.
+        In this app, I am using Tailwind CSS and TypeScript. I have changed the
+        navigation bar to a regular web app UI. But, from a source code point of
+        view, it no longer is a very simple gita app.
       </p>
       <p className="my-4 leading-[1.1]">
-        The app. uses Next.js and Apollo Client to retrieve Bhagavad Gita
+        The app uses Next.js and Apollo Client to retrieve Bhagavad Gita
         chapters and verses data from a GraphQL endpoint, and displays it on
         browser. It is shared under free-software MIT license.
       </p>
@@ -33,6 +34,13 @@ function Page() {
           {GRAPHQL_EXPLORER_URI}
         </a>
         )
+      </p>
+      <p className="my-4 leading-[1.1]">
+        Note that there seems to be a problem with the data associated with
+        Swami Sivananda commentaries. Question mark character (?) appears
+        frequently in places where I think there should be a comma character
+        (,). I have raised the issue on the GitHub repository associated with
+        the GraphQL endpoint.
       </p>
       <p className="my-4 leading-[1.1]">
         More about this app can be read in{" "}
@@ -62,7 +70,7 @@ function Page() {
         .
       </p>
       <p className="my-4 leading-[1.1]">
-        App version: In-progress, Date: 6th July 2024
+        App version: In-progress, Date: 9th July 2024
         <br />
         App author: Ravi S. Iyer
       </p>
