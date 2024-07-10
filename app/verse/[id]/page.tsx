@@ -56,7 +56,7 @@ async function Page({ params }: { params: { id: string } }) {
           </div>
         ))}
         <hr className="border border-gray-400" />
-        <p className="my-4 leading-[1.1]">{`Chapter ${gitaVerse.chapterNumber}, Verse ${gitaVerse.verseNumber}`}</p>
+        {/* <p className="my-4 leading-[1.1]">{`Chapter ${gitaVerse.chapterNumber}, Verse ${gitaVerse.verseNumber}`}</p> */}
       </Suspense>
     </div>
   );

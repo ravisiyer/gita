@@ -3,7 +3,7 @@ import { GRAPHQL_URI, GRAPHQL_EXPLORER_URI } from "@/app/constants";
 function Page() {
   return (
     <div>
-      <h1 className="my-5 text-2xl font-bold">About App & Data</h1>
+      <h2 className="my-5 text-2xl font-bold">About App & Data</h2>
       <p className="my-4 leading-[1.1]">
         This app. is being developed on top of{" "}
         <a

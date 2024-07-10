@@ -59,7 +59,7 @@ async function Page({ params }: { params: { chapternumber: string } }) {
             <hr className="border border-gray-400" />
           </div>
         ))}
-        <p className="my-4 leading-[1.1]">{`Chapter ${chapterNumber}: ${gitaChapter.nameTranslated} ${gitaChapter.name}`}</p>
+        {/* <p className="my-4 leading-[1.1]">{`Chapter ${chapterNumber}: ${gitaChapter.nameTranslated} ${gitaChapter.name}`}</p> */}
       </Suspense>
     </div>
   );

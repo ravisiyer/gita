@@ -15,6 +15,48 @@ import {
   getCVNumbersFromVerseId,
 } from "../lib/util";
 import { useEffect, useState } from "react";
+import { GrLinkUp, GrLinkPrevious, GrLinkNext } from "react-icons/gr";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import { IconType } from "react-icons";
+import { AiFillHome } from "react-icons/ai";
+
+function MenuLink({
+  href,
+  clickHandler,
+  icon,
+  text = "",
+  disabled = false,
+  mdLeftMargin = false,
+}: {
+  href: string;
+  clickHandler: () => void;
+  icon: IconType;
+  text: string;
+  disabled?: boolean;
+  mdLeftMargin?: boolean;
+}) {
+  const MenuIcon = icon;
+  return (
+    <li
+      className={
+        "flex justify-center items-center w-full h-full  md:w-auto md:h-auto" +
+        (mdLeftMargin ? " md:ml-5" : "")
+      }
+    >
+      <Link
+        href={href}
+        className={
+          "flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 hover:opacity-80" +
+          (disabled ? " text-neutral-500 pointer-events-none " : " text-white")
+        }
+        onClick={clickHandler}
+      >
+        <MenuIcon className="size-6" />
+        {text.length ? <p>{text}</p> : ""}
+      </Link>
+    </li>
+  );
+}
 
 // idSuffix is used to differentiate between Navbar child component SelectChapterVerse's input element ids
 // if two Navbar components are used on same page - e.g. at top of page and bottom of page.
@@ -30,6 +72,8 @@ function Navbar({ idSuffix = "" }) {
   function closeMobileMenuIfOpen(): void {
     isMobileMenuOpen ? setIsMobileMenuOpen(false) : null;
   }
+  const menuLinkClickHandler = () =>
+    isMobileMenuOpen ? setIsMobileMenuOpen(false) : null;
 
   const pathname = usePathname();
 
@@ -103,35 +147,67 @@ function Navbar({ idSuffix = "" }) {
             href="/"
             className="flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 text-orange-400 hover:opacity-70"
           >
-            Bhagavad Gita
+            <span className="hidden min-[440px]:inline">Bhagavad&nbsp;</span>
+            Gita
           </Link>
         </h1>
         <nav>
-          <button
-            className={"block cursor-pointer bg-blue-800 md:hidden"}
-            id="mobile-menu-btn"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <span
-              className={
-                "block w-6 h-[3px] mx-auto my-[5px] cursor-pointer caret-transparent bg-white transition-all" +
-                (isMobileMenuOpen ? " translate-y-2 rotate-45" : "")
-              }
-            ></span>
-            <span
-              className={
-                "block w-6 h-[3px] mx-auto my-[5px] cursor-pointer caret-transparent bg-white transition-all" +
-                (isMobileMenuOpen ? " opacity-0" : "")
-              }
-            ></span>
-            <span
-              className={
-                "block w-6 h-[3px] mx-auto my-[5px] cursor-pointer caret-transparent bg-white transition-all" +
-                (isMobileMenuOpen ? " -translate-y-2 -rotate-45" : "")
-              }
-            ></span>
-          </button>
-
+          <div className="flex justify-between items-center gap-x-10">
+            <ul className="flex flex-row h-auto pb-0 text-lg md:hidden">
+              {/* <ul className="static flex flex-row h-auto pb-0 text-lg md:hidden"> */}
+              <MenuLink
+                href="/"
+                clickHandler={menuLinkClickHandler}
+                icon={AiFillHome}
+                text=""
+              />
+              <MenuLink
+                href={prevHref}
+                clickHandler={menuLinkClickHandler}
+                icon={GrLinkPrevious}
+                text=""
+                disabled={prevHref === ""}
+              />
+              <MenuLink
+                href={nextHref}
+                clickHandler={menuLinkClickHandler}
+                icon={GrLinkNext}
+                text=""
+                disabled={nextHref === ""}
+              />
+              <MenuLink
+                href={upHref}
+                clickHandler={menuLinkClickHandler}
+                icon={GrLinkUp}
+                text=""
+                disabled={upHref === ""}
+              />
+            </ul>
+            <button
+              className={"block cursor-pointer bg-blue-800 md:hidden"}
+              id="mobile-menu-btn"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <span
+                className={
+                  "block w-6 h-[3px] mx-auto my-[5px] cursor-pointer caret-transparent bg-white transition-all" +
+                  (isMobileMenuOpen ? " translate-y-2 rotate-45" : "")
+                }
+              ></span>
+              <span
+                className={
+                  "block w-6 h-[3px] mx-auto my-[5px] cursor-pointer caret-transparent bg-white transition-all" +
+                  (isMobileMenuOpen ? " opacity-0" : "")
+                }
+              ></span>
+              <span
+                className={
+                  "block w-6 h-[3px] mx-auto my-[5px] cursor-pointer caret-transparent bg-white transition-all" +
+                  (isMobileMenuOpen ? " -translate-y-2 -rotate-45" : "")
+                }
+              ></span>
+            </button>
+          </div>
           <ul
             className={
               "grid grid-cols-1 absolute w-full h-[40vh] pb-4 text-3xl leading-4 list-none md:flex md:flex-row md:static md:h-auto md:pb-0 md:text-lg " +
@@ -140,67 +216,33 @@ function Navbar({ idSuffix = "" }) {
                 : " top-[-9999px] left-0 bg-blue-800 text-white")
             }
           >
-            <li className="flex justify-center items-center w-full h-full  md:w-auto md:h-auto">
-              <Link
-                href="/"
-                className="flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 text-white hover:opacity-70"
-                onClick={() =>
-                  isMobileMenuOpen ? setIsMobileMenuOpen(false) : null
-                }
-              >
-                Home
-              </Link>
-            </li>
-            {/* Disabling below Prev and Next links conditionally seems to require the code below. Ref: 
-      https://stackoverflow.com/questions/73555618/how-can-i-disable-link-href-in-next-js-on-various-conditions */}
-            <li className="flex justify-center items-center w-full h-full md:w-auto md:h-auto">
-              <Link
-                href={prevHref}
-                className={
-                  "flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 hover:opacity-70" +
-                  (prevHref === ""
-                    ? " text-neutral-500 pointer-events-none "
-                    : " text-white")
-                }
-                onClick={() =>
-                  isMobileMenuOpen ? setIsMobileMenuOpen(false) : null
-                }
-              >
-                Prev
-              </Link>
-            </li>
-            <li className="flex justify-center items-center w-full h-full md:w-auto md:h-auto">
-              <Link
-                href={nextHref}
-                className={
-                  "flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 hover:opacity-70" +
-                  (nextHref === ""
-                    ? " text-neutral-500 pointer-events-none "
-                    : " text-white")
-                }
-                onClick={() =>
-                  isMobileMenuOpen ? setIsMobileMenuOpen(false) : null
-                }
-              >
-                Next
-              </Link>
-            </li>
-            <li className="flex justify-center items-center w-full h-full md:w-auto md:h-auto">
-              <Link
-                href={upHref}
-                className={
-                  "flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2  hover:opacity-70" +
-                  (upHref === ""
-                    ? " text-neutral-500 pointer-events-none "
-                    : " text-white")
-                }
-                onClick={() =>
-                  isMobileMenuOpen ? setIsMobileMenuOpen(false) : null
-                }
-              >
-                Up
-              </Link>
-            </li>
+            <MenuLink
+              href="/"
+              clickHandler={menuLinkClickHandler}
+              icon={AiFillHome}
+              text="Home"
+            />
+            <MenuLink
+              href={prevHref}
+              clickHandler={menuLinkClickHandler}
+              icon={GrLinkPrevious}
+              text="Prev"
+              disabled={prevHref === ""}
+            />
+            <MenuLink
+              href={nextHref}
+              clickHandler={menuLinkClickHandler}
+              icon={GrLinkNext}
+              text="Next"
+              disabled={nextHref === ""}
+            />
+            <MenuLink
+              href={upHref}
+              clickHandler={menuLinkClickHandler}
+              icon={GrLinkUp}
+              text="Up"
+              disabled={upHref === ""}
+            />
             <li className="flex justify-center items-center w-full h-full md:w-auto md:h-auto">
               <SelectChapterVerse
                 initialChapterNumber={chapterNumber}
@@ -209,17 +251,13 @@ function Navbar({ idSuffix = "" }) {
                 closeMobileMenuIfOpen={closeMobileMenuIfOpen}
               />
             </li>
-            <li className="flex justify-center items-center w-full h-full md:ml-8 md:w-auto md:h-auto">
-              <Link
-                href="/about"
-                className="flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 text-white hover:opacity-70"
-                onClick={() =>
-                  isMobileMenuOpen ? setIsMobileMenuOpen(false) : null
-                }
-              >
-                About
-              </Link>
-            </li>
+            <MenuLink
+              href="/about"
+              clickHandler={menuLinkClickHandler}
+              icon={IoInformationCircleOutline}
+              text="About"
+              mdLeftMargin={true}
+            />
           </ul>
         </nav>
       </section>
