@@ -40,7 +40,7 @@ function MenuLink({
     <li
       className={
         "flex justify-center items-center w-full h-full  md:w-auto md:h-auto" +
-        (mdLeftMargin ? " md:ml-5" : "")
+        (mdLeftMargin ? " md:ml-3" : "")
       }
     >
       <Link
@@ -153,14 +153,13 @@ function Navbar({ idSuffix = "" }) {
         </h1>
         <nav>
           <div className="flex justify-between items-center gap-x-10">
-            <ul className="flex flex-row h-auto pb-0 text-lg md:hidden">
-              {/* <ul className="static flex flex-row h-auto pb-0 text-lg md:hidden"> */}
-              <MenuLink
+            <ul className="flex flex-row gap-x-3 h-auto pb-0 text-lg md:hidden">
+              {/* <MenuLink
                 href="/"
                 clickHandler={menuLinkClickHandler}
                 icon={AiFillHome}
                 text=""
-              />
+              /> */}
               <MenuLink
                 href={prevHref}
                 clickHandler={menuLinkClickHandler}
