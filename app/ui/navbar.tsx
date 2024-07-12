@@ -141,7 +141,8 @@ function Navbar({ idSuffix = "" }) {
   // console.log("href values:", prevHref, nextHref, upHref);
   return (
     <header className="leading-5 sticky top-0 z-10 bg-blue-800">
-      <section className="mx-auto flex justify-between items-center max-w-4xl p-4">
+      <section className="mx-auto flex justify-between items-center max-w-4xl p-2">
+        {/* <section className="mx-auto flex justify-between items-center max-w-4xl p-4"> */}
         <h1 className="text-2xl font-bold">
           <Link
             href="/"
