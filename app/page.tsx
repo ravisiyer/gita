@@ -1,4 +1,5 @@
-import ChapterSummaries from "./chaptersummaries";
+// import ChapterSummaries from "./chaptersummaries";
+import ChapterTiles from "./chaptertiles";
 import { Suspense } from "react";
 // import Link from "next/link";
 import Image from "next/image";
@@ -27,7 +28,8 @@ export default function Home() {
         />
       </div>
       <Suspense fallback={`Loading ...`}>
-        <ChapterSummaries />
+        <ChapterTiles />
+        {/* <ChapterSummaries /> */}
       </Suspense>
       <hr className="border border-gray-400" />
       <p className="text-xs text-right">
