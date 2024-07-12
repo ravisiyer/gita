@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { getAllChapters } from "./lib/data";
+import { getAllChapters } from "../lib/data";
 // import { getAllChapters } from "./lib/dummydata";
-import { GitaChapter } from "./lib/gqltypes-d";
+import { GitaChapter } from "../lib/gqltypes-d";
 
-async function ChapterSummaries() {
+async function Page() {
   let data = await getAllChapters();
   let allGitaChapters: GitaChapter[] = data.allGitaChapters;
 
@@ -36,4 +36,4 @@ async function ChapterSummaries() {
     </div>
   );
 }
-export default ChapterSummaries;
+export default Page;

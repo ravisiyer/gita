@@ -9,19 +9,21 @@ async function ChapterTiles() {
 
   return (
     <div>
-      <h2 className="my-5 text-2xl font-bold">
+      {/* <h2 className="my-5 text-2xl font-bold">
         Bhagavad Gita Chapters भगवत गीता अध्याय
-      </h2>
-      <div className="flex flex-wrap">
+      </h2> */}
+      <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
         {/* <div className="flex flex-col flex-wrap"> */}
         {allGitaChapters.map((chapter) => (
-          <div className="w-full sm:w-1/2 md:w-1/4" key={chapter.id}>
+          <div key={chapter.id}>
+            {/* <div className="w-full sm:w-1/2 md:w-1/4" key={chapter.id}> */}
             {/* <div className="w-1/2 " key={chapter.id}> */}
             <Link
               href={`/${chapter.chapterNumber}`}
               // className="text-blue-700 visited:text-purple-900 underline"
             >
-              <div className=" border border-black bg-orange-400 hover:bg-orange-300 p-2 m-2 h-36 sm:h-40 md:h-56">
+              <div className=" border border-black bg-orange-400 hover:bg-orange-300 p-2 h-36 sm:h-40 md:h-48">
+                {/* <div className=" border border-black bg-orange-400 hover:bg-orange-300 p-2 my-2 md:mx-2 h-36 sm:h-40 md:h-56"> */}
                 <h3 className="text-lg font-bold">{`Chapter ${chapter.chapterNumber}`}</h3>
                 <p className="text-lg font-bold">{`${chapter.nameTranslated}`}</p>
                 <p className="text-lg font-bold">{`${chapter.name}`}</p>
