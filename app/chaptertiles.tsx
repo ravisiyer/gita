@@ -9,38 +9,17 @@ async function ChapterTiles() {
 
   return (
     <div>
-      {/* <h2 className="my-5 text-2xl font-bold">
-        Bhagavad Gita Chapters भगवत गीता अध्याय
-      </h2> */}
       <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
-        {/* <div className="flex flex-col flex-wrap"> */}
         {allGitaChapters.map((chapter) => (
           <div key={chapter.id}>
-            {/* <div className="w-full sm:w-1/2 md:w-1/4" key={chapter.id}> */}
-            {/* <div className="w-1/2 " key={chapter.id}> */}
-            <Link
-              href={`/${chapter.chapterNumber}`}
-              // className="text-blue-700 visited:text-purple-900 underline"
-            >
-              <div className=" border border-black bg-orange-400 hover:bg-orange-300 p-2 h-36 sm:h-40 md:h-48">
-                {/* <div className=" border border-black bg-orange-400 hover:bg-orange-300 p-2 my-2 md:mx-2 h-36 sm:h-40 md:h-56"> */}
+            <Link href={`/${chapter.chapterNumber}`}>
+              <div className=" border border-black bg-orange-400 hover:bg-orange-300 p-2 h-36 sm:h-40 md:h-48 rounded-md">
                 <h3 className="text-lg font-bold">{`Chapter ${chapter.chapterNumber}`}</h3>
                 <p className="text-lg font-bold">{`${chapter.nameTranslated}`}</p>
                 <p className="text-lg font-bold">{`${chapter.name}`}</p>
-                {/* <h3 className="my-4 text-lg font-bold">{`${chapter.chapterNumber}: ${chapter.nameTranslated} ${chapter.name}`}</h3> */}
                 <p className="mt-4 leading-[1.1] font-bold">{`${chapter.versesCount} verses`}</p>
               </div>
             </Link>
-            {/* <h4 className="my-4 font-bold">English Summary</h4>
-          <p className="my-4 leading-[1.1]">{chapter.chapterSummary}</p>
-          <h4 className="my-4 font-bold">हिन्दी सारांश</h4>
-          <p className="my-4 leading-snug">{chapter.chapterSummaryHindi}</p> */}
-            {/* <Link
-              href={`/${chapter.chapterNumber}`}
-              className="text-blue-700 visited:text-purple-900 underline"
-            >
-              <p className="my-4 leading-[1.1]">{`${chapter.versesCount} verses`}</p>
-            </Link> */}
           </div>
         ))}
       </div>

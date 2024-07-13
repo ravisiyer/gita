@@ -98,7 +98,6 @@ function SelectChapterVerse({
       </label>
       <input
         className="mr-1 text-black border border-neutral-500 md:leading-none w-14 md:w-11 py-px px-0.5 font-['Arial']"
-        // className="mr-1 text-black border border-neutral-500 md:leading-none w-14 md:w-10 md:text-sm py-px px-0.5 font-['Arial']"
         type="number"
         id={idChapterNumber}
         size={2}
@@ -115,7 +114,6 @@ function SelectChapterVerse({
       </label>
       <input
         className="mr-1 text-black border border-neutral-500 md:leading-none w-14 md:w-11 py-px px-0.5 font-['Arial']"
-        // className="mr-1 text-black border border-neutral-500 md:leading-none w-14 md:w-10 md:text-sm py-px px-0.5 font-['Arial']"
         type="number"
         id={idVerseNumber}
         size={2}

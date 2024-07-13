@@ -21,7 +21,6 @@ async function Page() {
             <h3 className="my-4 text-lg font-bold">{`${chapter.chapterNumber}: ${chapter.nameTranslated} ${chapter.name}`}</h3>
           </Link>
           <h4 className="my-4 font-bold">English Summary</h4>
-          {/* text-base seems to be default and so am omitting it above. */}
           <p className="my-4 leading-[1.1]">{chapter.chapterSummary}</p>
           <h4 className="my-4 font-bold">हिन्दी सारांश</h4>
           <p className="my-4 leading-snug">{chapter.chapterSummaryHindi}</p>
