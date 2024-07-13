@@ -1,4 +1,4 @@
-import Link from "next/link";
+// import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -7,12 +7,12 @@ export default function NotFound() {
       <p className="my-4 leading-[1.1]">
         Could not find requested Bhagavad Gita resource
       </p>
-      <Link
+      {/* <Link
         href="/"
         className="text-blue-700 visited:text-purple-900 underline"
       >
         Home
-      </Link>
+      </Link> */}
     </div>
   );
 }
