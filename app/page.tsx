@@ -26,11 +26,17 @@ export default function Home() {
           // Hi-res image is 1578x1824. Compressed image is lesser.
         />
       </div>
-      <div>
-        <h1 className="text-xl font-bold">Bhagavad Gita - The Song of God</h1>
-        <h3 className="text-xl font-bold">
-          Sacred Hindu Scripture Revered Across Millennia
-        </h3>
+      <div className="">
+        <h1 className="font-bold italic antialiased font-['Arial'] tracking-wide text-yellow-200 bg-slate-700 mt-2 p-2 rounded-md">
+          {/* <p>
+            Bhagavad Gita - The Song of God; Sacred Hindu Scripture, Revered
+            Across Millennia
+          </p> */}
+          <p className="text-3xl">Bhagavad Gita - The Song of God</p>
+          <p className="text-xl">
+            Sacred Hindu Scripture, Revered Across Millennia
+          </p>
+        </h1>
         <Link href="/chaptersummaries">
           <div className=" border border-black bg-orange-400 hover:bg-orange-300 p-2 my-2 rounded-md">
             <h3 className="text-lg font-bold">
