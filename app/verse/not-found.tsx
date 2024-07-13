@@ -1,5 +1,3 @@
-// import Link from "next/link";
-
 export default function NotFound() {
   return (
     <div>
@@ -7,12 +5,6 @@ export default function NotFound() {
       <p className="my-4 leading-[1.1]">
         Could not find requested Bhagavad Gita chapter, verse
       </p>
-      {/* <Link
-        href="/"
-        className="text-blue-700 visited:text-purple-900 underline"
-      >
-        Home
-      </Link> */}
     </div>
   );
 }

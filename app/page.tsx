@@ -28,10 +28,6 @@ export default function Home() {
       </div>
       <div className="">
         <h1 className="font-bold italic antialiased font-['Arial'] tracking-wide text-yellow-200 bg-slate-700 mt-2 p-2 rounded-md">
-          {/* <p>
-            Bhagavad Gita - The Song of God; Sacred Hindu Scripture, Revered
-            Across Millennia
-          </p> */}
           <p className="text-3xl">Bhagavad Gita - The Song of God</p>
           <p className="text-xl">
             Sacred Hindu Scripture, Revered Across Millennia

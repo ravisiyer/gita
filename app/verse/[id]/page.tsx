@@ -23,7 +23,6 @@ async function Page({ params }: { params: { id: string } }) {
     <div>
       <Suspense fallback={`Loading ...`}>
         <h3 className="text-2xl font-bold text-center mt-2">
-          {/* <h3 className="my-4 text-lg font-bold"> */}
           {`Chapter ${gitaVerse.chapterNumber}, Verse ${gitaVerse.verseNumber}`}
         </h3>
         <h4 className="my-4 text-xl font-bold">Text</h4>
@@ -39,12 +38,8 @@ async function Page({ params }: { params: { id: string } }) {
         {gitaVerse.gitaTranslationsByVerseId.nodes.map((translation) => (
           <div key={translation!.authorId}>
             <p className="text-lg font-bold italic">
-              {/* <b>
-              <i> */}
               In {capitalizeFirstLetter(translation!.language!)} by{" "}
               {translation!.authorName}
-              {/* </i>
-            </b> */}
             </p>
             <p className="my-4 leading-snug">{translation!.description}</p>
           </div>
@@ -54,12 +49,8 @@ async function Page({ params }: { params: { id: string } }) {
         {gitaVerse.gitaCommentariesByVerseId.nodes.map((commentary) => (
           <div key={commentary!.authorId}>
             <p className="text-lg font-bold italic">
-              {/* <b>
-              <i> */}
               In {capitalizeFirstLetter(commentary!.language!)} by{" "}
               {commentary!.authorName}
-              {/* </i>
-            </b> */}
             </p>
             <p className="my-4 leading-snug">{commentary!.description}</p>
           </div>

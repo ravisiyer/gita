@@ -22,12 +22,10 @@ async function Page({ params }: { params: { chapternumber: string } }) {
     <div>
       <Suspense fallback={`Loading ...`}>
         <h3 className="">
-          {/* <h3 className="my-4 text-2xl font-bold"> */}
           <p className="text-xl font-bold text-center mt-2">{`Chapter ${chapterNumber}`}</p>
           <p className="text-3xl font-bold text-center mt-2">{`${gitaChapter.nameTranslated}`}</p>
           <p className="text-3xl font-bold text-center mt-4">{`${gitaChapter.name}`}</p>
         </h3>
-        {/* <h3 className="my-4 text-lg font-bold">{`Chapter ${chapterNumber}: ${gitaChapter.nameTranslated} ${gitaChapter.name}`}</h3> */}
         <h4 className="my-4 text-xl font-bold">English Summary</h4>
         <p className="my-4 text-lg leading-[1.1]">
           {gitaChapter.chapterSummary}
@@ -40,10 +38,7 @@ async function Page({ params }: { params: { chapternumber: string } }) {
         <hr className="border border-gray-400 mb-2" />
         {gitaChapter.gitaVersesByChapterId.nodes.map((verse) => (
           <div className="p-2" key={verse!.id}>
-            <Link
-              href={`/verse/${verse!.id}`}
-              // className="text-blue-700 visited:text-purple-900 underline"
-            >
+            <Link href={`/verse/${verse!.id}`}>
               <div className=" border border-black bg-orange-400 hover:bg-orange-300 p-2 rounded-md w-24">
                 <h3 className="text-lg font-bold">{`Verse ${
                   verse!.verseNumber
@@ -62,10 +57,7 @@ async function Page({ params }: { params: { chapternumber: string } }) {
             <p className="my-4 text-xl leading-[1.1]">
               {verse!.gitaTranslationsByVerseId.nodes[0]!.description}
             </p>
-            <Link
-              href={`/verse/${verse!.id}`}
-              // className="text-blue-700 visited:text-purple-900 underline"
-            >
+            <Link href={`/verse/${verse!.id}`}>
               <div className=" border border-black bg-orange-400 hover:bg-orange-300 p-2 mt-2 rounded-md w-[306px] text-lg font-bold">
                 Commentaries and more translations
               </div>

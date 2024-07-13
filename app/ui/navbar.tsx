@@ -15,7 +15,7 @@ import {
   getCVNumbersFromVerseId,
 } from "../lib/util";
 import { useEffect, useState } from "react";
-import { GrLinkUp, GrLinkPrevious, GrLinkNext } from "react-icons/gr";
+import { GrLinkUp, GrPrevious, GrNext } from "react-icons/gr";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { IconType } from "react-icons";
 import { AiFillHome } from "react-icons/ai";
@@ -157,14 +157,14 @@ function Navbar({ idSuffix = "" }) {
               <MenuLink
                 href={prevHref}
                 clickHandler={menuLinkClickHandler}
-                icon={GrLinkPrevious}
+                icon={GrPrevious}
                 text=""
                 disabled={prevHref === ""}
               />
               <MenuLink
                 href={nextHref}
                 clickHandler={menuLinkClickHandler}
-                icon={GrLinkNext}
+                icon={GrNext}
                 text=""
                 disabled={nextHref === ""}
               />
@@ -218,14 +218,14 @@ function Navbar({ idSuffix = "" }) {
             <MenuLink
               href={prevHref}
               clickHandler={menuLinkClickHandler}
-              icon={GrLinkPrevious}
+              icon={GrPrevious}
               text="Prev"
               disabled={prevHref === ""}
             />
             <MenuLink
               href={nextHref}
               clickHandler={menuLinkClickHandler}
-              icon={GrLinkNext}
+              icon={GrNext}
               text="Next"
               disabled={nextHref === ""}
             />
