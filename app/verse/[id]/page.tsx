@@ -26,13 +26,11 @@ async function Page({ params }: { params: { id: string } }) {
           {`Chapter ${gitaVerse.chapterNumber}, Verse ${gitaVerse.verseNumber}`}
         </h3>
         <h4 className="my-4 text-xl font-bold">Text</h4>
-        <p className="my-4 text-3xl leading-snug">{gitaVerse.text}</p>
+        <p className="my-4 text-3xl ">{gitaVerse.text}</p>
         <h4 className="my-4 text-xl font-bold">Transliteration</h4>
-        <p className="my-4 text-lg leading-[1.1]">
-          {gitaVerse.transliteration}
-        </p>
+        <p className="my-4 text-lg ">{gitaVerse.transliteration}</p>
         <h4 className="my-4 text-xl font-bold">Word Meanings</h4>
-        <p className="my-4 text-lg leading-[1.1]">{gitaVerse.wordMeanings}</p>
+        <p className="my-4 text-lg ">{gitaVerse.wordMeanings}</p>
         <hr className="border border-gray-400" />
         <h4 className="my-4 text-xl font-bold">Translations</h4>
         {gitaVerse.gitaTranslationsByVerseId.nodes.map((translation) => (
@@ -41,7 +39,7 @@ async function Page({ params }: { params: { id: string } }) {
               In {capitalizeFirstLetter(translation!.language!)} by{" "}
               {translation!.authorName}
             </p>
-            <p className="my-4 leading-snug">{translation!.description}</p>
+            <p className="my-4 ">{translation!.description}</p>
           </div>
         ))}
         <hr className="border border-gray-400" />
@@ -52,7 +50,7 @@ async function Page({ params }: { params: { id: string } }) {
               In {capitalizeFirstLetter(commentary!.language!)} by{" "}
               {commentary!.authorName}
             </p>
-            <p className="my-4 leading-snug">{commentary!.description}</p>
+            <p className="my-4 ">{commentary!.description}</p>
           </div>
         ))}
         <hr className="border border-gray-400" />

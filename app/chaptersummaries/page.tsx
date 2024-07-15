@@ -33,12 +33,12 @@ async function Page() {
             </div>
           </Link>
           <h4 className="my-4 text-lg font-bold">English Summary</h4>
-          <p className="my-4 leading-[1.1]">{chapter.chapterSummary}</p>
+          <p className="my-4">{chapter.chapterSummary}</p>
           <h4 className="my-4 text-lg font-bold">हिन्दी सारांश</h4>
-          <p className="my-4 leading-snug">{chapter.chapterSummaryHindi}</p>
+          <p className="my-4 ">{chapter.chapterSummaryHindi}</p>
           <Link href={`/${chapter.chapterNumber}`}>
             <div className=" border border-black bg-orange-400 hover:bg-orange-300 p-2 rounded-md w-24">
-              <p className="text-lg font-bold leading-[1.1]">{`${chapter.versesCount} verses`}</p>
+              <p className="text-lg font-bold">{`${chapter.versesCount} verses`}</p>
             </div>
           </Link>
         </div>

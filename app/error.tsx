@@ -17,7 +17,7 @@ export default function Error({
   return (
     <div>
       <h2 className="my-5 text-2xl font-bold">Sorry! Something went wrong!</h2>
-      <p className="my-4 leading-[1.1]">{`Details: ${error.message}`}</p>
+      <p className="my-4 ">{`Details: ${error.message}`}</p>
       {/* Below Try again button does not work in case of network connection to data source being down initially and
       after this error is shown, Try again button being clicked. However, refresh of the page works (gets data
       from data source). Don't know if I need to pass a reset function when throwing the data source error. For now,

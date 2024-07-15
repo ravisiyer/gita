@@ -27,13 +27,9 @@ async function Page({ params }: { params: { chapternumber: string } }) {
           <p className="text-3xl font-bold text-center mt-4">{`${gitaChapter.name}`}</p>
         </h3>
         <h4 className="my-4 text-xl font-bold">English Summary</h4>
-        <p className="my-4 text-lg leading-[1.1]">
-          {gitaChapter.chapterSummary}
-        </p>
+        <p className="my-4 text-lg ">{gitaChapter.chapterSummary}</p>
         <h4 className="my-4 text-xl font-bold">हिन्दी सारांश</h4>
-        <p className="my-4 text-lg leading-snug">
-          {gitaChapter.chapterSummaryHindi}
-        </p>
+        <p className="my-4 text-lg ">{gitaChapter.chapterSummaryHindi}</p>
         <h4 className="my-4 text-xl font-bold">{`${gitaChapter.versesCount} verses`}</h4>
         <hr className="border border-gray-400 mb-2" />
         {gitaChapter.gitaVersesByChapterId.nodes.map((verse) => (
@@ -46,15 +42,15 @@ async function Page({ params }: { params: { chapternumber: string } }) {
               </div>
             </Link>
             <h4 className="my-4 text-lg font-bold">Text</h4>
-            <p className="my-4 text-2xl leading-snug">{verse!.text}</p>
+            <p className="my-4 text-2xl ">{verse!.text}</p>
             <h4 className="my-4 text-lg font-bold">Transliteration</h4>
-            <p className="my-4 leading-[1.1]">{verse!.transliteration}</p>
+            <p className="my-4 ">{verse!.transliteration}</p>
             <h4 className="my-4 text-lg font-bold">Word Meanings</h4>
-            <p className="my-4 leading-[1.1]">{verse!.wordMeanings}</p>
+            <p className="my-4 ">{verse!.wordMeanings}</p>
             <h4 className="my-4 text-lg font-bold">{`English translation by ${
               verse!.gitaTranslationsByVerseId.nodes[0]!.authorName
             }`}</h4>
-            <p className="my-4 text-xl leading-[1.1]">
+            <p className="my-4 text-xl ">
               {verse!.gitaTranslationsByVerseId.nodes[0]!.description}
             </p>
             <Link href={`/verse/${verse!.id}`}>

@@ -17,7 +17,7 @@ async function ChapterTiles() {
                 <h3 className="text-lg font-bold">{`Chapter ${chapter.chapterNumber}`}</h3>
                 <p className="text-lg font-bold">{`${chapter.nameTranslated}`}</p>
                 <p className="text-lg font-bold">{`${chapter.name}`}</p>
-                <p className="mt-4 leading-[1.1] font-bold">{`${chapter.versesCount} verses`}</p>
+                <p className="mt-4 font-bold">{`${chapter.versesCount} verses`}</p>
               </div>
             </Link>
           </div>
