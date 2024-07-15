@@ -131,7 +131,7 @@ function SelectChapterVerse({
       <input
         type="submit"
         value="Go"
-        className="px-1 ml-1 leading-normal  text-black md:text-lg  bg-orange-400 rounded-md cursor-pointer hover:text-black hover:bg-violet-50 active:scale-90  "
+        className="px-1 ml-1 leading-normal  text-black md:text-lg  bg-orange-400 rounded-md cursor-pointer hover:text-black hover:bg-violet-50 active:scale-90 "
         onSubmit={(e) => console.log(e)}
       />
     </form>

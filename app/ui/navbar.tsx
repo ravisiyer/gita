@@ -72,8 +72,8 @@ function Navbar({ idSuffix = "" }) {
   function closeMobileMenuIfOpen(): void {
     isMobileMenuOpen ? setIsMobileMenuOpen(false) : null;
   }
-  const menuLinkClickHandler = () =>
-    isMobileMenuOpen ? setIsMobileMenuOpen(false) : null;
+  // const menuLinkClickHandler = () =>
+  //   isMobileMenuOpen ? setIsMobileMenuOpen(false) : null;
 
   const pathname = usePathname();
 
@@ -156,21 +156,21 @@ function Navbar({ idSuffix = "" }) {
             <ul className="flex flex-row gap-x-3 h-auto pb-0 text-lg md:hidden">
               <MenuLink
                 href={prevHref}
-                clickHandler={menuLinkClickHandler}
+                clickHandler={closeMobileMenuIfOpen}
                 icon={GrPrevious}
                 text=""
                 disabled={prevHref === ""}
               />
               <MenuLink
                 href={nextHref}
-                clickHandler={menuLinkClickHandler}
+                clickHandler={closeMobileMenuIfOpen}
                 icon={GrNext}
                 text=""
                 disabled={nextHref === ""}
               />
               <MenuLink
                 href={upHref}
-                clickHandler={menuLinkClickHandler}
+                clickHandler={closeMobileMenuIfOpen}
                 icon={GrLinkUp}
                 text=""
                 disabled={upHref === ""}
@@ -211,27 +211,27 @@ function Navbar({ idSuffix = "" }) {
           >
             <MenuLink
               href="/"
-              clickHandler={menuLinkClickHandler}
+              clickHandler={closeMobileMenuIfOpen}
               icon={AiFillHome}
               text="Home"
             />
             <MenuLink
               href={prevHref}
-              clickHandler={menuLinkClickHandler}
+              clickHandler={closeMobileMenuIfOpen}
               icon={GrPrevious}
               text="Prev"
               disabled={prevHref === ""}
             />
             <MenuLink
               href={nextHref}
-              clickHandler={menuLinkClickHandler}
+              clickHandler={closeMobileMenuIfOpen}
               icon={GrNext}
               text="Next"
               disabled={nextHref === ""}
             />
             <MenuLink
               href={upHref}
-              clickHandler={menuLinkClickHandler}
+              clickHandler={closeMobileMenuIfOpen}
               icon={GrLinkUp}
               text="Up"
               disabled={upHref === ""}
@@ -246,7 +246,7 @@ function Navbar({ idSuffix = "" }) {
             </li>
             <MenuLink
               href="/about"
-              clickHandler={menuLinkClickHandler}
+              clickHandler={closeMobileMenuIfOpen}
               icon={IoInformationCircleOutline}
               text="About"
               mdLeftMargin={true}
