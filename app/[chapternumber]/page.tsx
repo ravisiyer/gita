@@ -1,4 +1,4 @@
-import { nsdev } from "@/app/ui/fonts";
+// import { nsdev } from "@/app/ui/fonts";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getChapter } from "../lib/data";
@@ -25,21 +25,21 @@ async function Page({ params }: { params: { chapternumber: string } }) {
         <h3 className="">
           <span className="block text-xl font-bold text-center mt-2">{`Chapter ${chapterNumber}`}</span>
           <span className="block text-3xl font-bold text-center mt-2">{`${gitaChapter.nameTranslated}`}</span>
-          <span
+          {/* <span
             className={`${nsdev.className} block text-3xl font-bold text-center mt-4`}
-          >{`${gitaChapter.name}`}</span>
-          {/* <span className="block text-3xl font-bold text-center mt-4">{`${gitaChapter.name}`}</span> */}
+          >{`${gitaChapter.name}`}</span> */}
+          <span className="block text-3xl leading-10 font-bold text-center mt-4">{`${gitaChapter.name}`}</span>
         </h3>
         <h4 className="my-4 text-xl font-bold">English Summary</h4>
         <p className="my-4 text-lg ">{gitaChapter.chapterSummary}</p>
-        <h4 className={`${nsdev.className} my-4 text-xl font-bold`}>
+        {/* <h4 className={`${nsdev.className} my-4 text-xl font-bold`}>
           हिन्दी सारांश
         </h4>
         <p className={`${nsdev.className} my-4 text-lg`}>
           {gitaChapter.chapterSummaryHindi}
-        </p>
-        {/* <h4 className="my-4 text-xl font-bold">हिन्दी सारांश</h4>
-        <p className="my-4 text-lg ">{gitaChapter.chapterSummaryHindi}</p> */}
+        </p> */}
+        <h4 className="my-4 text-xl font-bold">हिन्दी सारांश</h4>
+        <p className="my-4 text-lg ">{gitaChapter.chapterSummaryHindi}</p>
         <h4 className="my-4 text-xl font-bold">{`${gitaChapter.versesCount} verses`}</h4>
         <hr className="border border-gray-400 mb-2" />
         {gitaChapter.gitaVersesByChapterId.nodes.map((verse) => (
@@ -52,8 +52,8 @@ async function Page({ params }: { params: { chapternumber: string } }) {
               </div>
             </Link>
             <h4 className="my-4 text-lg font-bold">Text</h4>
-            <p className={`${nsdev.className} my-4 text-2xl`}>{verse!.text}</p>
-            {/* <p className="my-4 text-2xl ">{verse!.text}</p> */}
+            {/* <p className={`${nsdev.className} my-4 text-2xl`}>{verse!.text}</p> */}
+            <p className="my-4 text-2xl ">{verse!.text}</p>
             <h4 className="my-4 text-lg font-bold">Transliteration</h4>
             <p className="my-4 ">{verse!.transliteration}</p>
             <h4 className="my-4 text-lg font-bold">Word Meanings</h4>

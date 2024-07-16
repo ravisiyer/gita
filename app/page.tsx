@@ -1,4 +1,4 @@
-import { nsdev } from "@/app/ui/fonts";
+// import { nsdev } from "@/app/ui/fonts";
 import ChapterTiles from "./chaptertiles";
 import { Suspense } from "react";
 import Link from "next/link";
@@ -40,10 +40,10 @@ export default function Home() {
           <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 my-2 rounded-md">
             <h3 className="text-lg font-bold">
               <span className="block">Chapter Summaries</span>
-              <span className={`${nsdev.className} block`}>
+              {/* <span className={`${nsdev.className} block`}>
                 अध्यायों का सारांश
-              </span>
-              {/* <span className="block">अध्यायों का सारांश</span> */}
+              </span> */}
+              <span className="block">अध्यायों का सारांश</span>
             </h3>
           </div>
         </Link>

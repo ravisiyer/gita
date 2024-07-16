@@ -1,5 +1,6 @@
 import "@/app/ui/global.css";
-import { inter, nsdev } from "@/app/ui/fonts";
+import { inter } from "@/app/ui/fonts";
+// import { inter, nsdev } from "@/app/ui/fonts";
 import type { Metadata } from "next";
 import Navbar from "./ui/navbar";
 
