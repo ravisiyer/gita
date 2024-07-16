@@ -19,7 +19,7 @@ function Page() {
         I have changed the User Interface (UI) of this app to a regular web app
         UI. But, from a source code point of view, it no longer is a very simple
         Gita app. Students and other learners may want to first go through the
-        source code of Very Simple Gita app before going through this app's
+        source code of Very Simple Gita app before going through this app&apos;s
         source code.
       </p>
       <p className="my-4 ">
