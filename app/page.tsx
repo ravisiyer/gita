@@ -1,4 +1,3 @@
-// import { nsdev } from "@/app/ui/fonts";
 import ChapterTiles from "./chaptertiles";
 import { Suspense } from "react";
 import Link from "next/link";
@@ -28,7 +27,7 @@ export default function Home() {
         />
       </div>
       <div className="">
-        <h1 className="font-bold italic antialiased font-['Arial'] tracking-wide text-yellow-200 bg-slate-700 mt-2 p-2 rounded-md">
+        <h1 className="font-bold italic text-yellow-200 bg-slate-700 mt-2 p-2 rounded-md">
           <span className="block text-3xl">
             Bhagavad Gita - The Song of God
           </span>
@@ -40,9 +39,6 @@ export default function Home() {
           <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 my-2 rounded-md">
             <h3 className="text-lg font-bold">
               <span className="block">Chapter Summaries</span>
-              {/* <span className={`${nsdev.className} block`}>
-                अध्यायों का सारांश
-              </span> */}
               <span className="block">अध्यायों का सारांश</span>
             </h3>
           </div>

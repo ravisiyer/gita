@@ -1,4 +1,3 @@
-// import { nsdev } from "@/app/ui/fonts";
 import Link from "next/link";
 import { getAllChapters } from "../lib/data";
 // import { getAllChapters } from "./lib/dummydata";
@@ -14,9 +13,6 @@ async function Page() {
         <span className="block text-xl font-bold text-center mt-2">
           Bhagavad Gita Chapter Summaries
         </span>
-        {/* <span
-          className={`${nsdev.className} block text-3xl font-bold text-center mt-4 mb-2`}
-        > */}
         <span className="block text-3xl leading-10 font-bold text-center mt-4 mb-2">
           भगवत गीता अध्यायों का सारांश
         </span>
@@ -32,23 +28,13 @@ async function Page() {
                 <p className="text-lg font-bold mt-2">
                   {chapter.nameTranslated}
                 </p>
-
-                {/* <p className={`${nsdev.className} text-lg font-bold mt-2`}>
-                  {chapter.name}
-                </p> */}
                 <p className="text-lg font-bold mt-2">{chapter.name}</p>
               </div>
             </div>
           </Link>
           <h4 className="my-4 text-lg font-bold">English Summary</h4>
           <p className="my-4">{chapter.chapterSummary}</p>
-          <h4 className="my-4 text-lg font-bold">
-            {/* <h4 className={`${nsdev.className} my-4 text-lg font-bold`}> */}
-            हिन्दी सारांश
-          </h4>
-          {/* <p className={`${nsdev.className} my-4 `}>
-            {chapter.chapterSummaryHindi}
-          </p> */}
+          <h4 className="my-4 text-lg font-bold">हिन्दी सारांश</h4>
           <p className="my-4 ">{chapter.chapterSummaryHindi}</p>
           <Link href={`/${chapter.chapterNumber}`}>
             <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-24">

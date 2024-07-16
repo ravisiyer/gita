@@ -1,4 +1,3 @@
-// import { nsdev } from "@/app/ui/fonts";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getChapter } from "../lib/data";
@@ -25,19 +24,10 @@ async function Page({ params }: { params: { chapternumber: string } }) {
         <h3 className="">
           <span className="block text-xl font-bold text-center mt-2">{`Chapter ${chapterNumber}`}</span>
           <span className="block text-3xl font-bold text-center mt-2">{`${gitaChapter.nameTranslated}`}</span>
-          {/* <span
-            className={`${nsdev.className} block text-3xl font-bold text-center mt-4`}
-          >{`${gitaChapter.name}`}</span> */}
           <span className="block text-3xl leading-10 font-bold text-center mt-4">{`${gitaChapter.name}`}</span>
         </h3>
         <h4 className="my-4 text-xl font-bold">English Summary</h4>
         <p className="my-4 text-lg ">{gitaChapter.chapterSummary}</p>
-        {/* <h4 className={`${nsdev.className} my-4 text-xl font-bold`}>
-          हिन्दी सारांश
-        </h4>
-        <p className={`${nsdev.className} my-4 text-lg`}>
-          {gitaChapter.chapterSummaryHindi}
-        </p> */}
         <h4 className="my-4 text-xl font-bold">हिन्दी सारांश</h4>
         <p className="my-4 text-lg ">{gitaChapter.chapterSummaryHindi}</p>
         <h4 className="my-4 text-xl font-bold">{`${gitaChapter.versesCount} verses`}</h4>
@@ -52,7 +42,6 @@ async function Page({ params }: { params: { chapternumber: string } }) {
               </div>
             </Link>
             <h4 className="my-4 text-lg font-bold">Text</h4>
-            {/* <p className={`${nsdev.className} my-4 text-2xl`}>{verse!.text}</p> */}
             <p className="my-4 text-2xl ">{verse!.text}</p>
             <h4 className="my-4 text-lg font-bold">Transliteration</h4>
             <p className="my-4 ">{verse!.transliteration}</p>
@@ -66,7 +55,6 @@ async function Page({ params }: { params: { chapternumber: string } }) {
             </p>
             <Link href={`/verse/${verse!.id}`}>
               <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 mt-2 rounded-md w-[330px] text-lg font-bold">
-                {/* <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 mt-2 rounded-md  w-[306px] text-lg font-bold"> */}
                 More Translations & Commentaries
               </div>
             </Link>

@@ -1,4 +1,3 @@
-// import { nsdev } from "@/app/ui/fonts";
 import { getVerse } from "@/app/lib/data";
 // import { getVerse } from "@/app/lib/dummydata";
 import { notFound } from "next/navigation";
@@ -27,7 +26,6 @@ async function Page({ params }: { params: { id: string } }) {
           {`Chapter ${gitaVerse.chapterNumber}, Verse ${gitaVerse.verseNumber}`}
         </h3>
         <h4 className="my-4 text-xl font-bold">Text</h4>
-        {/* <p className={`${nsdev.className} my-4 text-3xl`}>{gitaVerse.text}</p> */}
         <p className={`my-4 text-3xl leading-10`}>{gitaVerse.text}</p>
         <h4 className="my-4 text-xl font-bold">Transliteration</h4>
         <p className="my-4 text-lg ">{gitaVerse.transliteration}</p>
@@ -41,9 +39,6 @@ async function Page({ params }: { params: { id: string } }) {
               In {capitalizeFirstLetter(translation!.language!)} by{" "}
               {translation!.authorName}
             </p>
-            {/* <p className={`${nsdev.className} my-4`}>
-              {translation!.description}
-            </p> */}
             <p className="my-4 ">{translation!.description}</p>
           </div>
         ))}
@@ -55,9 +50,6 @@ async function Page({ params }: { params: { id: string } }) {
               In {capitalizeFirstLetter(commentary!.language!)} by{" "}
               {commentary!.authorName}
             </p>
-            {/* <p className={`${nsdev.className} my-4`}>
-              {commentary!.description}
-            </p> */}
             <p className="my-4 ">{commentary!.description}</p>
           </div>
         ))}
