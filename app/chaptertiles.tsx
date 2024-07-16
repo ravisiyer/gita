@@ -15,12 +15,13 @@ async function ChapterTiles() {
           <div key={chapter.id}>
             <Link href={`/${chapter.chapterNumber}`}>
               <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 h-36 sm:h-40 md:h-48 rounded-md">
+                {/* <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 h-36 sm:h-40 md:h-48 rounded-md"> */}
                 <h3 className="text-lg font-bold">{`Chapter ${chapter.chapterNumber}`}</h3>
-                <p className="text-lg font-bold">{`${chapter.nameTranslated}`}</p>
+                <p className="text-lg font-bold md:line-clamp-2">{`${chapter.nameTranslated}`}</p>
                 {/* <p
                   className={`${nsdev.className} text-lg font-bold`}
                 >{`${chapter.name}`}</p> */}
-                <p className="text-lg font-bold">{`${chapter.name}`}</p>
+                <p className="text-lg font-bold md:line-clamp-2">{`${chapter.name}`}</p>
                 <p className="mt-4 font-bold">{`${chapter.versesCount} verses`}</p>
               </div>
             </Link>

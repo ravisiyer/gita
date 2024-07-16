@@ -65,8 +65,9 @@ async function Page({ params }: { params: { chapternumber: string } }) {
               {verse!.gitaTranslationsByVerseId.nodes[0]!.description}
             </p>
             <Link href={`/verse/${verse!.id}`}>
-              <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 mt-2 rounded-md w-[306px] text-lg font-bold">
-                Commentaries and more translations
+              <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 mt-2 rounded-md w-[330px] text-lg font-bold">
+                {/* <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 mt-2 rounded-md  w-[306px] text-lg font-bold"> */}
+                More Translations & Commentaries
               </div>
             </Link>
             <hr className="border border-gray-400 mt-4" />

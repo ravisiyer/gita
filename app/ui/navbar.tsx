@@ -142,7 +142,8 @@ function Navbar({ idSuffix = "" }) {
   return (
     <header className="leading-5 sticky top-0 z-10 bg-blue-800">
       <section className="mx-auto flex justify-between items-center max-w-4xl p-2">
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-xl font-bold">
+          {/* <h1 className="text-2xl font-bold"> */}
           <Link
             href="/"
             className="flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 text-orange-400 hover:opacity-70"
@@ -153,7 +154,8 @@ function Navbar({ idSuffix = "" }) {
         </h1>
         <nav>
           <div className="flex justify-between items-center gap-x-10">
-            <ul className="flex flex-row gap-x-3 h-auto pb-0 text-lg md:hidden">
+            <ul className="flex flex-row gap-x-3 h-auto pb-0 md:hidden">
+              {/* <ul className="flex flex-row gap-x-3 h-auto pb-0 text-lg md:hidden"> */}
               <MenuLink
                 href={prevHref}
                 clickHandler={closeMobileMenuIfOpen}
@@ -203,7 +205,8 @@ function Navbar({ idSuffix = "" }) {
           </div>
           <ul
             className={
-              "grid grid-cols-1 absolute w-full h-[40vh] pb-4 text-3xl leading-4 list-none md:flex md:flex-row md:static md:h-auto md:pb-0 md:text-lg " +
+              "grid grid-cols-1 absolute w-full h-[40vh] pb-4 text-3xl leading-4 list-none md:flex md:flex-row md:static md:h-auto md:pb-0 md:text-base " +
+              // "grid grid-cols-1 absolute w-full h-[40vh] pb-4 text-3xl leading-4 list-none md:flex md:flex-row md:static md:h-auto md:pb-0 md:text-lg " +
               (isMobileMenuOpen
                 ? " top-full left-0 bg-black text-white md:bg-blue-800"
                 : " top-[-9999px] left-0 bg-blue-800 text-white")
