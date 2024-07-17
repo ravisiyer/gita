@@ -85,8 +85,10 @@ function Navbar({ idSuffix = "" }) {
       setNextHref("");
     } else {
       const pathSegments = pathname.split("/");
-      if (pathSegments.length === 2) {
-        const pathChapterNumber = pathSegments[1];
+      if (pathSegments.length === 3 && pathSegments[1] === "chapter") {
+        // if (pathSegments.length === 2) {
+        const pathChapterNumber = pathSegments[2];
+        // const pathChapterNumber = pathSegments[1];
         // console.log("In Navbar, pathChapterNumber:", pathChapterNumber);
         const valChapterNumber = getValNumericChapterNumber(pathChapterNumber);
         if (valChapterNumber.valid) {
@@ -96,18 +98,19 @@ function Navbar({ idSuffix = "" }) {
             setVerseNumber("");
             setUpHref("/");
             if (numericChapterNumber > FIRST_CHAPTERNUMBER) {
-              setPrevHref(`/${numericChapterNumber - 1}`);
+              setPrevHref(`/chapter/${numericChapterNumber - 1}`);
             } else {
               setPrevHref("");
             }
             if (numericChapterNumber < LAST_CHAPTERNUMBER) {
-              setNextHref(`/${numericChapterNumber + 1}`);
+              setNextHref(`/chapter/${numericChapterNumber + 1}`);
             } else {
               setNextHref("");
             }
           }
         }
-      } else if (pathSegments.length === 3) {
+      } else if (pathSegments.length === 3 && pathSegments[1] === "verse") {
+        // } else if (pathSegments.length === 3) {
         const pathVerseId = pathSegments[2];
         // console.log("In Navbar, pathVerseId:", pathVerseId);
         const valVerseId = getValNumericVerseId(pathVerseId);
@@ -117,7 +120,7 @@ function Navbar({ idSuffix = "" }) {
             const chapVerseNumbers = getCVNumbersFromVerseId(pathVerseId);
             setChapterNumber(chapVerseNumbers.chapterNumber);
             setVerseNumber(chapVerseNumbers.verseNumber);
-            setUpHref(`/${chapVerseNumbers.chapterNumber}`);
+            setUpHref(`/chapter/${chapVerseNumbers.chapterNumber}`);
             if (numericVerseId > FIRST_VERSEID) {
               setPrevHref(`/verse/${numericVerseId - 1}`);
             } else {

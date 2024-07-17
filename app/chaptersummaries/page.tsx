@@ -20,7 +20,7 @@ async function Page() {
       {allGitaChapters.map((chapter) => (
         <div className="p-2" key={chapter.id}>
           <hr className="border border-gray-400 mb-4" />
-          <Link href={`/${chapter.chapterNumber}`}>
+          <Link href={`/chapter/${chapter.chapterNumber}`}>
             <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-72">
               <div className="">
                 <p className="text-lg font-bold">{`Chapter ${chapter.chapterNumber}`}</p>
@@ -36,7 +36,7 @@ async function Page() {
           <p className="my-4">{chapter.chapterSummary}</p>
           <h4 className="my-4 text-lg font-bold">हिन्दी सारांश</h4>
           <p className="my-4 ">{chapter.chapterSummaryHindi}</p>
-          <Link href={`/${chapter.chapterNumber}`}>
+          <Link href={`/chapter/${chapter.chapterNumber}`}>
             <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-24">
               <p className="text-lg font-bold">{`${chapter.versesCount} verses`}</p>
             </div>

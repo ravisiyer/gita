@@ -62,7 +62,7 @@ function SelectChapterVerse({
     const numericChapterNumber = valChapterNumber.numericChapterNumber;
 
     if (verseNumber.trim() === "") {
-      replace(`/${chapterNumber}`);
+      replace(`/chapter/${chapterNumber}`);
       closeMobileMenuIfOpen();
       return;
     }
