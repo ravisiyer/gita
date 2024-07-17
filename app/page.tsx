@@ -13,6 +13,7 @@ export default function Home() {
           width={896}
           height={538}
           className="hidden md:block"
+          priority={true}
           // Image aspect ratio is retained with width:896 and height:538.
           // Hi-res image is 3040x1824. Compressed image is lesser.
         />
@@ -22,6 +23,7 @@ export default function Home() {
           width={768}
           height={888}
           className="block md:hidden"
+          priority={true}
           // Image aspect ratio is retained with width:768 and height:888.
           // Hi-res image is 1578x1824. Compressed image is lesser.
         />
