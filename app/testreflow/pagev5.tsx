@@ -1,5 +1,6 @@
 async function Page() {
-  let arr = new Array(108).fill(0);
+  let arr = new Array(108);
+  arr.fill(2);
 
   return (
     <div>
