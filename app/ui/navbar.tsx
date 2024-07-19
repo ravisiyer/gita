@@ -77,63 +77,58 @@ function Navbar({ idSuffix = "" }) {
 
   // Code in useEffect to try to avoid unnecessary repeated execution.
   useEffect(() => {
-    if (pathname === "/") {
+    const pathSegments = pathname.split("/");
+    if (pathSegments.length === 3 && pathSegments[1] === "chapter") {
+      const pathChapterNumber = pathSegments[2];
+      // console.log("In Navbar, pathChapterNumber:", pathChapterNumber);
+      const valChapterNumber = getValNumericChapterNumber(pathChapterNumber);
+      if (valChapterNumber.valid) {
+        const numericChapterNumber = valChapterNumber.numericChapterNumber;
+        if (numericChapterNumber > 0) {
+          setChapterNumber(pathChapterNumber);
+          setVerseNumber("");
+          setUpHref("/");
+          if (numericChapterNumber > FIRST_CHAPTERNUMBER) {
+            setPrevHref(`/chapter/${numericChapterNumber - 1}`);
+          } else {
+            setPrevHref("");
+          }
+          if (numericChapterNumber < LAST_CHAPTERNUMBER) {
+            setNextHref(`/chapter/${numericChapterNumber + 1}`);
+          } else {
+            setNextHref("");
+          }
+        }
+      }
+    } else if (pathSegments.length === 3 && pathSegments[1] === "verse") {
+      const pathVerseId = pathSegments[2];
+      // console.log("In Navbar, pathVerseId:", pathVerseId);
+      const valVerseId = getValNumericVerseId(pathVerseId);
+      if (valVerseId.valid) {
+        const numericVerseId = valVerseId.numericVerseId;
+        if (numericVerseId > 0) {
+          const chapVerseNumbers = getCVNumbersFromVerseId(pathVerseId);
+          setChapterNumber(chapVerseNumbers.chapterNumber);
+          setVerseNumber(chapVerseNumbers.verseNumber);
+          setUpHref(`/chapter/${chapVerseNumbers.chapterNumber}`);
+          if (numericVerseId > FIRST_VERSEID) {
+            setPrevHref(`/verse/${numericVerseId - 1}`);
+          } else {
+            setPrevHref("");
+          }
+          if (numericVerseId < LAST_VERSEID) {
+            setNextHref(`/verse/${numericVerseId + 1}`);
+          } else {
+            setNextHref("");
+          }
+        }
+      }
+    } else {
       setChapterNumber("");
       setVerseNumber("");
       setUpHref("");
       setPrevHref("");
       setNextHref("");
-    } else {
-      const pathSegments = pathname.split("/");
-      if (pathSegments.length === 3 && pathSegments[1] === "chapter") {
-        // if (pathSegments.length === 2) {
-        const pathChapterNumber = pathSegments[2];
-        // const pathChapterNumber = pathSegments[1];
-        // console.log("In Navbar, pathChapterNumber:", pathChapterNumber);
-        const valChapterNumber = getValNumericChapterNumber(pathChapterNumber);
-        if (valChapterNumber.valid) {
-          const numericChapterNumber = valChapterNumber.numericChapterNumber;
-          if (numericChapterNumber > 0) {
-            setChapterNumber(pathChapterNumber);
-            setVerseNumber("");
-            setUpHref("/");
-            if (numericChapterNumber > FIRST_CHAPTERNUMBER) {
-              setPrevHref(`/chapter/${numericChapterNumber - 1}`);
-            } else {
-              setPrevHref("");
-            }
-            if (numericChapterNumber < LAST_CHAPTERNUMBER) {
-              setNextHref(`/chapter/${numericChapterNumber + 1}`);
-            } else {
-              setNextHref("");
-            }
-          }
-        }
-      } else if (pathSegments.length === 3 && pathSegments[1] === "verse") {
-        // } else if (pathSegments.length === 3) {
-        const pathVerseId = pathSegments[2];
-        // console.log("In Navbar, pathVerseId:", pathVerseId);
-        const valVerseId = getValNumericVerseId(pathVerseId);
-        if (valVerseId.valid) {
-          const numericVerseId = valVerseId.numericVerseId;
-          if (numericVerseId > 0) {
-            const chapVerseNumbers = getCVNumbersFromVerseId(pathVerseId);
-            setChapterNumber(chapVerseNumbers.chapterNumber);
-            setVerseNumber(chapVerseNumbers.verseNumber);
-            setUpHref(`/chapter/${chapVerseNumbers.chapterNumber}`);
-            if (numericVerseId > FIRST_VERSEID) {
-              setPrevHref(`/verse/${numericVerseId - 1}`);
-            } else {
-              setPrevHref("");
-            }
-            if (numericVerseId < LAST_VERSEID) {
-              setNextHref(`/verse/${numericVerseId + 1}`);
-            } else {
-              setNextHref("");
-            }
-          }
-        }
-      }
     }
     // console.log("In Navbar useEffect(): Just before exiting");
   }, [pathname]);

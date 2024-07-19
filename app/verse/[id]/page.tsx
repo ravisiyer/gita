@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { getVerse } from "@/app/lib/data";
 // import { getVerse } from "@/app/lib/dummydata";
 import { notFound } from "next/navigation";
@@ -58,7 +59,15 @@ async function Page({ params }: { params: { id: string } }) {
           </div>
         ))}
         <hr className="border border-gray-400" />
-        <h4 className="my-4 text-xl font-bold">Commentaries</h4>
+        <div className="mt-4 flex flex-col sm:flex-row sm:justify-between sm:items-center ">
+          <span className="text-xl font-bold sm:mb-4">Commentaries</span>
+          <span className="text-right sm:text-left text-red-600 mb-4 ">
+            Note: ? replaced by , character.{" "}
+            <Link href="/qmarkissue" className="underline">
+              More Info
+            </Link>
+          </span>
+        </div>
         {gitaVerse.gitaCommentariesByVerseId.nodes.map((commentary) => (
           <div key={commentary!.authorId}>
             <p className="text-lg font-bold italic">

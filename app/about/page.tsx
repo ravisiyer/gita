@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { GRAPHQL_URI, GRAPHQL_EXPLORER_URI } from "@/app/constants";
 
 export const metadata: Metadata = {
@@ -44,14 +45,14 @@ function Page() {
         )
       </p>
       <p className="my-4 ">
-        Note that there seems to be a problem with the data associated with
-        Swami Sivananda and some other commentaries. Question mark character (?)
-        appears frequently in places where I think there should be a comma
-        character (,). I have raised the issue on the GitHub repository
-        associated with the GraphQL endpoint. As a temporary measure, I am
-        replacing ? characters with , characters in all commentaries.
-        Disadvantage is that even ? chars that should be ? will be changed to ,
-        chars. But such cases may be very few.
+        Note that there seems to be a question mark character problem with the
+        data associated with some commentaries.{" "}
+        <Link
+          href="/qmarkissue"
+          className="text-blue-700 visited:text-purple-900 underline"
+        >
+          See more info on it.
+        </Link>
       </p>
       <p className="my-4 ">
         More about this app can be read in{" "}
@@ -81,7 +82,7 @@ function Page() {
         .
       </p>
       <p className="my-4 ">
-        App version: In-progress, Date: 19th July 2024
+        App version: 1.0, Date: 19th July 2024
         <br />
         App author: Ravi S. Iyer
       </p>
