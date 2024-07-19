@@ -50,10 +50,16 @@ async function Page({ params }: { params: { id: string } }) {
               In {capitalizeFirstLetter(commentary!.language!)} by{" "}
               {commentary!.authorName}
             </p>
+            {/* Hack to partially fix ? characters instead of , characters in all
+            commentaries. Disadvantage is that even ? chars that should be ? will be 
+            changed to , chars. But such cases may be very few. */}
+            <p className="my-4 ">
+              {commentary!.description!.replace(/\?/g, ",")}
+            </p>
             {/* Hack to partially fix ? characters instead of , characters in Swami Sivananda
             commentaries. Disadvantage is that even ? chars that should be ? will be 
             changed to , chars. But such cases seem to be very few. */}
-            {commentary!
+            {/* {commentary!
               .authorName!.toLowerCase()
               .includes("swami sivananda") ? (
               <p className="my-4 ">
@@ -61,7 +67,7 @@ async function Page({ params }: { params: { id: string } }) {
               </p>
             ) : (
               <p className="my-4 ">{commentary!.description}</p>
-            )}
+            )} */}
             {/* <p className="my-4 ">{commentary!.description}</p> */}
           </div>
         ))}

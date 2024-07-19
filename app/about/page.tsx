@@ -43,7 +43,10 @@ function Page() {
         Swami Sivananda and some other commentaries. Question mark character (?)
         appears frequently in places where I think there should be a comma
         character (,). I have raised the issue on the GitHub repository
-        associated with the GraphQL endpoint.
+        associated with the GraphQL endpoint. As a temporary measure, I am
+        replacing ? characters with , characters in all commentaries.
+        Disadvantage is that even ? chars that should be ? will be changed to ,
+        chars. But such cases may be very few.
       </p>
       <p className="my-4 ">
         More about this app can be read in{" "}
@@ -73,7 +76,7 @@ function Page() {
         .
       </p>
       <p className="my-4 ">
-        App version: In-progress, Date: 16th July 2024
+        App version: In-progress, Date: 19th July 2024
         <br />
         App author: Ravi S. Iyer
       </p>
