@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getChapter } from "../../lib/data";
@@ -5,6 +6,16 @@ import { getChapter } from "../../lib/data";
 import Link from "next/link";
 import { getValNumericChapterNumber } from "../../lib/util";
 import { GitaChapter } from "../../lib/gqltypes-d";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { chapternumber: string };
+}): Promise<Metadata> {
+  return {
+    title: `Chapter ${params.chapternumber}`,
+  };
+}
 
 async function Page({ params }: { params: { chapternumber: string } }) {
   const chapterNumber: string = params.chapternumber;

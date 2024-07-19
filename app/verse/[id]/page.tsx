@@ -1,10 +1,25 @@
+import { Metadata } from "next";
 import { getVerse } from "@/app/lib/data";
 // import { getVerse } from "@/app/lib/dummydata";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { capitalizeFirstLetter } from "@/app/lib/util";
-import { getValNumericVerseId } from "@/app/lib/util";
+import {
+  capitalizeFirstLetter,
+  getCVNumbersFromVerseId,
+  getValNumericVerseId,
+} from "@/app/lib/util";
 import { GitaVerse } from "@/app/lib/gqltypes-d";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const chapVerseNumbers = getCVNumbersFromVerseId(params.id);
+  return {
+    title: `Chapter ${chapVerseNumbers.chapterNumber}, Verse ${chapVerseNumbers.verseNumber}`,
+  };
+}
 
 async function Page({ params }: { params: { id: string } }) {
   const verseId = params.id;

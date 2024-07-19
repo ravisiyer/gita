@@ -5,7 +5,10 @@ import Navbar from "./ui/navbar";
 import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
-  title: "Bhagavad Gita (Simple App)",
+  title: {
+    template: "%s | Bhagavad Gita",
+    default: "Bhagavad Gita",
+  },
   description: "Simple Bhagavad Gita web app",
 };
 

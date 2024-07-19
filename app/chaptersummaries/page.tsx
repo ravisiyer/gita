@@ -1,7 +1,12 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { getAllChapters } from "../lib/data";
 // import { getAllChapters } from "./lib/dummydata";
 import { GitaChapter } from "../lib/gqltypes-d";
+
+export const metadata: Metadata = {
+  title: "Chapter Summaries",
+};
 
 async function Page() {
   let data = await getAllChapters();
@@ -20,8 +25,8 @@ async function Page() {
       {allGitaChapters.map((chapter) => (
         <div className="p-2" key={chapter.id}>
           <hr className="border border-gray-400 mb-4" />
-          <Link href={`/chapter/${chapter.chapterNumber}`}>
-            <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-72">
+          <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-72">
+            <Link href={`/chapter/${chapter.chapterNumber}`}>
               <div className="">
                 <p className="text-lg font-bold">{`Chapter ${chapter.chapterNumber}`}</p>
                 <p></p>
@@ -30,17 +35,17 @@ async function Page() {
                 </p>
                 <p className="text-lg font-bold mt-2">{chapter.name}</p>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
           <h4 className="my-4 text-lg font-bold">English Summary</h4>
           <p className="my-4">{chapter.chapterSummary}</p>
           <h4 className="my-4 text-lg font-bold">हिन्दी सारांश</h4>
           <p className="my-4 ">{chapter.chapterSummaryHindi}</p>
-          <Link href={`/chapter/${chapter.chapterNumber}`}>
-            <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-24">
+          <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-24">
+            <Link href={`/chapter/${chapter.chapterNumber}`}>
               <p className="text-lg font-bold">{`${chapter.versesCount} verses`}</p>
-            </div>
-          </Link>
+            </Link>
+          </div>
         </div>
       ))}
     </div>

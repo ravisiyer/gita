@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { GRAPHQL_URI, GRAPHQL_EXPLORER_URI } from "@/app/constants";
+
+export const metadata: Metadata = {
+  title: "About",
+};
 
 function Page() {
   return (
