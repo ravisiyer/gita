@@ -119,9 +119,9 @@ function SelectChapterVerse({
         size={2}
         min={MIN_VERSE_NUMBER_IN_ALL_CHAPTERS}
         max={
-          !chapterNumber || chapterNumber.trim() === ""
-            ? MAX_VERSE_NUMBER_IN_ALL_CHAPTERS
-            : getMaxVersesInChapter(chapterNumber)
+          getValNumericChapterNumber(chapterNumber).valid
+            ? getMaxVersesInChapter(chapterNumber)
+            : MAX_VERSE_NUMBER_IN_ALL_CHAPTERS
         }
         value={verseNumber}
         onChange={(e) => {
