@@ -84,7 +84,7 @@ function Page() {
         .
       </p>
       <p className="my-4">
-        App version: 1.0, Date: 20th July 2024
+        App version: After 1.0 and in-progress, Date: 21st July 2024
         <br />
         App author: Ravi S. Iyer
       </p>
