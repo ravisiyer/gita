@@ -82,12 +82,11 @@ export async function getChapter(chapterNumber: string) {
   }
 }
 
-export async function getVerse(verseId: string) {
+export async function getVerse(verseId: string, languageId?: number) {
+  // export async function getVerse(verseId, languageId = undefined) : {verseId: string, languageId: number} {
   const client = createApolloClient();
-  try {
-    const { data } = await client.query({
-      //Get verse data for specified verseId
-      query: gql`
+  // languageId = 1;
+  const QUERY_STRING1 = `
     query {
       allGitaVerses(condition: { id: ${verseId} }) {
         nodes {
@@ -96,7 +95,12 @@ export async function getVerse(verseId: string) {
             text
             transliteration
             wordMeanings
-            gitaTranslationsByVerseId(orderBy: LANGUAGE_ID_ASC) {
+            gitaTranslationsByVerseId(orderBy: LANGUAGE_ID_ASC`;
+  const queryLanguageCondition =
+    languageId === undefined
+      ? `) `
+      : `, condition: {languageId: ${languageId}}) `;
+  const QUERY_STRING2 = `{
               nodes {
                 authorId
                 authorName
@@ -104,7 +108,8 @@ export async function getVerse(verseId: string) {
                 language
               }
             }
-            gitaCommentariesByVerseId(orderBy: LANGUAGE_ID_ASC) {
+            gitaCommentariesByVerseId(orderBy: LANGUAGE_ID_ASC`;
+  const QUERY_STRING3 = `{
               nodes {
                 authorId
                 authorName
@@ -114,7 +119,18 @@ export async function getVerse(verseId: string) {
             }
           }
         }
-      }
+      }`;
+  const queryString =
+    QUERY_STRING1 +
+    queryLanguageCondition +
+    QUERY_STRING2 +
+    queryLanguageCondition +
+    QUERY_STRING3;
+  console.log("getVerse QS:", queryString);
+  try {
+    const { data } = await client.query({
+      query: gql`
+        ${queryString}
       `,
     });
 
@@ -128,3 +144,50 @@ export async function getVerse(verseId: string) {
     );
   }
 }
+
+// export async function getVerse(verseId: string) {
+//   const client = createApolloClient();
+//   try {
+//     const { data } = await client.query({
+//       //Get verse data for specified verseId
+//       query: gql`
+//     query {
+//       allGitaVerses(condition: { id: ${verseId} }) {
+//         nodes {
+//             chapterNumber
+//             verseNumber
+//             text
+//             transliteration
+//             wordMeanings
+//             gitaTranslationsByVerseId(orderBy: LANGUAGE_ID_ASC) {
+//               nodes {
+//                 authorId
+//                 authorName
+//                 description
+//                 language
+//               }
+//             }
+//             gitaCommentariesByVerseId(orderBy: LANGUAGE_ID_ASC) {
+//               nodes {
+//                 authorId
+//                 authorName
+//                 description
+//                 language
+//               }
+//             }
+//           }
+//         }
+//       }
+//       `,
+//     });
+
+//     return {
+//       gitaVerse: data.allGitaVerses.nodes[0],
+//     };
+//   } catch (error) {
+//     console.error("GraphQL Endpoint Error:", error);
+//     throw new Error(
+//       `Failed to fetch verse from data source (GraphQL endpoint): ${GRAPHQL_URI}`
+//     );
+//   }
+// }

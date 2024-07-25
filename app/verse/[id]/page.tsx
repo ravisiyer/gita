@@ -31,7 +31,9 @@ async function Page({ params }: { params: { id: string } }) {
   }
   const numericVerseId = valVerseId.numericVerseId;
 
-  let data = await getVerse(verseId);
+  const languageId = 1;
+  let data = await getVerse(verseId, languageId);
+  // let data = await getVerse(verseId);
   let gitaVerse: GitaVerse = data.gitaVerse;
 
   const numericChapterNumber = Number(gitaVerse.chapterNumber);
