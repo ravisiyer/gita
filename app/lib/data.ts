@@ -126,7 +126,7 @@ export async function getVerse(verseId: string, languageId?: number) {
     QUERY_STRING2 +
     queryLanguageCondition +
     QUERY_STRING3;
-  console.log("getVerse QS:", queryString);
+  // console.log("getVerse QS:", queryString);
   try {
     const { data } = await client.query({
       query: gql`
