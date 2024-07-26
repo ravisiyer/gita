@@ -14,13 +14,15 @@ import { getAppSettings } from "../providers";
 function Verse({ gitaVerse }: { gitaVerse: GitaVerse }) {
   const numericChapterNumber = Number(gitaVerse.chapterNumber);
   const appSettings = getAppSettings();
-  const languageId = appSettings.languageId;
+  const languageIds = appSettings.languageIds;
 
   function filterVerseByLanguageId() {
     let i = gitaVerse.gitaTranslationsByVerseId.nodes.length;
     while (i--) {
       if (
-        gitaVerse.gitaTranslationsByVerseId.nodes[i]?.languageId !== languageId
+        !languageIds.includes(
+          Number(gitaVerse.gitaTranslationsByVerseId.nodes[i]?.languageId)
+        ) //Number() used to avoid TS error; Need to figure out how to do it without using Number() unnecessarily
       ) {
         gitaVerse.gitaTranslationsByVerseId.nodes.splice(i, 1);
       }
@@ -28,14 +30,17 @@ function Verse({ gitaVerse }: { gitaVerse: GitaVerse }) {
     i = gitaVerse.gitaCommentariesByVerseId.nodes.length;
     while (i--) {
       if (
-        gitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId !== languageId
+        !languageIds.includes(
+          Number(gitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId)
+        ) //Number() used to avoid TS error; Need to figure out how to do it without using Number() unnecessarily
+        // gitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId !== languageId
       ) {
         gitaVerse.gitaCommentariesByVerseId.nodes.splice(i, 1);
       }
     }
   }
 
-  filterVerseByLanguageId();
+  if (languageIds?.length) filterVerseByLanguageId();
 
   return (
     <div>

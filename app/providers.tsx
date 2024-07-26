@@ -3,15 +3,18 @@ import { createContext, useContext, useState } from "react";
 import { ReactNode } from "react";
 
 export interface AppSettingsType {
-  languageId: number;
+  languageIds: number[];
 }
 export const AppSettingsContext = createContext<AppSettingsType>({
-  languageId: 1,
+  languageIds: [1, 2, 3],
 });
 
 function Providers({ children }: { children: ReactNode }) {
-  const [languageId, setLanguageId] = useState(1);
-  let AppSettings: AppSettingsType = { languageId: languageId };
+  const [languageIds, setLanguageIds] = useState([1]);
+  // const [languageIds, setLanguageIds] = useState([1, 2, 3]);
+  // const [languageIds, setLanguageIds] = useState([]);
+  // const [languageIds, setLanguageIds] = useState(undefined);
+  let AppSettings: AppSettingsType = { languageIds: languageIds };
   return (
     <AppSettingsContext.Provider value={AppSettings}>
       {children}
