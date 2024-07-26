@@ -106,6 +106,7 @@ export async function getVerse(verseId: string, languageId?: number) {
                 authorName
                 description
                 language
+                languageId
               }
             }
             gitaCommentariesByVerseId(orderBy: LANGUAGE_ID_ASC`;
@@ -115,6 +116,7 @@ export async function getVerse(verseId: string, languageId?: number) {
                 authorName
                 description
                 language
+                languageId
               }
             }
           }

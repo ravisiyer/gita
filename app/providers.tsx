@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { ReactNode } from "react";
 
 export interface AppSettingsType {
@@ -17,6 +17,11 @@ function Providers({ children }: { children: ReactNode }) {
       {children}
     </AppSettingsContext.Provider>
   );
+}
+
+export function getAppSettings() {
+  const AppSettings: AppSettingsType = useContext(AppSettingsContext);
+  return AppSettings;
 }
 
 export default Providers;
