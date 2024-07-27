@@ -45,7 +45,10 @@ function Page() {
     replace("/verse/1");
   }
 
-  const handleOnChange = (e, index) => {
+  const handleOnChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     let tempLanguageIds = [...formLanguageIds];
     tempLanguageIds[index] = e.target.value;
     setFormLanguageIds(tempLanguageIds);

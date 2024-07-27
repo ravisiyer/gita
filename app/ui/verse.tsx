@@ -18,49 +18,59 @@ function Verse({ gitaVerse }: { gitaVerse: GitaVerse }) {
   // const appSettings = getAppSettings();
   const languageIds = appSettings.languageIds;
 
-  function filterVerseByLanguageId() {
-    let i = gitaVerse.gitaTranslationsByVerseId.nodes.length;
-    console.log(`filterVerseByLanguageId: Transl. nodes.length: ${i}`);
+  function filterVerseByLanguageIds() {
+    //Deep copy
+    const filteredGitaVerse = JSON.parse(JSON.stringify(gitaVerse));
+    let i = filteredGitaVerse.gitaTranslationsByVerseId.nodes.length;
+    console.log(`filterVerseByLanguageIds: Transl. nodes.length: ${i}`);
     while (i--) {
       if (
         !languageIds.includes(
-          Number(gitaVerse.gitaTranslationsByVerseId.nodes[i]?.languageId)
+          Number(
+            filteredGitaVerse.gitaTranslationsByVerseId.nodes[i]?.languageId
+          )
         ) //Number() used to avoid TS error; Need to figure out how to do it without using Number() unnecessarily
       ) {
-        gitaVerse.gitaTranslationsByVerseId.nodes.splice(i, 1);
+        filteredGitaVerse.gitaTranslationsByVerseId.nodes.splice(i, 1);
       }
     }
-    i = gitaVerse.gitaCommentariesByVerseId.nodes.length;
-    console.log(`filterVerseByLanguageId: Comment. nodes.length: ${i}`);
+    i = filteredGitaVerse.gitaCommentariesByVerseId.nodes.length;
+    console.log(`filterVerseByLanguageIds: Comment. nodes.length: ${i}`);
     while (i--) {
       if (
         !languageIds.includes(
-          Number(gitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId)
+          Number(
+            filteredGitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId
+          )
         ) //Number() used to avoid TS error; Need to figure out how to do it without using Number() unnecessarily
-        // gitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId !== languageId
+        // filteredGitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId !== languageId
       ) {
-        gitaVerse.gitaCommentariesByVerseId.nodes.splice(i, 1);
+        filteredGitaVerse.gitaCommentariesByVerseId.nodes.splice(i, 1);
       }
     }
+    return filteredGitaVerse;
   }
 
-  if (languageIds?.length) filterVerseByLanguageId();
+  let displayGitaVerse = gitaVerse;
+  if (languageIds?.length) {
+    displayGitaVerse = filterVerseByLanguageIds();
+  }
 
   return (
     <div>
       <Suspense fallback={`Loading ...`}>
         <h3 className="text-2xl font-bold text-center mt-2">
-          {`Chapter ${gitaVerse.chapterNumber}, Verse ${gitaVerse.verseNumber}`}
+          {`Chapter ${displayGitaVerse.chapterNumber}, Verse ${displayGitaVerse.verseNumber}`}
         </h3>
         <h4 className="my-4 text-xl font-bold">Text</h4>
-        <p className={`my-4 text-3xl leading-10`}>{gitaVerse.text}</p>
+        <p className={`my-4 text-3xl leading-10`}>{displayGitaVerse.text}</p>
         <h4 className="my-4 text-xl font-bold">Transliteration</h4>
-        <p className="my-4 text-lg ">{gitaVerse.transliteration}</p>
+        <p className="my-4 text-lg ">{displayGitaVerse.transliteration}</p>
         <h4 className="my-4 text-xl font-bold">Word Meanings</h4>
-        <p className="my-4 text-lg ">{gitaVerse.wordMeanings}</p>
+        <p className="my-4 text-lg ">{displayGitaVerse.wordMeanings}</p>
         <hr className="border border-gray-400" />
         <h4 className="my-4 text-xl font-bold">Translations</h4>
-        {gitaVerse.gitaTranslationsByVerseId.nodes.map((translation) => (
+        {displayGitaVerse.gitaTranslationsByVerseId.nodes.map((translation) => (
           <div key={translation!.authorId}>
             <p className="text-lg font-bold italic">
               In {capitalizeFirstLetter(translation!.language!)} by{" "}
@@ -79,7 +89,7 @@ function Verse({ gitaVerse }: { gitaVerse: GitaVerse }) {
             </Link>
           </span>
         </div>
-        {gitaVerse.gitaCommentariesByVerseId.nodes.map((commentary) => (
+        {displayGitaVerse.gitaCommentariesByVerseId.nodes.map((commentary) => (
           <div key={commentary!.authorId}>
             <p className="text-lg font-bold italic">
               In {capitalizeFirstLetter(commentary!.language!)} by{" "}
