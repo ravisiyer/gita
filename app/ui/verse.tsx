@@ -2,22 +2,25 @@
 import Link from "next/link";
 // import { getVerse } from "@/app/lib/dummydata";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useContext } from "react";
 import {
   capitalizeFirstLetter,
   getCVNumbersFromVerseId,
   getValNumericVerseId,
 } from "@/app/lib/util";
 import { GitaVerse } from "@/app/lib/gqltypes-d";
-import { getAppSettings } from "../providers";
+import { AppSettingsType, AppSettingsContext } from "../providers";
+// import { getAppSettings } from "../providers";
 
 function Verse({ gitaVerse }: { gitaVerse: GitaVerse }) {
   const numericChapterNumber = Number(gitaVerse.chapterNumber);
-  const appSettings = getAppSettings();
+  const appSettings: AppSettingsType = useContext(AppSettingsContext);
+  // const appSettings = getAppSettings();
   const languageIds = appSettings.languageIds;
 
   function filterVerseByLanguageId() {
     let i = gitaVerse.gitaTranslationsByVerseId.nodes.length;
+    console.log(`filterVerseByLanguageId: Transl. nodes.length: ${i}`);
     while (i--) {
       if (
         !languageIds.includes(
@@ -28,6 +31,7 @@ function Verse({ gitaVerse }: { gitaVerse: GitaVerse }) {
       }
     }
     i = gitaVerse.gitaCommentariesByVerseId.nodes.length;
+    console.log(`filterVerseByLanguageId: Comment. nodes.length: ${i}`);
     while (i--) {
       if (
         !languageIds.includes(

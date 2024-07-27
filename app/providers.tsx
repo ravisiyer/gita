@@ -27,9 +27,9 @@ function Providers({ children }: { children: ReactNode }) {
   );
 }
 
-export function getAppSettings() {
-  const AppSettings: AppSettingsType = useContext(AppSettingsContext);
-  return AppSettings;
-}
+// export function getAppSettings() {
+//   const AppSettings: AppSettingsType = useContext(AppSettingsContext);
+//   return AppSettings;
+// }
 
 export default Providers;

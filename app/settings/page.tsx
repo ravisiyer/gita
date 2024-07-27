@@ -1,13 +1,15 @@
 "use client";
-import { getAppSettings } from "../providers";
-import { useState } from "react";
+import { AppSettingsType, AppSettingsContext } from "../providers";
+// import { getAppSettings } from "../providers";
+import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { link } from "fs";
 
 const NUMBER_LANGUAGES = 3;
 
 function Page() {
-  const AppSettings = getAppSettings();
+  const AppSettings: AppSettingsType = useContext(AppSettingsContext);
+  // const AppSettings = getAppSettings();
   let languageIds = new Array(NUMBER_LANGUAGES);
   for (let i = 0; i < NUMBER_LANGUAGES; i++) {
     if (i < AppSettings.languageIds.length) {
