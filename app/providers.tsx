@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import { ReactNode } from "react";
 
 export interface AppSettingsType {
@@ -15,7 +15,6 @@ function Providers({ children }: { children: ReactNode }) {
   const [languageIds, setLanguageIds] = useState([1]);
   // const [languageIds, setLanguageIds] = useState([1, 2, 3]);
   // const [languageIds, setLanguageIds] = useState([]);
-  // const [languageIds, setLanguageIds] = useState(undefined);
   let AppSettings: AppSettingsType = {
     languageIds: languageIds,
     setLanguageIds: setLanguageIds,
@@ -26,10 +25,5 @@ function Providers({ children }: { children: ReactNode }) {
     </AppSettingsContext.Provider>
   );
 }
-
-// export function getAppSettings() {
-//   const AppSettings: AppSettingsType = useContext(AppSettingsContext);
-//   return AppSettings;
-// }
 
 export default Providers;

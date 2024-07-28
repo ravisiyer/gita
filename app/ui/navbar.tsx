@@ -143,7 +143,9 @@ function Navbar({ idSuffix = "" }) {
             href="/"
             className="flex justify-center items-center w-full h-full md:w-auto md:h-auto pr-2 text-orange-400 hover:opacity-70"
           >
-            <span className="hidden min-[440px]:inline">Bhagavad&nbsp;</span>
+            <span className="hidden min-[440px]:inline">
+              Test useContext&nbsp;
+            </span>
             Gita
           </Link>
         </h1>

@@ -1,28 +1,21 @@
 "use client";
 import Link from "next/link";
 // import { getVerse } from "@/app/lib/dummydata";
-import { notFound } from "next/navigation";
 import { Suspense, useContext } from "react";
-import {
-  capitalizeFirstLetter,
-  getCVNumbersFromVerseId,
-  getValNumericVerseId,
-} from "@/app/lib/util";
+import { capitalizeFirstLetter } from "@/app/lib/util";
 import { GitaVerse } from "@/app/lib/gqltypes-d";
 import { AppSettingsType, AppSettingsContext } from "../providers";
-// import { getAppSettings } from "../providers";
 
 function Verse({ gitaVerse }: { gitaVerse: GitaVerse }) {
   const numericChapterNumber = Number(gitaVerse.chapterNumber);
   const appSettings: AppSettingsType = useContext(AppSettingsContext);
-  // const appSettings = getAppSettings();
   const languageIds = appSettings.languageIds;
 
   function filterVerseByLanguageIds() {
     //Deep copy
     const filteredGitaVerse = JSON.parse(JSON.stringify(gitaVerse));
     let i = filteredGitaVerse.gitaTranslationsByVerseId.nodes.length;
-    console.log(`filterVerseByLanguageIds: Transl. nodes.length: ${i}`);
+    // console.log(`filterVerseByLanguageIds: Transl. nodes.length: ${i}`);
     while (i--) {
       if (
         !languageIds.includes(
@@ -35,7 +28,7 @@ function Verse({ gitaVerse }: { gitaVerse: GitaVerse }) {
       }
     }
     i = filteredGitaVerse.gitaCommentariesByVerseId.nodes.length;
-    console.log(`filterVerseByLanguageIds: Comment. nodes.length: ${i}`);
+    // console.log(`filterVerseByLanguageIds: Comment. nodes.length: ${i}`);
     while (i--) {
       if (
         !languageIds.includes(
@@ -43,7 +36,6 @@ function Verse({ gitaVerse }: { gitaVerse: GitaVerse }) {
             filteredGitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId
           )
         ) //Number() used to avoid TS error; Need to figure out how to do it without using Number() unnecessarily
-        // filteredGitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId !== languageId
       ) {
         filteredGitaVerse.gitaCommentariesByVerseId.nodes.splice(i, 1);
       }

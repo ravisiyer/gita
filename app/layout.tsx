@@ -7,10 +7,10 @@ import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Bhagavad Gita",
-    default: "Bhagavad Gita",
+    template: "%s | Test useContext Bhagavad Gita",
+    default: "Test useContext Bhagavad Gita",
   },
-  description: "Simple Bhagavad Gita web app",
+  description: "Test useContext Simple Bhagavad Gita web app",
 };
 
 export default function RootLayout({
