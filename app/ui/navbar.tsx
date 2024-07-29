@@ -206,10 +206,12 @@ function Navbar({ idSuffix = "" }) {
             }
           >
             <MenuLink
-              href="/"
+              href="/settings"
+              // href="/"
               clickHandler={closeMobileMenuIfOpen}
               icon={AiFillHome}
-              text="Home"
+              text="Settings"
+              // text="Home"
             />
             <MenuLink
               href={prevHref}

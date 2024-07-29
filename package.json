@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.10.4",
+    "cookies-next": "^4.2.1",
     "graphql": "^16.8.1",
     "next": "14.2.3",
     "nextjs-toploader": "^1.6.12",
