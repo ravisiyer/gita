@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 function Page() {
   return (
     <div>
-      <h2 className="my-5 text-2xl font-bold">About App & Data</h2>
+      <h2 className="my-5 text-2xl font-bold">About Web App & Data</h2>
       <p className="my-4">
-        This Gita app has been developed on top of{" "}
+        This Gita web app has been developed on top of{" "}
         <a
           href="https://github.com/ravisiyer/verysimplegita"
           className="text-blue-700 visited:text-purple-900 underline"
@@ -29,12 +29,13 @@ function Page() {
         source code.
       </p>
       <p className="my-4">
-        This Gita app uses Next.js and Apollo Client to retrieve Bhagavad Gita
-        chapters and verses data from a GraphQL endpoint, and displays it on
-        browser. It also uses Tailwind CSS and TypeScript.
+        This Gita web app uses Next.js and Apollo Client to retrieve Bhagavad
+        Gita chapters and verses data from a GraphQL endpoint, and displays it
+        on browser. It also uses Tailwind CSS and TypeScript.
       </p>
       <p className="my-4">
-        This Gita app is open-source and shared under free-software MIT license.
+        This Gita web app is open-source and shared under free-software MIT
+        license.
       </p>
       <p className="my-4">
         Data source (GraphQL endpoint): {GRAPHQL_URI} (GraphQL Explorer:{" "}
@@ -57,7 +58,7 @@ function Page() {
         </Link>
       </p>
       <p className="my-4">
-        More about this app can be read in{" "}
+        More about this web app can be read in{" "}
         <a
           href="https://raviswdev.blogspot.com/2024/07/gita-app-v10-pathway-to-self-learn.html"
           className="text-blue-700 visited:text-purple-900 underline"
@@ -84,9 +85,9 @@ function Page() {
         .
       </p>
       <p className="my-4">
-        App version: After 1.0 and in-progress, Date: 21st July 2024
+        Web app version: After 1.0 and in-progress, Date: 29th July 2024
         <br />
-        App author: Ravi S. Iyer
+        Web app author: Ravi S. Iyer
       </p>
     </div>
   );
