@@ -52,7 +52,7 @@ function Page() {
           {allGitaLanguages.map(({ id, language }, index) => {
             return (
               <li key={index}>
-                <div>
+                <div className="truncate ...">
                   <input
                     type="checkbox"
                     id={`custom-input-${index}`}
@@ -60,14 +60,23 @@ function Page() {
                     value={id?.toString()}
                     checked={checkedState[index]}
                     onChange={() => handleOnChange(index)}
-                    className="ml-4 w-8"
+                    className="ml-2"
+                    // className="ml-4 w-8"
                   />
-                  <label htmlFor={`custom-input-${index}`}>
-                    {capitalizeFirstLetter(language!) +
-                      (index
-                        ? ""
-                        : " - Default language if no language is selected")}
+                  <label htmlFor={`custom-input-${index}`} className="ml-2">
+                    {capitalizeFirstLetter(language!)}{" "}
                   </label>
+                  {index ? (
+                    ""
+                  ) : (
+                    <>
+                      <span> - Default language</span>
+                      <span className="hidden sm:inline">
+                        {" "}
+                        if no language is selected
+                      </span>
+                    </>
+                  )}
                 </div>
               </li>
             );

@@ -21,7 +21,7 @@ export function SubmitButton({
 
   useEffect(() => {
     submitInvokedOnce && !pending && setFormDataModified(false);
-  }, [pending]);
+  }, [pending, submitInvokedOnce, setFormDataModified]);
 
   return (
     <>
