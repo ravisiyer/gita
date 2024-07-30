@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useFormStatus } from "react-dom";
+// import { useFormStatus } from "react-dom";
 import { allGitaLanguages } from "../alllanguages";
 import { createLanguageIdsCookie } from "../lib/actions";
 import { getCookie } from "cookies-next";
@@ -10,6 +10,7 @@ function Page() {
   const [checkedState, setCheckedState] = useState(
     new Array(allGitaLanguages.length).fill(false)
   );
+  const [formDataModified, setFormDataModified] = useState(false);
 
   useEffect(() => {
     // let initialCheckedLanguageIds: boolean[] = [];
@@ -44,6 +45,7 @@ function Page() {
       index === position ? !item : item
     );
     setCheckedState(updatedCheckedState);
+    setFormDataModified(true);
   };
 
   return (
@@ -77,7 +79,9 @@ function Page() {
           btnLabel="Save settings"
           TWclasses="px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
           // TWclasses="px-1 ml-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
-          checkedState={checkedState}
+          // checkedState={checkedState}
+          formDataModified={formDataModified}
+          setFormDataModified={setFormDataModified}
           submitSaveMsg="Settings saved."
         />
         {/* <input
