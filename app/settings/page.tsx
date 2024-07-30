@@ -1,15 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useFormStatus } from "react-dom";
 import { allGitaLanguages } from "../alllanguages";
 import { createLanguageIdsCookie } from "../lib/actions";
 import { getCookie } from "cookies-next";
+import { SubmitButton } from "./submit-button";
 function Page() {
   const [checkedState, setCheckedState] = useState(
     new Array(allGitaLanguages.length).fill(false)
   );
 
   useEffect(() => {
+    // let initialCheckedLanguageIds: boolean[] = [];
     let initialCheckedLanguageIds: boolean[] = new Array(
       allGitaLanguages.length
     ).fill(false);
@@ -19,13 +22,18 @@ function Page() {
         tmp?.toString() ?? ""
       );
       allGitaLanguages.map(({ id, language }, index) => {
-        if (
-          id?.toString &&
-          initialSelectedLanguageIds.includes(id?.toString())
-        ) {
-          initialCheckedLanguageIds[index] = true;
-        }
+        initialCheckedLanguageIds[index] = id?.toString
+          ? initialSelectedLanguageIds.includes(id?.toString())
+          : false;
       });
+      // allGitaLanguages.map(({ id, language }, index) => {
+      //   if (
+      //     id?.toString &&
+      //     initialSelectedLanguageIds.includes(id?.toString())
+      //   ) {
+      //     initialCheckedLanguageIds[index] = true;
+      //   }
+      // });
     }
     console.log(initialCheckedLanguageIds);
     setCheckedState(initialCheckedLanguageIds);
@@ -40,9 +48,12 @@ function Page() {
 
   return (
     <div className="px-4 pb-4">
-      <p className="text-lg">Settings - Client component</p>
+      <h2 className="text-2xl">Settings</h2>
       <form className="my-4" action={createLanguageIdsCookie}>
-        <ul>
+        <h4 className="text-lg">
+          Select languages for translations and commentaries
+        </h4>
+        <ul className="mt-4">
           {allGitaLanguages.map(({ id, language }, index) => {
             return (
               <li key={index}>
@@ -62,11 +73,19 @@ function Page() {
             );
           })}
         </ul>
-        <input
-          type="submit"
-          value="Set & Go to 1:1"
-          className="px-1 ml-1 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
+        <SubmitButton
+          btnLabel="Save settings"
+          TWclasses="px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
+          // TWclasses="px-1 ml-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
+          checkedState={checkedState}
+          submitSaveMsg="Settings saved."
         />
+        {/* <input
+          type="submit"
+          value="Set"
+          // value="Set & Go to 1:1"
+          className="px-1 ml-1 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
+        /> */}
       </form>
     </div>
   );

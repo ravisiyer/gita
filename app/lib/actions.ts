@@ -1,7 +1,8 @@
 "use server";
 import { cookies } from "next/headers";
 import { allGitaLanguages } from "../alllanguages";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
+import { setTimeout } from "timers/promises";
 
 export async function createLanguageIdsCookie(formData: FormData) {
   let selectedLanguageIds = Array(0);
@@ -12,5 +13,6 @@ export async function createLanguageIdsCookie(formData: FormData) {
   }
   console.log(`selectedLanguageIds: ${selectedLanguageIds}`);
   cookies().set("selectedLanguageIds", JSON.stringify(selectedLanguageIds));
-  redirect("/verse/1");
+  await setTimeout(2000);
+  // redirect("/verse/1");
 }
