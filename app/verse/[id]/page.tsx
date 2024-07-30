@@ -10,6 +10,8 @@ import {
   getValNumericVerseId,
 } from "@/app/lib/util";
 import { GitaVerse } from "@/app/lib/gqltypes-d";
+import { cookies } from "next/headers";
+import { DEFAULT_LANGUAGE_ID } from "@/app/constants";
 
 export async function generateMetadata({
   params,
@@ -33,23 +35,65 @@ async function Page({ params }: { params: { id: string } }) {
 
   let data = await getVerse(verseId);
   let gitaVerse: GitaVerse = data.gitaVerse;
+  const cookieStore = cookies();
+  const tmp = cookieStore.get("selectedLanguageIds")?.value;
+  const selectedLanguageIds = tmp ? JSON.parse(tmp) : [];
+  if (!selectedLanguageIds.length) {
+    selectedLanguageIds.push(DEFAULT_LANGUAGE_ID); // Default if no languages in selected Languages
+  }
+  console.log(`selectedLanguageIds: ${selectedLanguageIds}`);
 
-  const numericChapterNumber = Number(gitaVerse.chapterNumber);
+  function filterVerseByLanguageIds() {
+    //Deep copy
+    const filteredGitaVerse = JSON.parse(JSON.stringify(gitaVerse));
+    let i = filteredGitaVerse.gitaTranslationsByVerseId.nodes.length;
+    while (i--) {
+      if (
+        !selectedLanguageIds.includes(
+          filteredGitaVerse.gitaTranslationsByVerseId.nodes[
+            i
+          ]?.languageId.toString()
+        )
+      ) {
+        filteredGitaVerse.gitaTranslationsByVerseId.nodes.splice(i, 1);
+      }
+    }
+    i = filteredGitaVerse.gitaCommentariesByVerseId.nodes.length;
+    while (i--) {
+      if (
+        !selectedLanguageIds.includes(
+          filteredGitaVerse.gitaCommentariesByVerseId.nodes[
+            i
+          ]?.languageId.toString()
+        )
+      ) {
+        filteredGitaVerse.gitaCommentariesByVerseId.nodes.splice(i, 1);
+      }
+    }
+    return filteredGitaVerse;
+  }
+
+  let displayGitaVerse = gitaVerse;
+  if (selectedLanguageIds?.length) {
+    displayGitaVerse = filterVerseByLanguageIds();
+  }
+
+  // const numericChapterNumber = Number(displayGitaVerse.chapterNumber);
   return (
     <div>
       <Suspense fallback={`Loading ...`}>
         <h3 className="text-2xl font-bold text-center mt-2">
-          {`Chapter ${gitaVerse.chapterNumber}, Verse ${gitaVerse.verseNumber}`}
+          {`Chapter ${displayGitaVerse.chapterNumber}, Verse ${displayGitaVerse.verseNumber}`}
         </h3>
         <h4 className="my-4 text-xl font-bold">Text</h4>
-        <p className={`my-4 text-3xl leading-10`}>{gitaVerse.text}</p>
+        <p className={`my-4 text-3xl leading-10`}>{displayGitaVerse.text}</p>
         <h4 className="my-4 text-xl font-bold">Transliteration</h4>
-        <p className="my-4 text-lg ">{gitaVerse.transliteration}</p>
+        <p className="my-4 text-lg ">{displayGitaVerse.transliteration}</p>
         <h4 className="my-4 text-xl font-bold">Word Meanings</h4>
-        <p className="my-4 text-lg ">{gitaVerse.wordMeanings}</p>
+        <p className="my-4 text-lg ">{displayGitaVerse.wordMeanings}</p>
         <hr className="border border-gray-400" />
         <h4 className="my-4 text-xl font-bold">Translations</h4>
-        {gitaVerse.gitaTranslationsByVerseId.nodes.map((translation) => (
+        {displayGitaVerse.gitaTranslationsByVerseId.nodes.map((translation) => (
           <div key={translation!.authorId}>
             <p className="text-lg font-bold italic">
               In {capitalizeFirstLetter(translation!.language!)} by{" "}
@@ -68,7 +112,7 @@ async function Page({ params }: { params: { id: string } }) {
             </Link>
           </span>
         </div>
-        {gitaVerse.gitaCommentariesByVerseId.nodes.map((commentary) => (
+        {displayGitaVerse.gitaCommentariesByVerseId.nodes.map((commentary) => (
           <div key={commentary!.authorId}>
             <p className="text-lg font-bold italic">
               In {capitalizeFirstLetter(commentary!.language!)} by{" "}

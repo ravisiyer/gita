@@ -28,3 +28,5 @@ export const NUMBER_OF_VERSES_IN_CHAPTERS = [
   28, //Chapter 17
   78, //Chapter 18, index 17
 ];
+
+export const DEFAULT_LANGUAGE_ID = "1";

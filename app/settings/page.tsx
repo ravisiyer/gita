@@ -46,7 +46,7 @@ function Page() {
       <h2 className="text-2xl">Settings</h2>
       <form className="my-4" action={createLanguageIdsCookie}>
         <h4 className="text-lg">
-          Select languages for translations and commentaries
+          Select languages for translations and commentaries in Verse page
         </h4>
         <ul className="mt-4">
           {allGitaLanguages.map(({ id, language }, index) => {
@@ -63,7 +63,10 @@ function Page() {
                     className="ml-4 w-8"
                   />
                   <label htmlFor={`custom-input-${index}`}>
-                    {capitalizeFirstLetter(language!)}
+                    {capitalizeFirstLetter(language!) +
+                      (index
+                        ? ""
+                        : " - Default language if no language is selected")}
                   </label>
                 </div>
               </li>
