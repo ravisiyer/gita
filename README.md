@@ -1,3 +1,9 @@
+**README update for Version 1.1**
+
+This version adds to earlier [version 1.0](https://github.com/ravisiyer/gita/releases/tag/v1.0), the feature of user selecting the languages of translations and commentaries in verse page through a 'Settings' page.
+
+**README of [Version 1.0](https://github.com/ravisiyer/gita/releases/tag/v1.0)**
+
 This Gita web app has been developed on top of [Very Simple Gita](https://github.com/ravisiyer/verysimplegita) which is a very simple but functional, open-source freeware, Bhagavad Gita web app.
 
 I have changed the User Interface (UI) of this app to a regular web app UI. But, from a source code point of view, it no longer is a very simple Gita app. Students and other learners may want to first go through the source code of Very Simple Gita app before going through this app's source code.

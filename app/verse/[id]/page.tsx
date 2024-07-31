@@ -78,7 +78,6 @@ async function Page({ params }: { params: { id: string } }) {
     displayGitaVerse = filterVerseByLanguageIds();
   }
 
-  // const numericChapterNumber = Number(displayGitaVerse.chapterNumber);
   return (
     <div>
       <Suspense fallback={`Loading ...`}>

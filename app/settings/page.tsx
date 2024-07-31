@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import { allGitaLanguages } from "../alllanguages";
 import { createLanguageIdsCookie } from "../lib/actions";
 import { getCookie } from "cookies-next";
-import { SubmitButton } from "./submit-button";
+import { SubmitButton } from "../ui/submit-button";
 import { capitalizeFirstLetter } from "../lib/util";
-import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
 function Page() {
   const [checkedState, setCheckedState] = useState(
@@ -75,14 +75,12 @@ function Page() {
             </p>
             <div className="flex flex-col sm:flex-row sm:gap-4">
               <button
-                // className="rounded-md bg-black border border-white p-2 text-white"
                 className="w-24 block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
                 onClick={handleCancel}
               >
                 Cancel
               </button>
               <button
-                // className="rounded-md bg-black border border-white p-2 text-white"
                 className="w-60 block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
                 onClick={handleForcedBack}
               >
