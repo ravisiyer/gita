@@ -84,7 +84,7 @@ function Page() {
         </a>
         .
       </p>
-      <p className="my-4">
+      <p className="mt-4">
         Web app version: After 1.0 and in-progress, Date: 29th July 2024
         <br />
         Web app author: Ravi S. Iyer
