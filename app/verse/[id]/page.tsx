@@ -12,6 +12,7 @@ import {
 import { GitaVerse } from "@/app/lib/gqltypes-d";
 import { cookies } from "next/headers";
 import { DEFAULT_LANGUAGE_ID } from "@/app/constants";
+import { IoMdSettings } from "react-icons/io";
 
 export async function generateMetadata({
   params,
@@ -90,6 +91,15 @@ async function Page({ params }: { params: { id: string } }) {
         <p className="my-4 text-lg ">{displayGitaVerse.transliteration}</p>
         <h4 className="my-4 text-xl font-bold">Word Meanings</h4>
         <p className="my-4 text-lg ">{displayGitaVerse.wordMeanings}</p>
+        <hr className="border border-gray-400" />
+        <p className="my-4 text-orange-800">
+          Note: To change languages of translations and commentaries below, go
+          to{" "}
+          <Link href="/settings" className="underline">
+            <IoMdSettings className="size-5 inline" />
+            Settings
+          </Link>
+        </p>
         <hr className="border border-gray-400" />
         <h4 className="my-4 text-xl font-bold">Translations</h4>
         {displayGitaVerse.gitaTranslationsByVerseId.nodes.map((translation) => (
