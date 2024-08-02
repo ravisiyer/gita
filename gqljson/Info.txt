@@ -1,0 +1,10 @@
+I am using few hard-coded query results for simplicity of Settings client component code.
+Executing GraphQL queries on server is quite straightforward coding-wise but on client side
+the code seems to be more involved (I have not done that so far.) So for data that may
+change very infrequently, I have gone for hard-coded query results option.
+This directory contains all the small console based programs that use data queries to
+get the data and then save it as json files in jsondata directory.
+This json data is used by few .ts files in main app that define constants with the json
+data and these constants are imported by parts of the app and used.
+
+Later I will consider using client side Apollo client code to pick up data from GraphQL source directly.
