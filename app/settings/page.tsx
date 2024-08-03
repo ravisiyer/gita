@@ -7,71 +7,7 @@ import { getCookie } from "cookies-next";
 import { SubmitButton } from "../ui/submit-button";
 import { capitalizeFirstLetter } from "../lib/util";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { allAuthorsByLanguageId } from "../allauthorsbylanguageid";
-import { GitaAuthor } from "../lib/gqltypes-d";
-// import { match } from "assert";
-
-function ListAuthors({
-  languageId,
-}: {
-  languageId: GitaAuthor["id"] | undefined;
-}) {
-  let numCommentators = 0;
-  let numTranslators = 0;
-  let commentatorNames = Array(0);
-  let translatorNames = Array(0);
-  const matchedEntry = allAuthorsByLanguageId.find((entry) => {
-    return entry.languageId === languageId;
-  });
-  matchedEntry &&
-    matchedEntry.allGitaAuthorsForLanguageId.map((gitaAuthor) => {
-      if (gitaAuthor?.gitaCommentariesByAuthorId?.totalCount) {
-        commentatorNames.push(gitaAuthor.name);
-        numCommentators++;
-        // console.log(`Commentary by ${gitaAuthor.name}`);
-      }
-      if (gitaAuthor?.gitaTranslationsByAuthorId?.totalCount) {
-        translatorNames.push(gitaAuthor.name);
-        numTranslators++;
-        // console.log(`Translation by ${gitaAuthor.name}`);
-      }
-    });
-  return (
-    <div className="text-base font-normal">
-      {/* Hardcoded check for Sanskrit below; Change later to function without hardcoding. */}
-      {languageId !== 3 && (
-        <>
-          {/* <p className="ml-12">{`Number of Translators: ${numTranslators}`}</p> */}
-          {translatorNames.length && (
-            <p className="ml-12 font-bold">Translators</p>
-          )}
-          {translatorNames.map((name, index) => {
-            return (
-              <p className="ml-14 line-clamp-1" key={`Transl${index}`}>
-                {/* Below code could be made an ordered list. But I wanted to check this out. */}
-                <span className="min-w-6 inline-block">{`${index + 1}. `}</span>
-                {`${name}`}
-              </p>
-            );
-          })}
-        </>
-      )}
-      {/* <p className="ml-12">{`Number of Commentators: ${numCommentators}`}</p> */}
-      {commentatorNames.length && (
-        <p className="ml-12 font-bold">Commentators</p>
-      )}
-      {commentatorNames.map((name, index) => {
-        return (
-          <p className="ml-14 line-clamp-1" key={`Comment${index}`}>
-            {/* Below code could be made an ordered list. But I wanted to check this out. */}
-            <span className="min-w-6 inline-block">{`${index + 1}. `}</span>
-            {`${name}`}
-          </p>
-        );
-      })}
-    </div>
-  );
-}
+import ListAuthors from "../ui/listauthors";
 
 function Page() {
   const [checkedState, setCheckedState] = useState(
@@ -161,7 +97,6 @@ function Page() {
           Select languages for translations and commentaries in Verse page
         </h4>
         <ul className="mt-4">
-          {/* <div className="truncate ..."> */}
           {allGitaLanguages.map(({ id, language }, index) => {
             return (
               <li key={index} className="mb-2">
@@ -174,7 +109,6 @@ function Page() {
                     checked={checkedState[index]}
                     onChange={() => handleOnChange(index)}
                     className="ml-2"
-                    // className="ml-4 w-8"
                   />
                   <label htmlFor={`custom-input-${index}`} className="ml-2">
                     {capitalizeFirstLetter(language!)}{" "}
