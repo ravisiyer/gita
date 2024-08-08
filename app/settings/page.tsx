@@ -41,7 +41,8 @@ type authorsForLanguageT = {
 };
 
 function setupAuthorsForAllLanguages() {
-  let authorsForAllLanguages: authorsForLanguageT[] | undefined = [];
+  // let authorsForAllLanguages: authorsForLanguageT[] | undefined = [];
+  let authorsForAllLanguages: authorsForLanguageT[] = [];
   allAuthorsByLanguageId.map((authorByLanguageId, index) => {
     let numCommentators = 0;
     let numTranslators = 0;
@@ -76,10 +77,10 @@ function Page() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   let isLanguagesDataValid = validateLanguagesData();
-  let authorsForAllLanguages;
+  let authorsForAllLanguages: authorsForLanguageT[] = [];
   if (isLanguagesDataValid) {
     authorsForAllLanguages = setupAuthorsForAllLanguages();
-    if (authorsForAllLanguages === undefined) {
+    if (authorsForAllLanguages.length === 0) {
       isLanguagesDataValid = false;
     }
   }
@@ -97,42 +98,36 @@ function Page() {
   }
 
   const [selectedTranslators0, setSelectedTranslators0] = useState(
-    authorsForAllLanguages === undefined ||
-      authorsForAllLanguages[0] === undefined
+    authorsForAllLanguages[0] === undefined
       ? []
       : authorsForAllLanguages[0].translatorAuthors
   );
   const [selectedCommentators0, setSelectedCommentators0] = useState(
-    authorsForAllLanguages === undefined ||
-      authorsForAllLanguages[0] === undefined
+    authorsForAllLanguages[0] === undefined
       ? []
       : authorsForAllLanguages[0].commentatorAuthors
   );
   const [language0Selected, setLanguage0Selected] = useState(true);
 
   const [selectedTranslators1, setSelectedTranslators1] = useState(
-    authorsForAllLanguages === undefined ||
-      authorsForAllLanguages[1] === undefined
+    authorsForAllLanguages[1] === undefined
       ? []
       : authorsForAllLanguages[1].translatorAuthors
   );
   const [selectedCommentators1, setSelectedCommentators1] = useState(
-    authorsForAllLanguages === undefined ||
-      authorsForAllLanguages[1] === undefined
+    authorsForAllLanguages[1] === undefined
       ? []
       : authorsForAllLanguages[1].commentatorAuthors
   );
   const [language1Selected, setLanguage1Selected] = useState(true);
 
   const [selectedTranslators2, setSelectedTranslators2] = useState(
-    authorsForAllLanguages === undefined ||
-      authorsForAllLanguages[2] === undefined
+    authorsForAllLanguages[2] === undefined
       ? []
       : authorsForAllLanguages[2].translatorAuthors
   );
   const [selectedCommentators2, setSelectedCommentators2] = useState(
-    authorsForAllLanguages === undefined ||
-      authorsForAllLanguages[2] === undefined
+    authorsForAllLanguages[2] === undefined
       ? []
       : authorsForAllLanguages[2].commentatorAuthors
   );
