@@ -107,7 +107,7 @@ function Page() {
       ? []
       : authorsForAllLanguages[0].commentatorAuthors
   );
-  const [language0Selected, setLanguage0Selected] = useState(true);
+  const [language0Checked, setLanguage0Checked] = useState(true);
 
   const [selectedTranslators1, setSelectedTranslators1] = useState(
     authorsForAllLanguages[1] === undefined
@@ -119,7 +119,7 @@ function Page() {
       ? []
       : authorsForAllLanguages[1].commentatorAuthors
   );
-  const [language1Selected, setLanguage1Selected] = useState(true);
+  const [language1Checked, setLanguage1Checked] = useState(true);
 
   const [selectedTranslators2, setSelectedTranslators2] = useState(
     authorsForAllLanguages[2] === undefined
@@ -131,13 +131,13 @@ function Page() {
       ? []
       : authorsForAllLanguages[2].commentatorAuthors
   );
-  const [language2Selected, setLanguage2Selected] = useState(true);
+  const [language2Checked, setLanguage2Checked] = useState(true);
 
   let allLanguageSelectionsData = [];
   allLanguageSelectionsData[0] = {
     authorsForLanguage: authorsForAllLanguages[0],
-    languageSelected: language0Selected,
-    setLanguageSelected: setLanguage0Selected,
+    languageChecked: language0Checked,
+    setLanguageChecked: setLanguage0Checked,
     selectedTranslators: selectedTranslators0,
     setSelectedTranslators: setSelectedTranslators0,
     selectedCommentators: selectedCommentators0,
@@ -145,8 +145,8 @@ function Page() {
   };
   allLanguageSelectionsData[1] = {
     authorsForLanguage: authorsForAllLanguages[1],
-    languageSelected: language1Selected,
-    setLanguageSelected: setLanguage1Selected,
+    languageChecked: language1Checked,
+    setLanguageChecked: setLanguage1Checked,
     selectedTranslators: selectedTranslators1,
     setSelectedTranslators: setSelectedTranslators1,
     selectedCommentators: selectedCommentators1,
@@ -154,8 +154,8 @@ function Page() {
   };
   allLanguageSelectionsData[2] = {
     authorsForLanguage: authorsForAllLanguages[2],
-    languageSelected: language2Selected,
-    setLanguageSelected: setLanguage2Selected,
+    languageChecked: language2Checked,
+    setLanguageChecked: setLanguage2Checked,
     selectedTranslators: selectedTranslators2,
     setSelectedTranslators: setSelectedTranslators2,
     selectedCommentators: selectedCommentators2,
@@ -254,10 +254,8 @@ function Page() {
                   languageName={
                     languageSelectionData.authorsForLanguage.languageName
                   }
-                  languageSelected={languageSelectionData.languageSelected}
-                  setLanguageSelected={
-                    languageSelectionData.setLanguageSelected
-                  }
+                  languageChecked={languageSelectionData.languageChecked}
+                  setLanguageChecked={languageSelectionData.setLanguageChecked}
                   allTranslators={
                     languageSelectionData.authorsForLanguage.translatorAuthors
                   }

@@ -9,30 +9,51 @@ import {
   Label,
 } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
 
 export function AuthorList({
   authorsLabel,
   allAuthors,
   selectedAuthors,
   setSelectedAuthors,
+  disabled = false,
 }) {
   function handleSelectAllChange(value) {
     value ? setSelectedAuthors([...allAuthors]) : setSelectedAuthors([]);
+    setSelectAll(value);
   }
-  // const selectAll = false;
+  function handleListboxChange(value) {
+    value.length === allAuthors.length
+      ? setSelectAll(true)
+      : setSelectAll(false);
+    setSelectedAuthors(value);
+  }
+  // function handleSelectAllClick(e) {
+  //   e.preventDefault();
+  //   setSelectedAuthors([...allAuthors]);
+  // }
+  // function handleClearAllClick(e) {
+  //   e.preventDefault();
+  //   setSelectedAuthors([]);
+  // }
+
+  const [selectAll, setSelectAll] = useState(
+    selectedAuthors.length === allAuthors.length
+  );
+  // const [selectAll, setSelectAll] = useState(false);
 
   return (
-    <Listbox value={selectedAuthors} onChange={setSelectedAuthors} multiple>
+    <Listbox value={selectedAuthors} onChange={handleListboxChange} multiple>
       <ListboxButton className="mb-2">{authorsLabel}</ListboxButton>
       <div>
-        <Field className="flex items-center gap-2 ">
+        <Field disabled={disabled} className="flex items-center gap-2 ">
           <Checkbox
-            defaultChecked={selectedAuthors.length === allAuthors.length}
-            // defaultChecked={selectAll}
+            // defaultChecked={selectedAuthors.length === allAuthors.length}
+            checked={selectAll}
+            // onChange={setSelectAll}
             onChange={handleSelectAllChange}
-            className="group block size-4 rounded border border-black data-[checked]:bg-blue-500"
+            className="group block size-4 rounded border border-black data-[checked]:bg-blue-500 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[checked]:data-[disabled]:bg-gray-500"
           >
-            {/* Checkmark icon */}
             <svg
               className="stroke-black opacity-0 group-data-[checked]:opacity-100"
               viewBox="0 0 14 14"
@@ -46,7 +67,7 @@ export function AuthorList({
               />
             </svg>
           </Checkbox>
-          <Label>All</Label>
+          <Label className="data-[disabled]:opacity-50">All</Label>
         </Field>
       </div>
       {
@@ -55,8 +76,9 @@ export function AuthorList({
             {allAuthors.map((author) => (
               <ListboxOption
                 key={author.id}
+                disabled={disabled}
                 value={author}
-                className="group flex data-[selected]:bg-orange-400"
+                className="group flex data-[selected]:bg-orange-400 data-[disabled]:opacity-50"
               >
                 <CheckIcon className="invisible size-4  group-data-[selected]:visible" />
                 {author.name}

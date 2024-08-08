@@ -1,13 +1,12 @@
 "use client";
 import { Checkbox, Field, Label } from "@headlessui/react";
-// import { useState } from "react";
 import AuthorList from "./AuthorList";
 
 function LanguageSelections({
   languageId,
   languageName,
-  languageSelected,
-  setLanguageSelected,
+  languageChecked,
+  setLanguageChecked,
   allTranslators,
   selectedTranslators,
   setSelectedTranslators,
@@ -19,15 +18,13 @@ function LanguageSelections({
     <div className="border border-black p-2">
       <Field className="flex items-center gap-2 ">
         <Checkbox
-          checked={languageSelected}
-          onChange={setLanguageSelected}
+          checked={languageChecked}
+          onChange={setLanguageChecked}
           className="group block size-4 rounded border border-black data-[checked]:bg-blue-500"
-          // className="group block size-4 rounded border bg-white data-[checked]:bg-blue-500"
         >
           {/* Checkmark icon */}
           <svg
             className="stroke-black opacity-0 group-data-[checked]:opacity-100"
-            //   className="stroke-white opacity-0 group-data-[checked]:opacity-100"
             viewBox="0 0 14 14"
             fill="none"
           >
@@ -40,7 +37,6 @@ function LanguageSelections({
           </svg>
         </Checkbox>
         <Label>{`${languageName}`}</Label>
-        {/* <Label>{`${languageName} Language`}</Label> */}
       </Field>
       <div className="flex flex-col sm:flex-row sm:gap-4">
         {allTranslators.length ? (
@@ -50,6 +46,7 @@ function LanguageSelections({
               allAuthors={allTranslators}
               selectedAuthors={selectedTranslators}
               setSelectedAuthors={setSelectedTranslators}
+              disabled={!languageChecked}
             />
             <hr className="border border-black w-60 my-2 sm:hidden" />
           </div>
@@ -61,6 +58,7 @@ function LanguageSelections({
               allAuthors={allCommentators}
               selectedAuthors={selectedCommentators}
               setSelectedAuthors={setSelectedCommentators}
+              disabled={!languageChecked}
             />
           </div>
         ) : null}
