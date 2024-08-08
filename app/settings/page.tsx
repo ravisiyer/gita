@@ -7,11 +7,9 @@ import { getCookie } from "cookies-next";
 import { SubmitButton } from "../ui/submit-button";
 import { capitalizeFirstLetter } from "../lib/util";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import ListAuthors from "../ui/listauthors";
 import LanguageSelections from "../ui/LanguageSelections";
 import { allAuthorsByLanguageId } from "../allauthorsbylanguageid";
 import { GitaAuthor } from "../lib/gqltypes-d";
-import { Island_Moments } from "next/font/google";
 
 function validateLanguagesData() {
   const MAX_LANGUAGES_SUPPORTED = 3; // Program code limitation as of now
@@ -40,8 +38,6 @@ type authorsForLanguageT = {
   languageName: string;
   commentatorAuthors: Partial<GitaAuthor>[];
   translatorAuthors: Partial<GitaAuthor>[];
-  // commentatorNames: string[];
-  // translatorNames: string[];
 };
 
 function setupAuthorsForAllLanguages() {
@@ -51,27 +47,21 @@ function setupAuthorsForAllLanguages() {
     let numTranslators = 0;
     let commentatorAuthors: Partial<GitaAuthor>[] = Array(0);
     let translatorAuthors: Partial<GitaAuthor>[] = Array(0);
-    // let commentatorNames = Array(0);
-    // let translatorNames = Array(0);
     authorByLanguageId.allGitaAuthorsForLanguageId.map((gitaAuthor) => {
       if (gitaAuthor?.gitaCommentariesByAuthorId?.totalCount) {
-        // commentatorNames.push(gitaAuthor.name);
         commentatorAuthors.push({ id: gitaAuthor.id, name: gitaAuthor.name });
         numCommentators++;
       }
       if (gitaAuthor?.gitaTranslationsByAuthorId?.totalCount) {
-        // translatorNames.push(gitaAuthor.name);
         translatorAuthors.push({ id: gitaAuthor.id, name: gitaAuthor.name });
         numTranslators++;
       }
     });
     let authorsForLanguage: authorsForLanguageT = {
       languageId: authorByLanguageId.languageId,
-      languageName: allGitaLanguages[index].language!,
+      languageName: capitalizeFirstLetter(allGitaLanguages[index].language!),
       commentatorAuthors,
       translatorAuthors,
-      // commentatorNames,
-      // translatorNames,
     };
     authorsForAllLanguages.push(authorsForLanguage);
   });
@@ -110,8 +100,7 @@ function Page() {
     authorsForAllLanguages === undefined ||
       authorsForAllLanguages[0] === undefined
       ? []
-      : // : authorsForAllLanguages[0].translatorNames
-        authorsForAllLanguages[0].translatorAuthors
+      : authorsForAllLanguages[0].translatorAuthors
   );
   const [selectedCommentators0, setSelectedCommentators0] = useState(
     authorsForAllLanguages === undefined ||
@@ -221,7 +210,7 @@ function Page() {
     setIsDialogOpen(false);
   }
 
-  return isLanguagesDataValid ? (
+  return (
     <div className="px-4 pb-4">
       <Dialog
         open={isDialogOpen}
@@ -255,12 +244,11 @@ function Page() {
       </Dialog>
       <h2 className="text-2xl">Settings</h2>
       <form className="my-4" action={createLanguageIdsCookie}>
-        <h4 className="text-lg">
-          Select languages for translations and commentaries in Verse page
+        <h4 className="text-lg mb-4">
+          Select languages and associated translators and commentators shown in
+          Verse page
         </h4>
-        {/* <div className="flex flex-col lg:flex-row lg:gap-8"> */}
-        <div className="flex justify-start flex-wrap gap-x-8">
-          {/* <div className="flex justify-center flex-wrap gap-x-8"> */}
+        <div className="flex justify-start flex-wrap gap-x-4 gap-y-4">
           {allLanguageSelectionsData.map((languageSelectionData, index) => {
             return (
               <div key={index}>
@@ -294,46 +282,12 @@ function Page() {
                     languageSelectionData.setSelectedCommentators
                   }
                 />
-                <hr className="border border-black w-60 my-2 lg:hidden" />
+                {/* <hr className="border border-black w-60 my-2 lg:hidden" /> */}
               </div>
             );
           })}
         </div>
 
-        {/* <ul className="mt-4">
-          {allGitaLanguages.map(({ id, language }, index) => {
-            return (
-              <li key={index} className="mb-2">
-                <div className="text-lg font-bold">
-                  <input
-                    type="checkbox"
-                    id={`custom-input-${index}`}
-                    name={`custom-input-${index}`}
-                    value={id?.toString()}
-                    checked={checkedState[index]}
-                    onChange={() => handleOnChange(index)}
-                    className="ml-2"
-                  />
-                  <label htmlFor={`custom-input-${index}`} className="ml-2">
-                    {capitalizeFirstLetter(language!)}{" "}
-                  </label>
-                  {index ? (
-                    ""
-                  ) : (
-                    <>
-                      <span> - Default language</span>
-                      <span className="hidden sm:inline">
-                        {" "}
-                        if no language is selected
-                      </span>
-                    </>
-                  )}
-                  <ListAuthors languageId={id} />
-                </div>
-              </li>
-            );
-          })}
-        </ul> */}
         <SubmitButton
           btnLabel="Save settings"
           TWclasses="px-1 mt-2 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
@@ -348,13 +302,6 @@ function Page() {
           Back
         </button>
       </form>
-    </div>
-  ) : (
-    <div className="px-4 pb-4">
-      <p>
-        Sorry! Web app. error! Languages data is not valid. This page cannot be
-        shown.
-      </p>
     </div>
   );
 }

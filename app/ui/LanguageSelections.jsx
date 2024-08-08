@@ -16,8 +16,8 @@ function LanguageSelections({
   setSelectedCommentators,
 }) {
   return (
-    <div>
-      <Field className="flex items-center gap-2">
+    <div className="border border-black p-2">
+      <Field className="flex items-center gap-2 ">
         <Checkbox
           checked={languageSelected}
           onChange={setLanguageSelected}
@@ -39,26 +39,31 @@ function LanguageSelections({
             />
           </svg>
         </Checkbox>
-        <Label>{`${languageName} Language`}</Label>
+        <Label>{`${languageName}`}</Label>
+        {/* <Label>{`${languageName} Language`}</Label> */}
       </Field>
       <div className="flex flex-col sm:flex-row sm:gap-4">
-        <div>
-          <AuthorList
-            authorsLabel={"Translators"}
-            allAuthors={allTranslators}
-            selectedAuthors={selectedTranslators}
-            setSelectedAuthors={setSelectedTranslators}
-          />
-          <hr className="border border-black w-60 my-2 sm:hidden" />
-        </div>
-        <div>
-          <AuthorList
-            authorsLabel={"Commentators"}
-            allAuthors={allCommentators}
-            selectedAuthors={selectedCommentators}
-            setSelectedAuthors={setSelectedCommentators}
-          />
-        </div>
+        {allTranslators.length ? (
+          <div>
+            <AuthorList
+              authorsLabel={"Translators"}
+              allAuthors={allTranslators}
+              selectedAuthors={selectedTranslators}
+              setSelectedAuthors={setSelectedTranslators}
+            />
+            <hr className="border border-black w-60 my-2 sm:hidden" />
+          </div>
+        ) : null}
+        {allCommentators.length ? (
+          <div>
+            <AuthorList
+              authorsLabel={"Commentators"}
+              allAuthors={allCommentators}
+              selectedAuthors={selectedCommentators}
+              setSelectedAuthors={setSelectedCommentators}
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );
