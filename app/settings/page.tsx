@@ -88,7 +88,8 @@ function Page() {
   // env. does not complain but Vercel deployment complains with error:
   // "105:59  Error: React Hook "useState" is called conditionally. React Hooks must be called in the exact
   // same order in every component render.  react-hooks/rules-of-hooks"
-  //
+  // Commenting out below if statement fixes the above Vercel build error and the deployed app seems to
+  // work (at least settings page works as expected)
   // if (!isLanguagesDataValid) {
   //   return (
   //     <div className="px-4 pb-4">
