@@ -84,17 +84,21 @@ function Page() {
     }
   }
 
-  // I can split this into two components but I want to know if this code works.
-  if (!isLanguagesDataValid) {
-    return (
-      <div className="px-4 pb-4">
-        <p>
-          Sorry! Web app. error! Languages data is not valid. This page cannot
-          be shown.
-        </p>
-      </div>
-    );
-  }
+  // I can split this into two components but I want to know if this code works. Next/React on PC in dev
+  // env. does not complain but Vercel deployment complains with error:
+  // "105:59  Error: React Hook "useState" is called conditionally. React Hooks must be called in the exact
+  // same order in every component render.  react-hooks/rules-of-hooks"
+  //
+  // if (!isLanguagesDataValid) {
+  //   return (
+  //     <div className="px-4 pb-4">
+  //       <p>
+  //         Sorry! Web app. error! Languages data is not valid. This page cannot
+  //         be shown.
+  //       </p>
+  //     </div>
+  //   );
+  // }
 
   // Below code is not great. I don't know how to create an array of useState variables in
   // React functional components, and so below code. Note that Headless UI ListBox when used
