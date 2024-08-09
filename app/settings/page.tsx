@@ -41,7 +41,6 @@ type authorsForLanguageT = {
 };
 
 function setupAuthorsForAllLanguages() {
-  // let authorsForAllLanguages: authorsForLanguageT[] | undefined = [];
   let authorsForAllLanguages: authorsForLanguageT[] = [];
   allAuthorsByLanguageId.map((authorByLanguageId, index) => {
     let numCommentators = 0;
@@ -70,9 +69,9 @@ function setupAuthorsForAllLanguages() {
 }
 
 function Page() {
-  const [checkedState, setCheckedState] = useState(
-    new Array(allGitaLanguages.length).fill(false)
-  );
+  // const [checkedState, setCheckedState] = useState(
+  //   new Array(allGitaLanguages.length).fill(false)
+  // );
   const [formDataModified, setFormDataModified] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -97,6 +96,12 @@ function Page() {
     );
   }
 
+  // Below code is not great. I don't know how to create an array of useState variables in
+  // React functional components, and so below code. Note that Headless UI ListBox when used
+  // in controlled component way (which is what we need for better UI handling),
+  // needs a state variable to be passed to it.
+  // Further note that useState variable holding an array is no problem. But we need an
+  // array of useState variables.
   const [selectedTranslators0, setSelectedTranslators0] = useState(
     authorsForAllLanguages[0] === undefined
       ? []
@@ -133,6 +138,11 @@ function Page() {
   );
   const [language2Checked, setLanguage2Checked] = useState(true);
 
+  // Below code sets up allLanguageSelectsionData array which we can then iterate through without
+  // having to refer to specific state variables like selectedTranslators0.
+  // Once again, the code is not great and the cause, as mentioned earlier, is that I don't know how to
+  // define an array of useState variables in React functional components.
+  //
   let allLanguageSelectionsData = [];
   allLanguageSelectionsData[0] = {
     authorsForLanguage: authorsForAllLanguages[0],
@@ -162,32 +172,32 @@ function Page() {
     setSelectedCommentators: setSelectedCommentators2,
   };
 
-  useEffect(() => {
-    let initialCheckedLanguageIds: boolean[] = new Array(
-      allGitaLanguages.length
-    ).fill(false);
-    const tmp = getCookie("selectedLanguageIds");
-    if (tmp) {
-      const initialSelectedLanguageIds: string[] = JSON.parse(
-        tmp?.toString() ?? ""
-      );
-      allGitaLanguages.map(({ id, language }, index) => {
-        initialCheckedLanguageIds[index] = id?.toString
-          ? initialSelectedLanguageIds.includes(id?.toString())
-          : false;
-      });
-    }
-    // console.log(initialCheckedLanguageIds);
-    setCheckedState(initialCheckedLanguageIds);
-  }, []);
+  // useEffect(() => {
+  //   let initialCheckedLanguageIds: boolean[] = new Array(
+  //     allGitaLanguages.length
+  //   ).fill(false);
+  //   const tmp = getCookie("selectedLanguageIds");
+  //   if (tmp) {
+  //     const initialSelectedLanguageIds: string[] = JSON.parse(
+  //       tmp?.toString() ?? ""
+  //     );
+  //     allGitaLanguages.map(({ id, language }, index) => {
+  //       initialCheckedLanguageIds[index] = id?.toString
+  //         ? initialSelectedLanguageIds.includes(id?.toString())
+  //         : false;
+  //     });
+  //   }
+  //   // console.log(initialCheckedLanguageIds);
+  //   setCheckedState(initialCheckedLanguageIds);
+  // }, []);
 
-  const handleOnChange = (position: number) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
-    );
-    setCheckedState(updatedCheckedState);
-    setFormDataModified(true);
-  };
+  // const handleOnChange = (position: number) => {
+  //   const updatedCheckedState = checkedState.map((item, index) =>
+  //     index === position ? !item : item
+  //   );
+  //   setCheckedState(updatedCheckedState);
+  //   setFormDataModified(true);
+  // };
 
   const router = useRouter();
 
@@ -275,7 +285,6 @@ function Page() {
                     languageSelectionData.setSelectedCommentators
                   }
                 />
-                {/* <hr className="border border-black w-60 my-2 lg:hidden" /> */}
               </div>
             );
           })}

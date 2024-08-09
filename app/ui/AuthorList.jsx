@@ -28,19 +28,9 @@ export function AuthorList({
       : setSelectAll(false);
     setSelectedAuthors(value);
   }
-  // function handleSelectAllClick(e) {
-  //   e.preventDefault();
-  //   setSelectedAuthors([...allAuthors]);
-  // }
-  // function handleClearAllClick(e) {
-  //   e.preventDefault();
-  //   setSelectedAuthors([]);
-  // }
-
   const [selectAll, setSelectAll] = useState(
     selectedAuthors.length === allAuthors.length
   );
-  // const [selectAll, setSelectAll] = useState(false);
 
   return (
     <Listbox value={selectedAuthors} onChange={handleListboxChange} multiple>
@@ -48,9 +38,7 @@ export function AuthorList({
       <div>
         <Field disabled={disabled} className="flex items-center gap-2 ">
           <Checkbox
-            // defaultChecked={selectedAuthors.length === allAuthors.length}
             checked={selectAll}
-            // onChange={setSelectAll}
             onChange={handleSelectAllChange}
             className="group block size-4 rounded border border-black data-[checked]:bg-blue-500 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[checked]:data-[disabled]:bg-gray-500"
           >
