@@ -16,25 +16,34 @@ export function AuthorList({
   allAuthors,
   selectedAuthors,
   setSelectedAuthors,
+  name,
   disabled = false,
+  setSelectionChanged = undefined,
 }) {
   function handleSelectAllChange(value) {
     value ? setSelectedAuthors([...allAuthors]) : setSelectedAuthors([]);
     setSelectAll(value);
+    setSelectionChanged && setSelectionChanged(true);
   }
   function handleListboxChange(value) {
     value.length === allAuthors.length
       ? setSelectAll(true)
       : setSelectAll(false);
     setSelectedAuthors(value);
+    setSelectionChanged && setSelectionChanged(true);
   }
   const [selectAll, setSelectAll] = useState(
     selectedAuthors.length === allAuthors.length
   );
 
   return (
-    <Listbox value={selectedAuthors} onChange={handleListboxChange} multiple>
-      <ListboxButton className="mb-2">{authorsLabel}</ListboxButton>
+    <Listbox
+      value={selectedAuthors}
+      onChange={handleListboxChange}
+      name={name}
+      multiple
+    >
+      <p className="text-lg">{authorsLabel}</p>
       <div>
         <Field disabled={disabled} className="flex items-center gap-2 ">
           <Checkbox

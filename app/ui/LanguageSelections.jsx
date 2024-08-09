@@ -7,19 +7,30 @@ function LanguageSelections({
   languageName,
   languageChecked,
   setLanguageChecked,
+  languageCheckBoxName,
   allTranslators,
   selectedTranslators,
   setSelectedTranslators,
+  translatorsListBoxName,
   allCommentators,
   selectedCommentators,
   setSelectedCommentators,
+  commentatorsListBoxName,
+  setSelectionChanged,
+  // setSelectionChanged = undefined,
 }) {
+  function handleLanguageCheckedChange(value) {
+    setLanguageChecked(value);
+    setSelectionChanged && setSelectionChanged(true);
+  }
   return (
     <div className="border border-black p-2">
       <Field className="flex items-center gap-2 ">
         <Checkbox
           checked={languageChecked}
-          onChange={setLanguageChecked}
+          onChange={handleLanguageCheckedChange}
+          name={languageCheckBoxName}
+          // onChange={setLanguageChecked}
           className="group block size-4 rounded border border-black data-[checked]:bg-blue-500"
         >
           {/* Checkmark icon */}
@@ -36,7 +47,7 @@ function LanguageSelections({
             />
           </svg>
         </Checkbox>
-        <Label>{`${languageName}`}</Label>
+        <Label className="text-2xl">{`${languageName}`}</Label>
       </Field>
       <div className="flex flex-col sm:flex-row sm:gap-4">
         {allTranslators.length ? (
@@ -46,7 +57,9 @@ function LanguageSelections({
               allAuthors={allTranslators}
               selectedAuthors={selectedTranslators}
               setSelectedAuthors={setSelectedTranslators}
+              name={translatorsListBoxName}
               disabled={!languageChecked}
+              setSelectionChanged={setSelectionChanged}
             />
             <hr className="border border-black w-60 my-2 sm:hidden" />
           </div>
@@ -58,7 +71,9 @@ function LanguageSelections({
               allAuthors={allCommentators}
               selectedAuthors={selectedCommentators}
               setSelectedAuthors={setSelectedCommentators}
+              name={commentatorsListBoxName}
               disabled={!languageChecked}
+              setSelectionChanged={setSelectionChanged}
             />
           </div>
         ) : null}

@@ -1,17 +1,14 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+// "use client";
 import { allGitaLanguages } from "../alllanguages";
-import { createLanguageIdsCookie } from "../lib/actions";
-import { getCookie } from "cookies-next";
-import { SubmitButton } from "../ui/submit-button";
 import { capitalizeFirstLetter } from "../lib/util";
-import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import LanguageSelections from "../ui/LanguageSelections";
 import { allAuthorsByLanguageId } from "../allauthorsbylanguageid";
 import { GitaAuthor } from "../lib/gqltypes-d";
+import { authorsForLanguageT } from "../lib/addltypes-d";
+
+import Settings from "../ui/settings";
 
 function validateLanguagesData() {
+  // return false; //For testing ... Test case works as error page is shown
   const MAX_LANGUAGES_SUPPORTED = 3; // Program code limitation as of now
   if (
     !allGitaLanguages.length ||
@@ -32,14 +29,26 @@ function validateLanguagesData() {
   });
   return true;
 }
-
-type authorsForLanguageT = {
-  languageId: number;
-  languageName: string;
-  commentatorAuthors: Partial<GitaAuthor>[];
-  translatorAuthors: Partial<GitaAuthor>[];
-};
-
+const selectedAuthorsForAllLanguages: Partial<authorsForLanguageT>[] = [
+  {
+    languageId: 1,
+    commentatorAuthors: [{ id: 16, name: "Swami Sivananda" }],
+    translatorAuthors: [
+      { id: 16, name: "Swami Sivananda" },
+      { id: 18, name: "Swami Adidevananda" },
+    ],
+  },
+  {
+    languageId: 2,
+    commentatorAuthors: [{ id: 1, name: "Swami Ramsukhdas" }],
+    translatorAuthors: [{ id: 1, name: "Swami Ramsukhdas" }],
+  },
+  {
+    languageId: 3,
+    commentatorAuthors: [],
+    translatorAuthors: [],
+  },
+];
 function setupAuthorsForAllLanguages() {
   let authorsForAllLanguages: authorsForLanguageT[] = [];
   allAuthorsByLanguageId.map((authorByLanguageId, index) => {
@@ -69,12 +78,6 @@ function setupAuthorsForAllLanguages() {
 }
 
 function Page() {
-  // const [checkedState, setCheckedState] = useState(
-  //   new Array(allGitaLanguages.length).fill(false)
-  // );
-  const [formDataModified, setFormDataModified] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
   let isLanguagesDataValid = validateLanguagesData();
   let authorsForAllLanguages: authorsForLanguageT[] = [];
   if (isLanguagesDataValid) {
@@ -84,231 +87,17 @@ function Page() {
     }
   }
 
-  // I can split this into two components but I want to know if this code works. Next/React on PC in dev
-  // env. does not complain but Vercel deployment complains with error:
-  // "105:59  Error: React Hook "useState" is called conditionally. React Hooks must be called in the exact
-  // same order in every component render.  react-hooks/rules-of-hooks"
-  // Commenting out below if statement fixes the above Vercel build error and the deployed app seems to
-  // work (at least settings page works as expected)
-  // if (!isLanguagesDataValid) {
-  //   return (
-  //     <div className="px-4 pb-4">
-  //       <p>
-  //         Sorry! Web app. error! Languages data is not valid. This page cannot
-  //         be shown.
-  //       </p>
-  //     </div>
-  //   );
-  // }
-
-  // Below code is not great. I don't know how to create an array of useState variables in
-  // React functional components, and so below code. Note that Headless UI ListBox when used
-  // in controlled component way (which is what we need for better UI handling),
-  // needs a state variable to be passed to it.
-  // Further note that useState variable holding an array is no problem. But we need an
-  // array of useState variables.
-  const [selectedTranslators0, setSelectedTranslators0] = useState(
-    authorsForAllLanguages[0] === undefined
-      ? []
-      : authorsForAllLanguages[0].translatorAuthors
-  );
-  const [selectedCommentators0, setSelectedCommentators0] = useState(
-    authorsForAllLanguages[0] === undefined
-      ? []
-      : authorsForAllLanguages[0].commentatorAuthors
-  );
-  const [language0Checked, setLanguage0Checked] = useState(true);
-
-  const [selectedTranslators1, setSelectedTranslators1] = useState(
-    authorsForAllLanguages[1] === undefined
-      ? []
-      : authorsForAllLanguages[1].translatorAuthors
-  );
-  const [selectedCommentators1, setSelectedCommentators1] = useState(
-    authorsForAllLanguages[1] === undefined
-      ? []
-      : authorsForAllLanguages[1].commentatorAuthors
-  );
-  const [language1Checked, setLanguage1Checked] = useState(true);
-
-  const [selectedTranslators2, setSelectedTranslators2] = useState(
-    authorsForAllLanguages[2] === undefined
-      ? []
-      : authorsForAllLanguages[2].translatorAuthors
-  );
-  const [selectedCommentators2, setSelectedCommentators2] = useState(
-    authorsForAllLanguages[2] === undefined
-      ? []
-      : authorsForAllLanguages[2].commentatorAuthors
-  );
-  const [language2Checked, setLanguage2Checked] = useState(true);
-
-  // Below code sets up allLanguageSelectsionData array which we can then iterate through without
-  // having to refer to specific state variables like selectedTranslators0.
-  // Once again, the code is not great and the cause, as mentioned earlier, is that I don't know how to
-  // define an array of useState variables in React functional components.
-  //
-  let allLanguageSelectionsData = [];
-  allLanguageSelectionsData[0] = {
-    authorsForLanguage: authorsForAllLanguages[0],
-    languageChecked: language0Checked,
-    setLanguageChecked: setLanguage0Checked,
-    selectedTranslators: selectedTranslators0,
-    setSelectedTranslators: setSelectedTranslators0,
-    selectedCommentators: selectedCommentators0,
-    setSelectedCommentators: setSelectedCommentators0,
-  };
-  allLanguageSelectionsData[1] = {
-    authorsForLanguage: authorsForAllLanguages[1],
-    languageChecked: language1Checked,
-    setLanguageChecked: setLanguage1Checked,
-    selectedTranslators: selectedTranslators1,
-    setSelectedTranslators: setSelectedTranslators1,
-    selectedCommentators: selectedCommentators1,
-    setSelectedCommentators: setSelectedCommentators1,
-  };
-  allLanguageSelectionsData[2] = {
-    authorsForLanguage: authorsForAllLanguages[2],
-    languageChecked: language2Checked,
-    setLanguageChecked: setLanguage2Checked,
-    selectedTranslators: selectedTranslators2,
-    setSelectedTranslators: setSelectedTranslators2,
-    selectedCommentators: selectedCommentators2,
-    setSelectedCommentators: setSelectedCommentators2,
-  };
-
-  // useEffect(() => {
-  //   let initialCheckedLanguageIds: boolean[] = new Array(
-  //     allGitaLanguages.length
-  //   ).fill(false);
-  //   const tmp = getCookie("selectedLanguageIds");
-  //   if (tmp) {
-  //     const initialSelectedLanguageIds: string[] = JSON.parse(
-  //       tmp?.toString() ?? ""
-  //     );
-  //     allGitaLanguages.map(({ id, language }, index) => {
-  //       initialCheckedLanguageIds[index] = id?.toString
-  //         ? initialSelectedLanguageIds.includes(id?.toString())
-  //         : false;
-  //     });
-  //   }
-  //   // console.log(initialCheckedLanguageIds);
-  //   setCheckedState(initialCheckedLanguageIds);
-  // }, []);
-
-  // const handleOnChange = (position: number) => {
-  //   const updatedCheckedState = checkedState.map((item, index) =>
-  //     index === position ? !item : item
-  //   );
-  //   setCheckedState(updatedCheckedState);
-  //   setFormDataModified(true);
-  // };
-
-  const router = useRouter();
-
-  function handleBack(e: React.MouseEvent) {
-    e.preventDefault();
-    formDataModified ? setIsDialogOpen(true) : router.back();
-  }
-
-  function handleForcedBack() {
-    setIsDialogOpen(false);
-    router.back();
-  }
-
-  function handleCancel() {
-    setIsDialogOpen(false);
-  }
-
-  return (
+  return isLanguagesDataValid ? (
+    <Settings
+      authorsForAllLanguages={authorsForAllLanguages}
+      selectedAuthorsForAllLanguages={selectedAuthorsForAllLanguages}
+    />
+  ) : (
     <div className="px-4 pb-4">
-      <Dialog
-        open={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        className="relative z-50"
-      >
-        <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-          <DialogPanel className="max-w-lg space-y-4 border border-white bg-gray-700 p-4">
-            <DialogTitle as="h3" className="text-base/7 font-medium text-white">
-              Settings Not Saved
-            </DialogTitle>
-            <p className="mt-2 text-white">
-              You have modified the settings but not saved them.
-            </p>
-            <div className="flex flex-col sm:flex-row sm:gap-4">
-              <button
-                className="w-24 block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
-                onClick={handleCancel}
-              >
-                Cancel
-              </button>
-              <button
-                className="w-60 block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
-                onClick={handleForcedBack}
-              >
-                Back Without Saving Settings
-              </button>
-            </div>
-          </DialogPanel>
-        </div>
-      </Dialog>
-      <h2 className="text-2xl">Settings</h2>
-      <form className="my-4" action={createLanguageIdsCookie}>
-        <h4 className="text-lg mb-4">
-          Select languages and associated translators and commentators shown in
-          Verse page
-        </h4>
-        <div className="flex justify-start flex-wrap gap-x-4 gap-y-4">
-          {allLanguageSelectionsData.map((languageSelectionData, index) => {
-            return (
-              <div key={index}>
-                <LanguageSelections
-                  languageId={
-                    languageSelectionData.authorsForLanguage.languageId
-                  }
-                  languageName={
-                    languageSelectionData.authorsForLanguage.languageName
-                  }
-                  languageChecked={languageSelectionData.languageChecked}
-                  setLanguageChecked={languageSelectionData.setLanguageChecked}
-                  allTranslators={
-                    languageSelectionData.authorsForLanguage.translatorAuthors
-                  }
-                  selectedTranslators={
-                    languageSelectionData.selectedTranslators
-                  }
-                  setSelectedTranslators={
-                    languageSelectionData.setSelectedTranslators
-                  }
-                  allCommentators={
-                    languageSelectionData.authorsForLanguage.commentatorAuthors
-                  }
-                  selectedCommentators={
-                    languageSelectionData.selectedCommentators
-                  }
-                  setSelectedCommentators={
-                    languageSelectionData.setSelectedCommentators
-                  }
-                />
-              </div>
-            );
-          })}
-        </div>
-
-        <SubmitButton
-          btnLabel="Save settings"
-          TWclasses="px-1 mt-2 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
-          formDataModified={formDataModified}
-          setFormDataModified={setFormDataModified}
-          submitSaveMsg="Settings saved."
-        />
-        <button
-          className="block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
-          onClick={(e) => handleBack(e)}
-        >
-          Back
-        </button>
-      </form>
+      <p>
+        Sorry! Web app. error! Languages data is not valid. This page cannot be
+        shown.
+      </p>
     </div>
   );
 }
