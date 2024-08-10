@@ -2,45 +2,38 @@
 import { cookies } from "next/headers";
 import { allGitaLanguages } from "../alllanguages";
 // import { setTimeout } from "timers/promises";
-import { allAuthorsByLanguageId } from "../allauthorsbylanguageid";
-import { authorsForLanguageT } from "../lib/addltypes-d";
 import {
-  languageCheckboxLSC_NameSuffix,
-  translatorsListBoxLSC_NameSuffix,
-  commentatorsListBoxLSC_NameSuffix,
+  LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX,
+  TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX,
+  COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
+  LANGUAGE_SELECTIONS_COOKIE_NAME,
 } from "../constants";
-// Move to const file
-// const languageCheckboxLSC_NameSuffix = "check";
-// const translatorsListBoxLSC_NameSuffix = "Transl";
-// const commentatorsListBoxLSC_NameSuffix = "Commnt";
 
 type LanguageSelectionsCookieElementT = {
   languageId: number | undefined;
-  selectedTranslators: string[]; //authorId
-  selectedCommentators: string[]; //authorId
-  // selectedTranslators: number[]; //authorId
-  // selectedCommentators: number[]; //authorId
+  selectedTranslators: string[]; //authorId as string
+  selectedCommentators: string[]; //authorId as string
 };
 
 export async function createLanguageSelectionsCookie(formData: FormData) {
-  let selectedLanguageIds = Array(0);
-  let x = "";
-  let msg = "";
+  // let msg = "";
   let LanguageSelectionsCookie: LanguageSelectionsCookieElementT[] = [];
-  for (let i = 0; i < allGitaLanguages.length; i++) {
-    // const tmp = formData.get(`custom-input-${i}`);
-    // tmp && selectedLanguageIds.push(tmp);
+  for (
+    let languageIndex = 0;
+    languageIndex < allGitaLanguages.length;
+    languageIndex++
+  ) {
     let LanguageSelectionsCookieElement: LanguageSelectionsCookieElementT | null =
       null;
     let countTranslatorKeys = 0;
     let countCommentatorKeys = 0;
     for (let key of formData.keys()) {
       key.startsWith(
-        `${allGitaLanguages[i].id}${translatorsListBoxLSC_NameSuffix}[`
+        `${allGitaLanguages[languageIndex].id}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}[`
       )
         ? countTranslatorKeys++
         : key.startsWith(
-            `${allGitaLanguages[i].id}${commentatorsListBoxLSC_NameSuffix}[`
+            `${allGitaLanguages[languageIndex].id}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}[`
           )
         ? countCommentatorKeys++
         : null;
@@ -52,62 +45,55 @@ export async function createLanguageSelectionsCookie(formData: FormData) {
       ? Math.floor(countCommentatorKeys / 2)
       : 0;
 
-    msg +=
-      `Language: ${allGitaLanguages[i].language} checkbox is ` +
-      (formData.has(
-        `${allGitaLanguages[i].id}${languageCheckboxLSC_NameSuffix}`
-      )
-        ? "checked. "
-        : "unchecked. ");
-    msg += "\n";
+    // msg +=
+    //   `Language: ${allGitaLanguages[languageIndex].language} checkbox is ` +
+    //   (formData.has(
+    //     `${allGitaLanguages[languageIndex].id}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`
+    //   )
+    //     ? "checked. "
+    //     : "unchecked. ");
+    // msg += "\n";
     formData.has(
-      `${allGitaLanguages[i].id}${languageCheckboxLSC_NameSuffix}`
+      `${allGitaLanguages[languageIndex].id}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`
     ) &&
       (LanguageSelectionsCookieElement = {
-        languageId: allGitaLanguages[i].id,
+        languageId: allGitaLanguages[languageIndex].id,
         selectedTranslators: [],
         selectedCommentators: [],
       });
-    msg += `${numTranslators} translator(s) selected: `;
+    // msg += `${numTranslators} translator(s) selected: `;
     for (let j = 0; j < numTranslators; j++) {
-      let key = `${allGitaLanguages[i].id}${translatorsListBoxLSC_NameSuffix}[${j}][name]`;
+      // let key = `${allGitaLanguages[languageIndex].id}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][name]`;
+      let key = `${allGitaLanguages[languageIndex].id}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
       const value = formData.get(key);
-      msg += value + ", ";
+      // msg += value + ", ";
       LanguageSelectionsCookieElement &&
         LanguageSelectionsCookieElement.selectedTranslators.push(
           value?.toString()!
         );
     }
 
-    msg += "\n";
-    msg += `${numCommentators} commentator(s) selected: `;
+    // msg += "\n";
+    // msg += `${numCommentators} commentator(s) selected: `;
     for (let j = 0; j < numCommentators; j++) {
-      let key = `${allGitaLanguages[i].id}${commentatorsListBoxLSC_NameSuffix}[${j}][name]`;
+      let key = `${allGitaLanguages[languageIndex].id}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
+      // let key = `${allGitaLanguages[languageIndex].id}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][name]`;
       const value = formData.get(key);
-      msg += value + ", ";
+      // msg += value + ", ";
       LanguageSelectionsCookieElement &&
         LanguageSelectionsCookieElement.selectedCommentators.push(
           value?.toString()!
         );
     }
-    msg += "\n---------\n";
+    // msg += "\n---------\n";
     LanguageSelectionsCookieElement &&
       LanguageSelectionsCookie.push(LanguageSelectionsCookieElement);
   }
-  console.log("LanguageSelections", msg);
+  // console.log("LanguageSelections", msg);
   console.log("LanguageSelectionsCookie", LanguageSelectionsCookie);
-  // cookies().set("LanguageSelections", msg);
-  // cookies().set("selectedLanguageIds", JSON.stringify(selectedLanguageIds));
+  cookies().set(
+    LANGUAGE_SELECTIONS_COOKIE_NAME,
+    JSON.stringify(LanguageSelectionsCookie)
+  );
   // await setTimeout(2000);
 }
-// export async function createLanguageIdsCookie(formData: FormData) {
-//   let selectedLanguageIds = Array(0);
-//   let x = "";
-//   for (let i = 0; i < allGitaLanguages.length; i++) {
-//     const tmp = formData.get(`custom-input-${i}`);
-//     tmp && selectedLanguageIds.push(tmp);
-//   }
-//   // console.log(`selectedLanguageIds: ${selectedLanguageIds}`);
-//   cookies().set("selectedLanguageIds", JSON.stringify(selectedLanguageIds));
-//   // await setTimeout(2000);
-// }

@@ -8,15 +8,10 @@ import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import LanguageSelections from "../ui/LanguageSelections";
 import { authorsForLanguageT } from "../lib/addltypes-d";
 import {
-  languageCheckboxLSC_NameSuffix,
-  translatorsListBoxLSC_NameSuffix,
-  commentatorsListBoxLSC_NameSuffix,
+  LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX,
+  TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX,
+  COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
 } from "../constants";
-
-// Move to const file
-// const languageCheckboxLSC_NameSuffix = "check";
-// const translatorsListBoxLSC_NameSuffix = "Transl";
-// const commentatorsListBoxLSC_NameSuffix = "Commnt";
 
 function Settings({
   authorsForAllLanguages,
@@ -125,56 +120,6 @@ function Settings({
     setIsDialogOpen(false);
   }
 
-  // function handleSubmit(e: any) {
-  //   e.preventDefault();
-  //   let msg = "";
-  //   const form = e.target;
-  //   const formData = new FormData(form);
-  //   allLanguageSelectionsData.map((languageSelectionData: any, index: any) => {
-  //     let countTranslatorKeys = 0;
-  //     let countCommentatorKeys = 0;
-  //     for (let key of formData.keys()) {
-  //       key.startsWith(
-  //         `${languageSelectionData.authorsForLanguage.languageId}${translatorsListBoxLSC_NameSuffix}[`
-  //       )
-  //         ? countTranslatorKeys++
-  //         : key.startsWith(
-  //             `${languageSelectionData.authorsForLanguage.languageId}${commentatorsListBoxLSC_NameSuffix}[`
-  //           )
-  //         ? countCommentatorKeys++
-  //         : null;
-  //     }
-  //     let numTranslators = countTranslatorKeys
-  //       ? Math.floor(countTranslatorKeys / 2)
-  //       : 0;
-  //     let numCommentators = countCommentatorKeys
-  //       ? Math.floor(countCommentatorKeys / 2)
-  //       : 0;
-
-  //     msg +=
-  //       `Language: ${languageSelectionData.authorsForLanguage.languageName} checkbox is ` +
-  //       (formData.has(
-  //         `${languageSelectionData.authorsForLanguage.languageId}${languageCheckboxLSC_NameSuffix}`
-  //       )
-  //         ? "checked. "
-  //         : "unchecked. ");
-  //     msg += "\n";
-  //     msg += `${numTranslators} translator(s) selected: `;
-  //     for (let i = 0; i < numTranslators; i++) {
-  //       let key = `${languageSelectionData.authorsForLanguage.languageId}${translatorsListBoxLSC_NameSuffix}[${i}][name]`;
-  //       msg += formData.get(key) + ", ";
-  //     }
-  //     msg += "\n";
-  //     msg += `${numCommentators} commentator(s) selected: `;
-  //     for (let i = 0; i < numCommentators; i++) {
-  //       let key = `${languageSelectionData.authorsForLanguage.languageId}${commentatorsListBoxLSC_NameSuffix}[${i}][name]`;
-  //       msg += formData.get(key) + ", ";
-  //     }
-  //     msg += "\n---------\n";
-  //   });
-  //   setShowData(msg);
-  // }
-
   return (
     <div className="px-4 pb-4">
       <Dialog
@@ -230,7 +175,7 @@ function Settings({
                     setLanguageChecked={
                       languageSelectionData.setLanguageChecked
                     }
-                    languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${languageCheckboxLSC_NameSuffix}`}
+                    languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`}
                     allTranslators={
                       languageSelectionData.authorsForLanguage.translatorAuthors
                     }
@@ -240,7 +185,7 @@ function Settings({
                     setSelectedTranslators={
                       languageSelectionData.setSelectedTranslators
                     }
-                    translatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${translatorsListBoxLSC_NameSuffix}`}
+                    translatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}`}
                     allCommentators={
                       languageSelectionData.authorsForLanguage
                         .commentatorAuthors
@@ -251,7 +196,7 @@ function Settings({
                     setSelectedCommentators={
                       languageSelectionData.setSelectedCommentators
                     }
-                    commentatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${commentatorsListBoxLSC_NameSuffix}`}
+                    commentatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}`}
                     setSelectionChanged={setFormDataModified}
                   />
                 </div>
@@ -274,15 +219,6 @@ function Settings({
           Back
         </button>
       </form>
-      {/* <div className="text-left ">
-        <p className="mt-4">
-          Page component showing data from LanguageSelectionsUcF components and
-          each of its two AuthorListUcF children components above:
-        </p>
-        {showData.split("\n").map((line, index) => {
-          return <p key={index}>{line}</p>;
-        })}
-      </div> */}
     </div>
   );
 }
