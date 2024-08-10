@@ -30,3 +30,6 @@ export const NUMBER_OF_VERSES_IN_CHAPTERS = [
 ];
 
 export const DEFAULT_LANGUAGE_ID = "1";
+export const languageCheckboxLSC_NameSuffix = "check";
+export const translatorsListBoxLSC_NameSuffix = "Transl";
+export const commentatorsListBoxLSC_NameSuffix = "Commnt";

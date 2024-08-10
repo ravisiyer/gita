@@ -7,11 +7,16 @@ import { SubmitButton } from "../ui/submit-button";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import LanguageSelections from "../ui/LanguageSelections";
 import { authorsForLanguageT } from "../lib/addltypes-d";
+import {
+  languageCheckboxLSC_NameSuffix,
+  translatorsListBoxLSC_NameSuffix,
+  commentatorsListBoxLSC_NameSuffix,
+} from "../constants";
 
 // Move to const file
-const languageCheckboxLSC_NameSuffix = "check";
-const translatorsListBoxLSC_NameSuffix = "Transl";
-const commentatorsListBoxLSC_NameSuffix = "Commnt";
+// const languageCheckboxLSC_NameSuffix = "check";
+// const translatorsListBoxLSC_NameSuffix = "Transl";
+// const commentatorsListBoxLSC_NameSuffix = "Commnt";
 
 function Settings({
   authorsForAllLanguages,
