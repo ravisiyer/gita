@@ -12,7 +12,8 @@ export type authorsForLanguageT = {
   translatorAuthors: Partial<GitaAuthor>[];
 };
 
-export type LanguageSelectionsCookieElementT = {
+// LS is abbr. for Language Selections
+export type LSCookieElementT = {
   languageId: number | undefined;
   selectedTranslators: string[]; //authorId as string
   selectedCommentators: string[]; //authorId as string

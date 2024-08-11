@@ -8,17 +8,18 @@ import {
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
   LANGUAGE_SELECTIONS_COOKIE_NAME,
 } from "../constants";
-import { LanguageSelectionsCookieElementT } from "./addltypes-d";
+// LS is abbr. for Language Selections
+import { LSCookieElementT } from "./addltypes-d";
 
-export async function createLanguageSelectionsCookie(formData: FormData) {
-  let languageSelectionsCookie: LanguageSelectionsCookieElementT[] = [];
+export async function createlSCookie(formData: FormData) {
+  // lSCookie is abbr. for Language Selections Cookie
+  let lSCookie: LSCookieElementT[] = [];
   for (
     let languageIndex = 0;
     languageIndex < allGitaLanguages.length;
     languageIndex++
   ) {
-    let languageSelectionsCookieElement: LanguageSelectionsCookieElementT | null =
-      null;
+    let lSCookieElement: LSCookieElementT | null = null;
     let countTranslatorKeys = 0;
     let countCommentatorKeys = 0;
     for (let key of formData.keys()) {
@@ -39,7 +40,7 @@ export async function createLanguageSelectionsCookie(formData: FormData) {
       ? Math.floor(countCommentatorKeys / 2)
       : 0;
 
-    languageSelectionsCookieElement = {
+    lSCookieElement = {
       languageId: allGitaLanguages[languageIndex].id,
       selectedTranslators: [],
       selectedCommentators: [],
@@ -52,26 +53,19 @@ export async function createLanguageSelectionsCookie(formData: FormData) {
       for (let j = 0; j < numTranslators; j++) {
         let key = `${allGitaLanguages[languageIndex].id}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
         const value = formData.get(key);
-        languageSelectionsCookieElement.selectedTranslators.push(
-          value?.toString()!
-        );
+        lSCookieElement.selectedTranslators.push(value?.toString()!);
       }
     }
     if (isLanguageChecked) {
       for (let j = 0; j < numCommentators; j++) {
         let key = `${allGitaLanguages[languageIndex].id}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
         const value = formData.get(key);
-        languageSelectionsCookieElement.selectedCommentators.push(
-          value?.toString()!
-        );
+        lSCookieElement.selectedCommentators.push(value?.toString()!);
       }
     }
-    languageSelectionsCookie.push(languageSelectionsCookieElement);
+    lSCookie.push(lSCookieElement);
   }
-  console.log("LanguageSelectionsCookie", languageSelectionsCookie);
-  cookies().set(
-    LANGUAGE_SELECTIONS_COOKIE_NAME,
-    JSON.stringify(languageSelectionsCookie)
-  );
+  console.log("lSCookie", lSCookie);
+  cookies().set(LANGUAGE_SELECTIONS_COOKIE_NAME, JSON.stringify(lSCookie));
   // await setTimeout(2000);
 }

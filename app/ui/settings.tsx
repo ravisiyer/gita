@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createLanguageSelectionsCookie } from "../lib/actions";
+import { createlSCookie } from "../lib/actions";
 import { SubmitButton } from "../ui/submit-button";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import LanguageSelections from "../ui/LanguageSelections";
@@ -11,15 +11,16 @@ import {
   TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX,
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
 } from "../constants";
-import { setupDefaultSelectedAuthorsForAllLanguages } from "../lib/settingsutil";
+import { setupDefaultSAFAL } from "../lib/settingsutil";
 import { GitaAuthor } from "../lib/gqltypes-d";
 
 function Settings({
   authorsForAllLanguages,
-  selectedAuthorsForAllLanguages,
+  //SAFAL stands for SelectedAuthorsForAllLanguages
+  sAFAL,
 }: {
   authorsForAllLanguages: authorsForLanguageT[];
-  selectedAuthorsForAllLanguages: Partial<authorsForLanguageT>[];
+  sAFAL: Partial<authorsForLanguageT>[];
 }) {
   const [formDataModified, setFormDataModified] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -32,40 +33,37 @@ function Settings({
   // Further note that useState variable holding an array is no problem. But we need an
   // array of useState variables.
   const [selectedTranslators0, setSelectedTranslators0] = useState(
-    selectedAuthorsForAllLanguages[0].translatorAuthors
+    sAFAL[0].translatorAuthors
   );
   const [selectedCommentators0, setSelectedCommentators0] = useState(
-    selectedAuthorsForAllLanguages[0].commentatorAuthors
+    sAFAL[0].commentatorAuthors
   );
   const [language0Checked, setLanguage0Checked] = useState(
-    selectedAuthorsForAllLanguages[0].translatorAuthors?.length ||
-      selectedAuthorsForAllLanguages[0].commentatorAuthors?.length
+    sAFAL[0].translatorAuthors?.length || sAFAL[0].commentatorAuthors?.length
       ? true
       : false
   );
 
   const [selectedTranslators1, setSelectedTranslators1] = useState(
-    selectedAuthorsForAllLanguages[1].translatorAuthors
+    sAFAL[1].translatorAuthors
   );
   const [selectedCommentators1, setSelectedCommentators1] = useState(
-    selectedAuthorsForAllLanguages[1].commentatorAuthors
+    sAFAL[1].commentatorAuthors
   );
   const [language1Checked, setLanguage1Checked] = useState(
-    selectedAuthorsForAllLanguages[1].translatorAuthors?.length ||
-      selectedAuthorsForAllLanguages[1].commentatorAuthors?.length
+    sAFAL[1].translatorAuthors?.length || sAFAL[1].commentatorAuthors?.length
       ? true
       : false
   );
 
   const [selectedTranslators2, setSelectedTranslators2] = useState(
-    selectedAuthorsForAllLanguages[2].translatorAuthors
+    sAFAL[2].translatorAuthors
   );
   const [selectedCommentators2, setSelectedCommentators2] = useState(
-    selectedAuthorsForAllLanguages[2].commentatorAuthors
+    sAFAL[2].commentatorAuthors
   );
   const [language2Checked, setLanguage2Checked] = useState(
-    selectedAuthorsForAllLanguages[2].translatorAuthors?.length ||
-      selectedAuthorsForAllLanguages[2].commentatorAuthors?.length
+    sAFAL[2].translatorAuthors?.length || sAFAL[2].commentatorAuthors?.length
       ? true
       : false
   );
@@ -134,49 +132,38 @@ function Settings({
 
   function handleDefaultLS(e: React.MouseEvent) {
     e.preventDefault();
-    const defaultSelectedAuthorsForAllLanguages =
-      setupDefaultSelectedAuthorsForAllLanguages();
+
+    //SAFAL stands for SelectedAuthorsForAllLanguages
+    const defaultSAFAL = setupDefaultSAFAL();
 
     // Below code sets the specific state variables like language0Checked, selectedTranslators0, selectedCommentators0.
     // Once again, the code is not great and the cause, as mentioned earlier, is that I don't know how to
     // define an array of useState variables in React functional components.
     //
     setLanguage0Checked(
-      defaultSelectedAuthorsForAllLanguages[0].translatorAuthors?.length ||
-        defaultSelectedAuthorsForAllLanguages[0].commentatorAuthors?.length
+      defaultSAFAL[0].translatorAuthors?.length ||
+        defaultSAFAL[0].commentatorAuthors?.length
         ? true
         : false
     );
-    setSelectedTranslators0(
-      defaultSelectedAuthorsForAllLanguages[0].translatorAuthors
-    );
-    setSelectedCommentators0(
-      defaultSelectedAuthorsForAllLanguages[0].commentatorAuthors
-    );
+    setSelectedTranslators0(defaultSAFAL[0].translatorAuthors);
+    setSelectedCommentators0(defaultSAFAL[0].commentatorAuthors);
     setLanguage1Checked(
-      defaultSelectedAuthorsForAllLanguages[1].translatorAuthors?.length ||
-        defaultSelectedAuthorsForAllLanguages[1].commentatorAuthors?.length
+      defaultSAFAL[1].translatorAuthors?.length ||
+        defaultSAFAL[1].commentatorAuthors?.length
         ? true
         : false
     );
-    setSelectedTranslators1(
-      defaultSelectedAuthorsForAllLanguages[1].translatorAuthors
-    );
-    setSelectedCommentators1(
-      defaultSelectedAuthorsForAllLanguages[1].commentatorAuthors
-    );
+    setSelectedTranslators1(defaultSAFAL[1].translatorAuthors);
+    setSelectedCommentators1(defaultSAFAL[1].commentatorAuthors);
     setLanguage2Checked(
-      defaultSelectedAuthorsForAllLanguages[2].translatorAuthors?.length ||
-        defaultSelectedAuthorsForAllLanguages[2].commentatorAuthors?.length
+      defaultSAFAL[2].translatorAuthors?.length ||
+        defaultSAFAL[2].commentatorAuthors?.length
         ? true
         : false
     );
-    setSelectedTranslators2(
-      defaultSelectedAuthorsForAllLanguages[2].translatorAuthors
-    );
-    setSelectedCommentators2(
-      defaultSelectedAuthorsForAllLanguages[2].commentatorAuthors
-    );
+    setSelectedTranslators2(defaultSAFAL[2].translatorAuthors);
+    setSelectedCommentators2(defaultSAFAL[2].commentatorAuthors);
     setFormDataModified(true);
   }
 
@@ -193,9 +180,9 @@ function Settings({
     let atLeastOneLanguageChecked = allLanguageSelectionsData.some(
       (languageSelectionData) => languageSelectionData.languageChecked
     );
-    console.log(
-      `In isAllLanguageSelectionsValid: atLeastOneLanguageChecked is: ${atLeastOneLanguageChecked}`
-    );
+    // console.log(
+    //   `In isAllLanguageSelectionsValid: atLeastOneLanguageChecked is: ${atLeastOneLanguageChecked}`
+    // );
     return atLeastOneLanguageChecked;
   }
   // Below function is a callback passed to SubmitButton component. It is not directly invoked by this component's code
@@ -241,7 +228,7 @@ function Settings({
         </div>
       </Dialog>
       <h2 className="text-2xl">Settings</h2>
-      <form className="my-4" action={createLanguageSelectionsCookie}>
+      <form className="my-4" action={createlSCookie}>
         <h4 className="text-lg mb-4">
           Select languages and associated translators and commentators shown in
           Verse page

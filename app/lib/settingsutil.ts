@@ -4,8 +4,9 @@ import { GitaAuthor } from "./gqltypes-d";
 import { capitalizeFirstLetter } from "./util";
 import { allGitaLanguages } from "../alllanguages";
 import { allGitaAuthors } from "../allauthors";
-import { LanguageSelectionsCookieElementT } from "./addltypes-d";
-import { defaultLanguageSelectionsInCookieFormat } from "../defaultlanguageSelections";
+// LS is abbr. for Language Selections
+import { LSCookieElementT } from "./addltypes-d";
+import { defaultLSInCookieFormat } from "../defaultlanguageSelections";
 
 export function validateLanguagesData() {
   // return false; //For testing ... Test case works as error page is shown
@@ -63,64 +64,53 @@ export function getAuthorByIdString(idString: string) {
   return allGitaAuthors.find((author) => author.id === id);
 }
 
-export function validateLanguageSelectionsCookie(
-  languageSelectionsCookie: LanguageSelectionsCookieElementT[]
-) {
-  if (languageSelectionsCookie.length !== allGitaLanguages.length) {
+export function validateLSCookie(lSCookie: LSCookieElementT[]) {
+  if (lSCookie.length !== allGitaLanguages.length) {
     return false;
   }
-  const languageSelected = languageSelectionsCookie.some(
-    (languageSelectionCookieElement) =>
-      languageSelectionCookieElement.selectedTranslators.length ||
-      languageSelectionCookieElement.selectedCommentators.length
+  const languageSelected = lSCookie.some(
+    (lSCookieElement) =>
+      lSCookieElement.selectedTranslators.length ||
+      lSCookieElement.selectedCommentators.length
   );
-  console.log(
-    `In validateLanguageSelectionsCookie: languageSelected is: ${languageSelected}`
-  );
+  // console.log(`In validateLSCookie: languageSelected is: ${languageSelected}`);
   return languageSelected;
 }
 
-export function setupSelectedAuthorsForAllLanguagesFromCookie(
-  languageSelectionsCookie: LanguageSelectionsCookieElementT[]
-) {
-  let selectedAuthorsForAllLanguages: authorsForLanguageT[] = [];
-  languageSelectionsCookie.map((languageSelectionsCookieElement, index) => {
-    const languageId = languageSelectionsCookieElement.languageId;
+//SAFAL stands for SelectedAuthorsForAllLanguages
+export function setupSAFALFromCookie(lSCookie: LSCookieElementT[]) {
+  let sAFAL: authorsForLanguageT[] = [];
+  lSCookie.map((lSCookieElement, index) => {
+    const languageId = lSCookieElement.languageId;
     const language = allGitaLanguages.find(
       (element) => element.id === languageId
     );
     const languageName = language?.language;
     let commentatorAuthors: Partial<GitaAuthor>[] = Array(0);
     let translatorAuthors: Partial<GitaAuthor>[] = Array(0);
-    languageSelectionsCookieElement.selectedCommentators.map(
-      (authorIdString) => {
-        const author = getAuthorByIdString(authorIdString);
-        if (author !== undefined) {
-          commentatorAuthors.push(author);
-        }
+    lSCookieElement.selectedCommentators.map((authorIdString) => {
+      const author = getAuthorByIdString(authorIdString);
+      if (author !== undefined) {
+        commentatorAuthors.push(author);
       }
-    );
-    languageSelectionsCookieElement.selectedTranslators.map(
-      (authorIdString) => {
-        const author = getAuthorByIdString(authorIdString);
-        if (author !== undefined) {
-          translatorAuthors.push(author);
-        }
+    });
+    lSCookieElement.selectedTranslators.map((authorIdString) => {
+      const author = getAuthorByIdString(authorIdString);
+      if (author !== undefined) {
+        translatorAuthors.push(author);
       }
-    );
+    });
     let authorsForLanguage: authorsForLanguageT = {
       languageId: languageId!,
       languageName: capitalizeFirstLetter(languageName!),
       commentatorAuthors,
       translatorAuthors,
     };
-    selectedAuthorsForAllLanguages.push(authorsForLanguage);
+    sAFAL.push(authorsForLanguage);
   });
-  return selectedAuthorsForAllLanguages;
+  return sAFAL;
 }
-
-export function setupDefaultSelectedAuthorsForAllLanguages() {
-  return setupSelectedAuthorsForAllLanguagesFromCookie(
-    defaultLanguageSelectionsInCookieFormat
-  );
+//SAFAL stands for SelectedAuthorsForAllLanguages
+export function setupDefaultSAFAL() {
+  return setupSAFALFromCookie(defaultLSInCookieFormat);
 }

@@ -2,42 +2,37 @@
 import { authorsForLanguageT } from "../lib/addltypes-d";
 import { cookies } from "next/headers";
 import { LANGUAGE_SELECTIONS_COOKIE_NAME } from "../constants";
-import { LanguageSelectionsCookieElementT } from "../lib/addltypes-d";
-import { defaultLanguageSelectionsInCookieFormat } from "../defaultlanguageSelections";
+import { LSCookieElementT } from "../lib/addltypes-d";
+// LS is abbr. for Language Selections
+import { defaultLSInCookieFormat } from "../defaultlanguageSelections";
 import Settings from "../ui/settings";
 import {
   setupAuthorsForAllLanguages,
   validateLanguagesData,
-  validateLanguageSelectionsCookie,
-  setupSelectedAuthorsForAllLanguagesFromCookie,
+  validateLSCookie,
+  setupSAFALFromCookie,
 } from "../lib/settingsutil";
 
 function Page() {
   const cookieStore = cookies();
   const tmp = cookieStore.get(LANGUAGE_SELECTIONS_COOKIE_NAME)?.value;
-  let languageSelectionsCookie: LanguageSelectionsCookieElementT[] = tmp
-    ? JSON.parse(tmp)
-    : [];
-  let isLanguageSelectionsCookieValid = validateLanguageSelectionsCookie(
-    languageSelectionsCookie
-  );
-  if (!isLanguageSelectionsCookieValid) {
+  // lSCookie is abbr. for languageSelectionsCookie
+  let lSCookie: LSCookieElementT[] = tmp ? JSON.parse(tmp) : [];
+  let islSCookieValid = validateLSCookie(lSCookie);
+  if (!islSCookieValid) {
     // Is our default LS in Cookie format in sync. with language data and also otherwise valid
-    if (
-      validateLanguageSelectionsCookie(defaultLanguageSelectionsInCookieFormat)
-    ) {
+    if (validateLSCookie(defaultLSInCookieFormat)) {
       // then we ignore the user's invalid cookie and use the default LS
-      languageSelectionsCookie = defaultLanguageSelectionsInCookieFormat;
-      isLanguageSelectionsCookieValid = true;
+      lSCookie = defaultLSInCookieFormat;
+      islSCookieValid = true;
     }
   }
-  let selectedAuthorsForAllLanguages: authorsForLanguageT[] = [];
-  if (isLanguageSelectionsCookieValid) {
-    selectedAuthorsForAllLanguages =
-      setupSelectedAuthorsForAllLanguagesFromCookie(languageSelectionsCookie);
+  let sAFAL: authorsForLanguageT[] = [];
+  if (islSCookieValid) {
+    sAFAL = setupSAFALFromCookie(lSCookie);
   }
   let isLanguagesDataValid = false;
-  if (isLanguageSelectionsCookieValid) {
+  if (islSCookieValid) {
     isLanguagesDataValid = validateLanguagesData();
   }
   let authorsForAllLanguages: authorsForLanguageT[] = [];
@@ -48,11 +43,8 @@ function Page() {
     }
   }
 
-  return isLanguageSelectionsCookieValid && isLanguagesDataValid ? (
-    <Settings
-      authorsForAllLanguages={authorsForAllLanguages}
-      selectedAuthorsForAllLanguages={selectedAuthorsForAllLanguages}
-    />
+  return islSCookieValid && isLanguagesDataValid ? (
+    <Settings authorsForAllLanguages={authorsForAllLanguages} sAFAL={sAFAL} />
   ) : (
     <div className="px-4 pb-4">
       <p>
