@@ -12,6 +12,7 @@ import {
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
 } from "../constants";
 import { setupDefaultSelectedAuthorsForAllLanguages } from "../lib/settingsutil";
+import { GitaAuthor } from "../lib/gqltypes-d";
 
 function Settings({
   authorsForAllLanguages,
@@ -76,7 +77,21 @@ function Settings({
   // Once again, the code is not great and the cause, as mentioned earlier, is that I don't know how to
   // define an array of useState variables in React functional components.
   //
-  let allLanguageSelectionsData: any = [];
+  type allLanguageSelectionsDataT = {
+    authorsForLanguage: authorsForLanguageT;
+    languageChecked: boolean;
+    setLanguageChecked: (languageChecked: boolean) => void;
+    selectedTranslators: Partial<GitaAuthor>[] | undefined;
+    setSelectedTranslators: (
+      selectedTranslators: Partial<GitaAuthor>[] | undefined
+    ) => void;
+    selectedCommentators: Partial<GitaAuthor>[] | undefined;
+    setSelectedCommentators: (
+      selectedCommentators: Partial<GitaAuthor>[] | undefined
+    ) => void;
+  };
+
+  let allLanguageSelectionsData: allLanguageSelectionsDataT[] = [];
   allLanguageSelectionsData[0] = {
     authorsForLanguage: authorsForAllLanguages[0],
     languageChecked: language0Checked,
@@ -176,7 +191,7 @@ function Settings({
 
   function isAtLeastOneLanguageChecked() {
     let atLeastOneLanguageChecked = allLanguageSelectionsData.some(
-      (languageSelectionData: any) => languageSelectionData.languageChecked
+      (languageSelectionData) => languageSelectionData.languageChecked
     );
     console.log(
       `In isAllLanguageSelectionsValid: atLeastOneLanguageChecked is: ${atLeastOneLanguageChecked}`
@@ -232,49 +247,44 @@ function Settings({
           Verse page
         </h4>
         <div className="flex justify-start flex-wrap gap-x-4 gap-y-4">
-          {allLanguageSelectionsData.map(
-            (languageSelectionData: any, index: any) => {
-              return (
-                <div key={index}>
-                  <LanguageSelections
-                    languageId={
-                      languageSelectionData.authorsForLanguage.languageId
-                    }
-                    languageName={
-                      languageSelectionData.authorsForLanguage.languageName
-                    }
-                    languageChecked={languageSelectionData.languageChecked}
-                    setLanguageChecked={
-                      languageSelectionData.setLanguageChecked
-                    }
-                    languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`}
-                    allTranslators={
-                      languageSelectionData.authorsForLanguage.translatorAuthors
-                    }
-                    selectedTranslators={
-                      languageSelectionData.selectedTranslators
-                    }
-                    setSelectedTranslators={
-                      languageSelectionData.setSelectedTranslators
-                    }
-                    translatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}`}
-                    allCommentators={
-                      languageSelectionData.authorsForLanguage
-                        .commentatorAuthors
-                    }
-                    selectedCommentators={
-                      languageSelectionData.selectedCommentators
-                    }
-                    setSelectedCommentators={
-                      languageSelectionData.setSelectedCommentators
-                    }
-                    commentatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}`}
-                    setSelectionChanged={setFormDataModified}
-                  />
-                </div>
-              );
-            }
-          )}
+          {allLanguageSelectionsData.map((languageSelectionData, index) => {
+            return (
+              <div key={index}>
+                <LanguageSelections
+                  languageId={
+                    languageSelectionData.authorsForLanguage.languageId
+                  }
+                  languageName={
+                    languageSelectionData.authorsForLanguage.languageName
+                  }
+                  languageChecked={languageSelectionData.languageChecked}
+                  setLanguageChecked={languageSelectionData.setLanguageChecked}
+                  languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`}
+                  allTranslators={
+                    languageSelectionData.authorsForLanguage.translatorAuthors
+                  }
+                  selectedTranslators={
+                    languageSelectionData.selectedTranslators!
+                  }
+                  setSelectedTranslators={
+                    languageSelectionData.setSelectedTranslators
+                  }
+                  translatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}`}
+                  allCommentators={
+                    languageSelectionData.authorsForLanguage.commentatorAuthors
+                  }
+                  selectedCommentators={
+                    languageSelectionData.selectedCommentators!
+                  }
+                  setSelectedCommentators={
+                    languageSelectionData.setSelectedCommentators
+                  }
+                  commentatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}`}
+                  setSelectionChanged={setFormDataModified}
+                />
+              </div>
+            );
+          })}
         </div>
 
         <SubmitButton
