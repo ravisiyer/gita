@@ -16,7 +16,6 @@ export function SubmitButton({
   formDataModified: boolean;
   setFormDataModified: (formDataModified: boolean) => void;
   submitSaveMsg?: string;
-  // onSubmitButtonClick?: null | (() => void);
   onSubmitButtonClick?: null | (() => boolean);
 }) {
   const { pending } = useFormStatus();
@@ -46,10 +45,6 @@ export function SubmitButton({
             : " pointer-events-auto")
         }
         onClick={handleSubmitButtonClick}
-        // onClick={() => {
-        //   onSubmitButtonClick && onSubmitButtonClick();
-        //   setSubmitInvokedOnce(true);
-        // }}
       >
         {btnLabel}
       </button>

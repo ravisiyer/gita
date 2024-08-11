@@ -10,12 +10,6 @@ import {
 } from "../constants";
 import { LanguageSelectionsCookieElementT } from "./addltypes-d";
 
-// type LanguageSelectionsCookieElementT = {
-//   languageId: number | undefined;
-//   selectedTranslators: string[]; //authorId as string
-//   selectedCommentators: string[]; //authorId as string
-// };
-
 export async function createLanguageSelectionsCookie(formData: FormData) {
   let languageSelectionsCookie: LanguageSelectionsCookieElementT[] = [];
   for (
@@ -54,12 +48,6 @@ export async function createLanguageSelectionsCookie(formData: FormData) {
     const isLanguageChecked = formData.has(
       `${allGitaLanguages[languageIndex].id}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`
     );
-    // &&
-    //   (languageSelectionsCookieElement = {
-    //     languageId: allGitaLanguages[languageIndex].id,
-    //     selectedTranslators: [],
-    //     selectedCommentators: [],
-    //   });
     if (isLanguageChecked) {
       for (let j = 0; j < numTranslators; j++) {
         let key = `${allGitaLanguages[languageIndex].id}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
@@ -78,7 +66,6 @@ export async function createLanguageSelectionsCookie(formData: FormData) {
         );
       }
     }
-    // languageSelectionsCookieElement &&
     languageSelectionsCookie.push(languageSelectionsCookieElement);
   }
   console.log("LanguageSelectionsCookie", languageSelectionsCookie);

@@ -66,11 +66,9 @@ export function getAuthorByIdString(idString: string) {
 export function validateLanguageSelectionsCookie(
   languageSelectionsCookie: LanguageSelectionsCookieElementT[]
 ) {
-  // return languageSelectionsCookie.length === allGitaLanguages.length;
   if (languageSelectionsCookie.length !== allGitaLanguages.length) {
     return false;
   }
-  // let languageSelected = false;
   const languageSelected = languageSelectionsCookie.some(
     (languageSelectionCookieElement) =>
       languageSelectionCookieElement.selectedTranslators.length ||
@@ -82,17 +80,6 @@ export function validateLanguageSelectionsCookie(
   return languageSelected;
 }
 
-// export function setupDefaultSelectedAuthorsForAllLanguages() {
-//   // let languageSelectionsCookie = defaultLanguageSelectionsInCookieFormat;
-
-//   // let selectedAuthorsForAllLanguages: authorsForLanguageT[] = [];
-//   // if (isLanguageSelectionsCookieValid) {
-//   //   defaultSelectedAuthorsForAllLanguages =
-//   return setupSelectedAuthorsForAllLanguagesFromCookie(
-//     defaultLanguageSelectionsInCookieFormat
-//   );
-//   // }
-// }
 export function setupSelectedAuthorsForAllLanguagesFromCookie(
   languageSelectionsCookie: LanguageSelectionsCookieElementT[]
 ) {
@@ -133,13 +120,7 @@ export function setupSelectedAuthorsForAllLanguagesFromCookie(
 }
 
 export function setupDefaultSelectedAuthorsForAllLanguages() {
-  // let languageSelectionsCookie = defaultLanguageSelectionsInCookieFormat;
-
-  // let selectedAuthorsForAllLanguages: authorsForLanguageT[] = [];
-  // if (isLanguageSelectionsCookieValid) {
-  //   defaultSelectedAuthorsForAllLanguages =
   return setupSelectedAuthorsForAllLanguagesFromCookie(
     defaultLanguageSelectionsInCookieFormat
   );
-  // }
 }

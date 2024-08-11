@@ -1,8 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createLanguageSelectionsCookie } from "../lib/actions";
-import { getCookie } from "cookies-next";
 import { SubmitButton } from "../ui/submit-button";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import LanguageSelections from "../ui/LanguageSelections";
@@ -17,18 +16,13 @@ import { setupDefaultSelectedAuthorsForAllLanguages } from "../lib/settingsutil"
 function Settings({
   authorsForAllLanguages,
   selectedAuthorsForAllLanguages,
-}: // setSelectedAuthorsForAllLanguages,
-{
+}: {
   authorsForAllLanguages: authorsForLanguageT[];
   selectedAuthorsForAllLanguages: Partial<authorsForLanguageT>[];
-  // initialSelectedAuthorsForAllLanguages: Partial<authorsForLanguageT>[];
-  // setSelectedAuthorsForAllLanguages: any
 }) {
   const [formDataModified, setFormDataModified] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
-  // const [selectedAuthorsForAllLanguages, setSelectedAuthorsForAllLanguages] =
-  //   useState(initialSelectedAuthorsForAllLanguages);
 
   // Below code is not great. I don't know how to create an array of useState variables in
   // React functional components, and so below code. Note that Headless UI ListBox when used
@@ -115,7 +109,6 @@ function Settings({
 
   function handleBack(e: React.MouseEvent) {
     e.preventDefault();
-    // formDataModified ? setIsDialogOpen(true) : router.back();
     if (formDataModified) {
       setDialogMessage("You have modified the settings but not saved them.");
       setIsDialogOpen(true);
@@ -128,7 +121,11 @@ function Settings({
     e.preventDefault();
     const defaultSelectedAuthorsForAllLanguages =
       setupDefaultSelectedAuthorsForAllLanguages();
-    // setSelectedAuthorsForAllLanguages(defaultSelectedAuthorsForAllLanguages);
+
+    // Below code sets the specific state variables like language0Checked, selectedTranslators0, selectedCommentators0.
+    // Once again, the code is not great and the cause, as mentioned earlier, is that I don't know how to
+    // define an array of useState variables in React functional components.
+    //
     setLanguage0Checked(
       defaultSelectedAuthorsForAllLanguages[0].translatorAuthors?.length ||
         defaultSelectedAuthorsForAllLanguages[0].commentatorAuthors?.length
@@ -167,6 +164,7 @@ function Settings({
     );
     setFormDataModified(true);
   }
+
   function handleForcedBack() {
     setIsDialogOpen(false);
     router.back();
@@ -209,10 +207,7 @@ function Settings({
             <DialogTitle as="h3" className="text-base/7 font-medium text-white">
               Settings Not Saved
             </DialogTitle>
-            <p className="mt-2 text-white">
-              {dialogMessage}
-              {/* You have modified the settings but not saved them. */}
-            </p>
+            <p className="mt-2 text-white">{dialogMessage}</p>
             <div className="flex flex-col sm:flex-row sm:gap-4">
               <button
                 className="w-24 block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "

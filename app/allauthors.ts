@@ -1,16 +1,5 @@
 import { GitaAuthor } from "./lib/gqltypes-d";
 
-// type Subset<K> = {
-//   [attr in keyof K]?: K[attr] extends object
-//     ? Subset<K[attr]>
-//     : K[attr] extends object | null
-//     ? Subset<K[attr]> | null
-//     : K[attr] extends object | null | undefined
-//     ? Subset<K[attr]> | null | undefined
-//     : K[attr];
-// };
-
-// export const allGitaAuthors: Subset<GitaAuthor>[] = [
 export const allGitaAuthors: Partial<GitaAuthor>[] = [
   { __typename: "GitaAuthor", id: 1, name: "Swami Ramsukhdas" },
   { __typename: "GitaAuthor", id: 2, name: "Swami Chinmayananda" },
