@@ -9,12 +9,15 @@ export function SubmitButton({
   formDataModified,
   setFormDataModified,
   submitSaveMsg = "Data saved.",
+  onSubmitButtonClick = null,
 }: {
   btnLabel?: string;
   TWclasses?: string;
   formDataModified: boolean;
   setFormDataModified: (formDataModified: boolean) => void;
   submitSaveMsg?: string;
+  // onSubmitButtonClick?: null | (() => void);
+  onSubmitButtonClick?: null | (() => boolean);
 }) {
   const { pending } = useFormStatus();
   const [submitInvokedOnce, setSubmitInvokedOnce] = useState(false);
@@ -23,6 +26,14 @@ export function SubmitButton({
     submitInvokedOnce && !pending && setFormDataModified(false);
   }, [pending, submitInvokedOnce, setFormDataModified]);
 
+  function handleSubmitButtonClick(e: React.MouseEvent) {
+    let proceedWithSave = false;
+    onSubmitButtonClick && (proceedWithSave = onSubmitButtonClick());
+    if (!proceedWithSave) {
+      e.preventDefault();
+    }
+    setSubmitInvokedOnce(true);
+  }
   return (
     <>
       <button
@@ -34,7 +45,11 @@ export function SubmitButton({
             ? " disabled:bg-slate-700 pointer-events-none"
             : " pointer-events-auto")
         }
-        onClick={() => setSubmitInvokedOnce(true)}
+        onClick={handleSubmitButtonClick}
+        // onClick={() => {
+        //   onSubmitButtonClick && onSubmitButtonClick();
+        //   setSubmitInvokedOnce(true);
+        // }}
       >
         {btnLabel}
       </button>

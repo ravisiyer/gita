@@ -11,3 +11,9 @@ export type authorsForLanguageT = {
   commentatorAuthors: Partial<GitaAuthor>[];
   translatorAuthors: Partial<GitaAuthor>[];
 };
+
+export type LanguageSelectionsCookieElementT = {
+  languageId: number | undefined;
+  selectedTranslators: string[]; //authorId as string
+  selectedCommentators: string[]; //authorId as string
+};

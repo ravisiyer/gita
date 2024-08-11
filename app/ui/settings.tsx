@@ -12,16 +12,23 @@ import {
   TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX,
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
 } from "../constants";
+import { setupDefaultSelectedAuthorsForAllLanguages } from "../lib/settingsutil";
 
 function Settings({
   authorsForAllLanguages,
   selectedAuthorsForAllLanguages,
-}: {
+}: // setSelectedAuthorsForAllLanguages,
+{
   authorsForAllLanguages: authorsForLanguageT[];
   selectedAuthorsForAllLanguages: Partial<authorsForLanguageT>[];
+  // initialSelectedAuthorsForAllLanguages: Partial<authorsForLanguageT>[];
+  // setSelectedAuthorsForAllLanguages: any
 }) {
   const [formDataModified, setFormDataModified] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
+  // const [selectedAuthorsForAllLanguages, setSelectedAuthorsForAllLanguages] =
+  //   useState(initialSelectedAuthorsForAllLanguages);
 
   // Below code is not great. I don't know how to create an array of useState variables in
   // React functional components, and so below code. Note that Headless UI ListBox when used
@@ -68,7 +75,7 @@ function Settings({
       : false
   );
 
-  const [showData, setShowData] = useState("");
+  // const [showData, setShowData] = useState("");
 
   // Below code sets up allLanguageSelectsionData array which we can then iterate through without
   // having to refer to specific state variables like selectedTranslators0.
@@ -108,9 +115,58 @@ function Settings({
 
   function handleBack(e: React.MouseEvent) {
     e.preventDefault();
-    formDataModified ? setIsDialogOpen(true) : router.back();
+    // formDataModified ? setIsDialogOpen(true) : router.back();
+    if (formDataModified) {
+      setDialogMessage("You have modified the settings but not saved them.");
+      setIsDialogOpen(true);
+    } else {
+      router.back();
+    }
   }
 
+  function handleDefaultLS(e: React.MouseEvent) {
+    e.preventDefault();
+    const defaultSelectedAuthorsForAllLanguages =
+      setupDefaultSelectedAuthorsForAllLanguages();
+    // setSelectedAuthorsForAllLanguages(defaultSelectedAuthorsForAllLanguages);
+    setLanguage0Checked(
+      defaultSelectedAuthorsForAllLanguages[0].translatorAuthors?.length ||
+        defaultSelectedAuthorsForAllLanguages[0].commentatorAuthors?.length
+        ? true
+        : false
+    );
+    setSelectedTranslators0(
+      defaultSelectedAuthorsForAllLanguages[0].translatorAuthors
+    );
+    setSelectedCommentators0(
+      defaultSelectedAuthorsForAllLanguages[0].commentatorAuthors
+    );
+    setLanguage1Checked(
+      defaultSelectedAuthorsForAllLanguages[1].translatorAuthors?.length ||
+        defaultSelectedAuthorsForAllLanguages[1].commentatorAuthors?.length
+        ? true
+        : false
+    );
+    setSelectedTranslators1(
+      defaultSelectedAuthorsForAllLanguages[1].translatorAuthors
+    );
+    setSelectedCommentators1(
+      defaultSelectedAuthorsForAllLanguages[1].commentatorAuthors
+    );
+    setLanguage2Checked(
+      defaultSelectedAuthorsForAllLanguages[2].translatorAuthors?.length ||
+        defaultSelectedAuthorsForAllLanguages[2].commentatorAuthors?.length
+        ? true
+        : false
+    );
+    setSelectedTranslators2(
+      defaultSelectedAuthorsForAllLanguages[2].translatorAuthors
+    );
+    setSelectedCommentators2(
+      defaultSelectedAuthorsForAllLanguages[2].commentatorAuthors
+    );
+    setFormDataModified(true);
+  }
   function handleForcedBack() {
     setIsDialogOpen(false);
     router.back();
@@ -118,6 +174,27 @@ function Settings({
 
   function handleCancel() {
     setIsDialogOpen(false);
+  }
+
+  function isAtLeastOneLanguageChecked() {
+    let atLeastOneLanguageChecked = allLanguageSelectionsData.some(
+      (languageSelectionData: any) => languageSelectionData.languageChecked
+    );
+    console.log(
+      `In isAllLanguageSelectionsValid: atLeastOneLanguageChecked is: ${atLeastOneLanguageChecked}`
+    );
+    return atLeastOneLanguageChecked;
+  }
+  // Below function is a callback passed to SubmitButton component. It is not directly invoked by this component's code
+  function handleSubmitButtonClickCB() {
+    if (!isAtLeastOneLanguageChecked()) {
+      setDialogMessage("Please select at least one language.");
+      setIsDialogOpen(true);
+      return false; // Don't proceed to save settings
+    } else {
+      setIsDialogOpen(false);
+      return true; // Proceed to save settings
+    }
   }
 
   return (
@@ -133,7 +210,8 @@ function Settings({
               Settings Not Saved
             </DialogTitle>
             <p className="mt-2 text-white">
-              You have modified the settings but not saved them.
+              {dialogMessage}
+              {/* You have modified the settings but not saved them. */}
             </p>
             <div className="flex flex-col sm:flex-row sm:gap-4">
               <button
@@ -154,7 +232,6 @@ function Settings({
       </Dialog>
       <h2 className="text-2xl">Settings</h2>
       <form className="my-4" action={createLanguageSelectionsCookie}>
-        {/* <form className="my-4" onSubmit={handleSubmit}> */}
         <h4 className="text-lg mb-4">
           Select languages and associated translators and commentators shown in
           Verse page
@@ -211,12 +288,19 @@ function Settings({
           formDataModified={formDataModified}
           setFormDataModified={setFormDataModified}
           submitSaveMsg="Settings saved."
+          onSubmitButtonClick={handleSubmitButtonClickCB}
         />
         <button
           className="block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
           onClick={(e) => handleBack(e)}
         >
           Back
+        </button>
+        <button
+          className="block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
+          onClick={(e) => handleDefaultLS(e)}
+        >
+          Use default languages settings
         </button>
       </form>
     </div>

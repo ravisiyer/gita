@@ -8,22 +8,22 @@ import {
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
   LANGUAGE_SELECTIONS_COOKIE_NAME,
 } from "../constants";
+import { LanguageSelectionsCookieElementT } from "./addltypes-d";
 
-type LanguageSelectionsCookieElementT = {
-  languageId: number | undefined;
-  selectedTranslators: string[]; //authorId as string
-  selectedCommentators: string[]; //authorId as string
-};
+// type LanguageSelectionsCookieElementT = {
+//   languageId: number | undefined;
+//   selectedTranslators: string[]; //authorId as string
+//   selectedCommentators: string[]; //authorId as string
+// };
 
 export async function createLanguageSelectionsCookie(formData: FormData) {
-  // let msg = "";
-  let LanguageSelectionsCookie: LanguageSelectionsCookieElementT[] = [];
+  let languageSelectionsCookie: LanguageSelectionsCookieElementT[] = [];
   for (
     let languageIndex = 0;
     languageIndex < allGitaLanguages.length;
     languageIndex++
   ) {
-    let LanguageSelectionsCookieElement: LanguageSelectionsCookieElementT | null =
+    let languageSelectionsCookieElement: LanguageSelectionsCookieElementT | null =
       null;
     let countTranslatorKeys = 0;
     let countCommentatorKeys = 0;
@@ -45,55 +45,46 @@ export async function createLanguageSelectionsCookie(formData: FormData) {
       ? Math.floor(countCommentatorKeys / 2)
       : 0;
 
-    // msg +=
-    //   `Language: ${allGitaLanguages[languageIndex].language} checkbox is ` +
-    //   (formData.has(
-    //     `${allGitaLanguages[languageIndex].id}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`
-    //   )
-    //     ? "checked. "
-    //     : "unchecked. ");
-    // msg += "\n";
-    formData.has(
-      `${allGitaLanguages[languageIndex].id}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`
-    ) &&
-      (LanguageSelectionsCookieElement = {
-        languageId: allGitaLanguages[languageIndex].id,
-        selectedTranslators: [],
-        selectedCommentators: [],
-      });
-    // msg += `${numTranslators} translator(s) selected: `;
-    for (let j = 0; j < numTranslators; j++) {
-      // let key = `${allGitaLanguages[languageIndex].id}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][name]`;
-      let key = `${allGitaLanguages[languageIndex].id}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
-      const value = formData.get(key);
-      // msg += value + ", ";
-      LanguageSelectionsCookieElement &&
-        LanguageSelectionsCookieElement.selectedTranslators.push(
-          value?.toString()!
-        );
-    }
+    languageSelectionsCookieElement = {
+      languageId: allGitaLanguages[languageIndex].id,
+      selectedTranslators: [],
+      selectedCommentators: [],
+    };
 
-    // msg += "\n";
-    // msg += `${numCommentators} commentator(s) selected: `;
-    for (let j = 0; j < numCommentators; j++) {
-      let key = `${allGitaLanguages[languageIndex].id}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
-      // let key = `${allGitaLanguages[languageIndex].id}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][name]`;
-      const value = formData.get(key);
-      // msg += value + ", ";
-      LanguageSelectionsCookieElement &&
-        LanguageSelectionsCookieElement.selectedCommentators.push(
+    const isLanguageChecked = formData.has(
+      `${allGitaLanguages[languageIndex].id}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`
+    );
+    // &&
+    //   (languageSelectionsCookieElement = {
+    //     languageId: allGitaLanguages[languageIndex].id,
+    //     selectedTranslators: [],
+    //     selectedCommentators: [],
+    //   });
+    if (isLanguageChecked) {
+      for (let j = 0; j < numTranslators; j++) {
+        let key = `${allGitaLanguages[languageIndex].id}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
+        const value = formData.get(key);
+        languageSelectionsCookieElement.selectedTranslators.push(
           value?.toString()!
         );
+      }
     }
-    // msg += "\n---------\n";
-    LanguageSelectionsCookieElement &&
-      LanguageSelectionsCookie.push(LanguageSelectionsCookieElement);
+    if (isLanguageChecked) {
+      for (let j = 0; j < numCommentators; j++) {
+        let key = `${allGitaLanguages[languageIndex].id}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
+        const value = formData.get(key);
+        languageSelectionsCookieElement.selectedCommentators.push(
+          value?.toString()!
+        );
+      }
+    }
+    // languageSelectionsCookieElement &&
+    languageSelectionsCookie.push(languageSelectionsCookieElement);
   }
-  // console.log("LanguageSelections", msg);
-  console.log("LanguageSelectionsCookie", LanguageSelectionsCookie);
+  console.log("LanguageSelectionsCookie", languageSelectionsCookie);
   cookies().set(
     LANGUAGE_SELECTIONS_COOKIE_NAME,
-    JSON.stringify(LanguageSelectionsCookie)
+    JSON.stringify(languageSelectionsCookie)
   );
   // await setTimeout(2000);
 }

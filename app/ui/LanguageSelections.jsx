@@ -17,10 +17,13 @@ function LanguageSelections({
   setSelectedCommentators,
   commentatorsListBoxName,
   setSelectionChanged,
-  // setSelectionChanged = undefined,
 }) {
   function handleLanguageCheckedChange(value) {
     setLanguageChecked(value);
+    if (value && !selectedTranslators.length && !selectedCommentators.length) {
+      setSelectedTranslators(allTranslators);
+      setSelectedCommentators(allCommentators);
+    }
     setSelectionChanged && setSelectionChanged(true);
   }
   return (
@@ -30,7 +33,6 @@ function LanguageSelections({
           checked={languageChecked}
           onChange={handleLanguageCheckedChange}
           name={languageCheckBoxName}
-          // onChange={setLanguageChecked}
           className="group block size-4 rounded border border-black data-[checked]:bg-blue-500"
         >
           {/* Checkmark icon */}

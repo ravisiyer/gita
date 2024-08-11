@@ -9,7 +9,7 @@ import {
   Label,
 } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function AuthorList({
   authorsLabel,
@@ -20,6 +20,15 @@ export function AuthorList({
   disabled = false,
   setSelectionChanged = undefined,
 }) {
+  const [selectAll, setSelectAll] = useState(
+    selectedAuthors.length === allAuthors.length
+  );
+  useEffect(() => {
+    selectedAuthors.length === allAuthors.length
+      ? setSelectAll(true)
+      : setSelectAll(false);
+  }, [selectedAuthors]);
+
   function handleSelectAllChange(value) {
     value ? setSelectedAuthors([...allAuthors]) : setSelectedAuthors([]);
     setSelectAll(value);
@@ -32,9 +41,6 @@ export function AuthorList({
     setSelectedAuthors(value);
     setSelectionChanged && setSelectionChanged(true);
   }
-  const [selectAll, setSelectAll] = useState(
-    selectedAuthors.length === allAuthors.length
-  );
 
   return (
     <Listbox
