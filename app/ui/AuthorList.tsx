@@ -37,7 +37,7 @@ export function AuthorList({
     selectedAuthors.length === allAuthors.length
       ? setSelectAll(true)
       : setSelectAll(false);
-  }, [selectedAuthors]);
+  }, [selectedAuthors, allAuthors.length]);
 
   function handleSelectAllChange(value: boolean) {
     value ? setSelectedAuthors([...allAuthors]) : setSelectedAuthors([]);
