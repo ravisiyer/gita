@@ -27,6 +27,7 @@ function Page() {
       islSCookieValid = true;
     }
   }
+  //SAFAL stands for SelectedAuthorsForAllLanguages
   let sAFAL: authorsForLanguageT[] = [];
   if (islSCookieValid) {
     sAFAL = setupSAFALFromCookie(lSCookie);

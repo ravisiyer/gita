@@ -1,7 +1,7 @@
 "use client";
 import { Checkbox, Field, Label } from "@headlessui/react";
 import AuthorList from "./AuthorList";
-import { GitaAuthor } from "../lib/gqltypes-d";
+import { authorIdNameT } from "../lib/addltypes-d";
 
 function LanguageSelections({
   languageId,
@@ -24,16 +24,16 @@ function LanguageSelections({
   languageChecked: boolean;
   setLanguageChecked: (languageChecked: boolean) => void;
   languageCheckBoxName: string;
-  allTranslators: Partial<GitaAuthor>[];
-  selectedTranslators: Partial<GitaAuthor>[];
+  allTranslators: authorIdNameT[];
+  selectedTranslators: authorIdNameT[];
   setSelectedTranslators: (
-    selectedTranslators: Partial<GitaAuthor>[] | undefined
+    selectedTranslators: authorIdNameT[] | undefined
   ) => void;
   translatorsListBoxName: string;
-  allCommentators: Partial<GitaAuthor>[];
-  selectedCommentators: Partial<GitaAuthor>[];
+  allCommentators: authorIdNameT[];
+  selectedCommentators: authorIdNameT[];
   setSelectedCommentators: (
-    selectedCommentators: Partial<GitaAuthor>[] | undefined
+    selectedCommentators: authorIdNameT[] | undefined
   ) => void;
   commentatorsListBoxName: string;
   setSelectionChanged: (selectionChanged: boolean) => void;

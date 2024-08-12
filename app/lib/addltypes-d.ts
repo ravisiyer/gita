@@ -8,8 +8,8 @@ export type GitaLanguageConstant = Omit<
 export type authorsForLanguageT = {
   languageId: number;
   languageName: string;
-  commentatorAuthors: Partial<GitaAuthor>[];
-  translatorAuthors: Partial<GitaAuthor>[];
+  commentatorAuthors: authorIdNameT[];
+  translatorAuthors: authorIdNameT[];
 };
 
 // LS is abbr. for Language Selections
@@ -18,3 +18,10 @@ export type LSCookieElementT = {
   selectedTranslators: string[]; //authorId as string
   selectedCommentators: string[]; //authorId as string
 };
+
+export type authorIdNameT = {
+  id: number;
+  name: string;
+};
+
+export const NUM_KEYS_IN_AUTHORIDNAME = 2;

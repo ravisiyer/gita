@@ -9,7 +9,7 @@ import {
   LANGUAGE_SELECTIONS_COOKIE_NAME,
 } from "../constants";
 // LS is abbr. for Language Selections
-import { LSCookieElementT } from "./addltypes-d";
+import { LSCookieElementT, NUM_KEYS_IN_AUTHORIDNAME } from "./addltypes-d";
 
 export async function createlSCookie(formData: FormData) {
   // lSCookie is abbr. for Language Selections Cookie
@@ -34,10 +34,10 @@ export async function createlSCookie(formData: FormData) {
         : null;
     }
     let numTranslators = countTranslatorKeys
-      ? Math.floor(countTranslatorKeys / 2)
+      ? Math.floor(countTranslatorKeys / NUM_KEYS_IN_AUTHORIDNAME)
       : 0;
     let numCommentators = countCommentatorKeys
-      ? Math.floor(countCommentatorKeys / 2)
+      ? Math.floor(countCommentatorKeys / NUM_KEYS_IN_AUTHORIDNAME)
       : 0;
 
     lSCookieElement = {

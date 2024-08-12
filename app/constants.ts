@@ -29,7 +29,7 @@ export const NUMBER_OF_VERSES_IN_CHAPTERS = [
   78, //Chapter 18, index 17
 ];
 
-export const DEFAULT_LANGUAGE_ID = "1";
+// export const DEFAULT_LANGUAGE_ID = "1";
 export const LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX = "check";
 export const TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX = "Transl";
 export const COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX = "Commnt";

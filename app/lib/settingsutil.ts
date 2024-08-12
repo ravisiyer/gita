@@ -1,11 +1,10 @@
 import { authorsForLanguageT } from "./addltypes-d";
 import { allAuthorsByLanguageId } from "../allauthorsbylanguageid";
-import { GitaAuthor } from "./gqltypes-d";
 import { capitalizeFirstLetter } from "./util";
 import { allGitaLanguages } from "../alllanguages";
 import { allGitaAuthors } from "../allauthors";
 // LS is abbr. for Language Selections
-import { LSCookieElementT } from "./addltypes-d";
+import { LSCookieElementT, authorIdNameT } from "./addltypes-d";
 import { defaultLSInCookieFormat } from "../defaultlanguageSelections";
 
 export function validateLanguagesData() {
@@ -36,15 +35,15 @@ export function setupAuthorsForAllLanguages() {
   allAuthorsByLanguageId.map((authorByLanguageId, index) => {
     let numCommentators = 0;
     let numTranslators = 0;
-    let commentatorAuthors: Partial<GitaAuthor>[] = Array(0);
-    let translatorAuthors: Partial<GitaAuthor>[] = Array(0);
+    let commentatorAuthors: authorIdNameT[] = Array(0);
+    let translatorAuthors: authorIdNameT[] = Array(0);
     authorByLanguageId.allGitaAuthorsForLanguageId.map((gitaAuthor) => {
       if (gitaAuthor?.gitaCommentariesByAuthorId?.totalCount) {
-        commentatorAuthors.push({ id: gitaAuthor.id, name: gitaAuthor.name });
+        commentatorAuthors.push({ id: gitaAuthor.id!, name: gitaAuthor.name! });
         numCommentators++;
       }
       if (gitaAuthor?.gitaTranslationsByAuthorId?.totalCount) {
-        translatorAuthors.push({ id: gitaAuthor.id, name: gitaAuthor.name });
+        translatorAuthors.push({ id: gitaAuthor.id!, name: gitaAuthor.name! });
         numTranslators++;
       }
     });
@@ -61,7 +60,17 @@ export function setupAuthorsForAllLanguages() {
 
 export function getAuthorByIdString(idString: string) {
   const id = parseInt(idString);
-  return allGitaAuthors.find((author) => author.id === id);
+  const foundAuthor = allGitaAuthors.find((author) => author.id === id);
+  if (foundAuthor === undefined) {
+    return undefined;
+  } else {
+    //allGitaAuthors has __typename field which we don't want to return
+    const authorIdName: authorIdNameT = {
+      id: foundAuthor.id!,
+      name: foundAuthor.name!,
+    };
+    return authorIdName;
+  }
 }
 
 export function validateLSCookie(lSCookie: LSCookieElementT[]) {
@@ -86,8 +95,8 @@ export function setupSAFALFromCookie(lSCookie: LSCookieElementT[]) {
       (element) => element.id === languageId
     );
     const languageName = language?.language;
-    let commentatorAuthors: Partial<GitaAuthor>[] = Array(0);
-    let translatorAuthors: Partial<GitaAuthor>[] = Array(0);
+    let commentatorAuthors: authorIdNameT[] = Array(0);
+    let translatorAuthors: authorIdNameT[] = Array(0);
     lSCookieElement.selectedCommentators.map((authorIdString) => {
       const author = getAuthorByIdString(authorIdString);
       if (author !== undefined) {

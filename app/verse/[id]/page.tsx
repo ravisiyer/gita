@@ -11,7 +11,7 @@ import {
 } from "@/app/lib/util";
 import { GitaVerse } from "@/app/lib/gqltypes-d";
 import { cookies } from "next/headers";
-import { DEFAULT_LANGUAGE_ID } from "@/app/constants";
+// import { DEFAULT_LANGUAGE_ID } from "@/app/constants";
 import { IoMdSettings } from "react-icons/io";
 import { LANGUAGE_SELECTIONS_COOKIE_NAME } from "@/app/constants";
 import { LSCookieElementT } from "@/app/lib/addltypes-d";
@@ -39,78 +39,57 @@ async function Page({ params }: { params: { id: string } }) {
   let data = await getVerse(verseId);
   let gitaVerse: GitaVerse = data.gitaVerse;
   const cookieStore = cookies();
-  // const tmp = cookieStore.get("selectedLanguageIds")?.value;
   const tmp = cookieStore.get(LANGUAGE_SELECTIONS_COOKIE_NAME)?.value;
-  // const selectedLanguageIds = tmp ? JSON.parse(tmp) : [];
   const lSCookie: LSCookieElementT[] = tmp ? JSON.parse(tmp) : [];
-  // if (!selectedLanguageIds.length) {
   if (!lSCookie.length) {
     // selectedLanguageIds.push(DEFAULT_LANGUAGE_ID); // Default if no languages in selected Languages
     // Use defaultcookie????
   }
-  // console.log(`selectedLanguageIds: ${selectedLanguageIds}`);
   console.log(`lSCookie: ${lSCookie}`);
 
   function filterVerseByLanguageSelections() {
+    // Function will be called only if lSCookie has length > 0. But no harm in addl. check here
+    if (!lSCookie.length) {
+      return gitaVerse; // No filtering is needed, return full verse
+    }
     //Deep copy
     const filteredGitaVerse = JSON.parse(JSON.stringify(gitaVerse));
     let i = filteredGitaVerse.gitaTranslationsByVerseId.nodes.length;
-    // let verseFiltered = false;
     while (i--) {
-      const languageId =
-        filteredGitaVerse.gitaTranslationsByVerseId.nodes[i]?.languageId;
       const lSCookieElement = lSCookie.find(
-        (element) => element.languageId === languageId
+        (element) =>
+          element.languageId ===
+          filteredGitaVerse.gitaTranslationsByVerseId.nodes[i]?.languageId
       );
-      let translationsLanguageSelected = false;
-      if (lSCookieElement !== undefined) {
-        lSCookieElement.selectedTranslators.length &&
-          (translationsLanguageSelected = true);
-      }
-      if (!translationsLanguageSelected) {
+      if (
+        lSCookieElement === undefined ||
+        lSCookieElement.selectedTranslators.length === 0
+      ) {
         filteredGitaVerse.gitaTranslationsByVerseId.nodes.splice(i, 1);
-        // verseFiltered = true;
       }
-      // above code could be simplified .. plan to do that later
     }
     i = filteredGitaVerse.gitaCommentariesByVerseId.nodes.length;
     while (i--) {
-      const languageId =
-        filteredGitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId;
       const lSCookieElement = lSCookie.find(
-        (element) => element.languageId === languageId
+        (element) =>
+          element.languageId ===
+          filteredGitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId
       );
-      let commentariesLanguageSelected = false;
-      if (lSCookieElement !== undefined) {
-        lSCookieElement.selectedCommentators.length &&
-          (commentariesLanguageSelected = true);
-      }
-      if (!commentariesLanguageSelected) {
+      if (
+        lSCookieElement === undefined ||
+        lSCookieElement.selectedCommentators.length === 0
+      ) {
         filteredGitaVerse.gitaCommentariesByVerseId.nodes.splice(i, 1);
-        // verseFiltered = true;
       }
-      // above code could be simplified .. plan to do that later
     }
-    //   if (
-    //     !selectedLanguageIds.includes(
-    //       filteredGitaVerse.gitaCommentariesByVerseId.nodes[
-    //         i
-    //       ]?.languageId.toString()
-    //     )
-    //   ) {
-    //     filteredGitaVerse.gitaCommentariesByVerseId.nodes.splice(i, 1);
-    //   }
-    // }
     return filteredGitaVerse;
   }
 
   let displayGitaVerse = gitaVerse;
+  // If cookie was found filter verse else use full verse (all languages, translations and commentaries)
   if (lSCookie.length) {
     displayGitaVerse = filterVerseByLanguageSelections();
   }
-  // if (selectedLanguageIds?.length) {
-  //   displayGitaVerse = filterVerseByLanguageSelections();
-  // }
 
   return (
     <div>

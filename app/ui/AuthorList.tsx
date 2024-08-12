@@ -9,7 +9,7 @@ import {
 } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { useState, useEffect } from "react";
-import { GitaAuthor } from "../lib/gqltypes-d";
+import { authorIdNameT } from "../lib/addltypes-d";
 
 export function AuthorList({
   authorsLabel,
@@ -21,11 +21,9 @@ export function AuthorList({
   setSelectionChanged,
 }: {
   authorsLabel: string;
-  allAuthors: Partial<GitaAuthor>[];
-  selectedAuthors: Partial<GitaAuthor>[];
-  setSelectedAuthors: (
-    selectedAuthors: Partial<GitaAuthor>[] | undefined
-  ) => void;
+  allAuthors: authorIdNameT[];
+  selectedAuthors: authorIdNameT[];
+  setSelectedAuthors: (selectedAuthors: authorIdNameT[] | undefined) => void;
   name: string;
   disabled: boolean;
   setSelectionChanged: (selectionChanged: boolean) => void;
@@ -44,7 +42,7 @@ export function AuthorList({
     setSelectAll(value);
     setSelectionChanged && setSelectionChanged(true);
   }
-  function handleListboxChange(value: Partial<GitaAuthor>[]) {
+  function handleListboxChange(value: authorIdNameT[]) {
     value.length === allAuthors.length
       ? setSelectAll(true)
       : setSelectAll(false);

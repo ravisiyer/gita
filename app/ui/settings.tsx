@@ -5,7 +5,7 @@ import { createlSCookie } from "../lib/actions";
 import { SubmitButton } from "../ui/submit-button";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import LanguageSelections from "../ui/LanguageSelections";
-import { authorsForLanguageT } from "../lib/addltypes-d";
+import { authorsForLanguageT, authorIdNameT } from "../lib/addltypes-d";
 import {
   LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX,
   TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX,
@@ -79,13 +79,13 @@ function Settings({
     authorsForLanguage: authorsForLanguageT;
     languageChecked: boolean;
     setLanguageChecked: (languageChecked: boolean) => void;
-    selectedTranslators: Partial<GitaAuthor>[] | undefined;
+    selectedTranslators: authorIdNameT[] | undefined;
     setSelectedTranslators: (
-      selectedTranslators: Partial<GitaAuthor>[] | undefined
+      selectedTranslators: authorIdNameT[] | undefined
     ) => void;
-    selectedCommentators: Partial<GitaAuthor>[] | undefined;
+    selectedCommentators: authorIdNameT[] | undefined;
     setSelectedCommentators: (
-      selectedCommentators: Partial<GitaAuthor>[] | undefined
+      selectedCommentators: authorIdNameT[] | undefined
     ) => void;
   };
 
