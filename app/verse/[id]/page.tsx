@@ -9,7 +9,12 @@ import {
   getCVNumbersFromVerseId,
   getValNumericVerseId,
 } from "@/app/lib/util";
-import { GitaVerse } from "@/app/lib/gqltypes-d";
+import {
+  GitaVerse,
+  Maybe,
+  GitaTranslation,
+  GitaCommentary,
+} from "@/app/lib/gqltypes-d";
 import { cookies } from "next/headers";
 // import { DEFAULT_LANGUAGE_ID } from "@/app/constants";
 import { IoMdSettings } from "react-icons/io";
@@ -45,7 +50,6 @@ async function Page({ params }: { params: { id: string } }) {
     // selectedLanguageIds.push(DEFAULT_LANGUAGE_ID); // Default if no languages in selected Languages
     // Use defaultcookie????
   }
-  console.log(`lSCookie: ${lSCookie}`);
 
   function filterVerseByLanguageSelections() {
     // Function will be called only if lSCookie has length > 0. But no harm in addl. check here
@@ -53,35 +57,55 @@ async function Page({ params }: { params: { id: string } }) {
       return gitaVerse; // No filtering is needed, return full verse
     }
     //Deep copy
-    const filteredGitaVerse = JSON.parse(JSON.stringify(gitaVerse));
-    let i = filteredGitaVerse.gitaTranslationsByVerseId.nodes.length;
-    while (i--) {
-      const lSCookieElement = lSCookie.find(
-        (element) =>
-          element.languageId ===
-          filteredGitaVerse.gitaTranslationsByVerseId.nodes[i]?.languageId
+    const filteredGitaVerse: GitaVerse = JSON.parse(JSON.stringify(gitaVerse));
+    const gitaTranslationNodes: Maybe<GitaTranslation>[] =
+      filteredGitaVerse.gitaTranslationsByVerseId.nodes.filter(
+        (gitaTranslation) => {
+          const lSCookieElement = lSCookie.find(
+            (element) => element.languageId === gitaTranslation?.languageId
+          );
+          if (
+            lSCookieElement === undefined ||
+            lSCookieElement.selectedTranslators.length === 0
+          ) {
+            return false;
+          } else if (
+            lSCookieElement.selectedTranslators.includes(
+              gitaTranslation?.authorId?.toString()!
+            )
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        }
       );
-      if (
-        lSCookieElement === undefined ||
-        lSCookieElement.selectedTranslators.length === 0
-      ) {
-        filteredGitaVerse.gitaTranslationsByVerseId.nodes.splice(i, 1);
-      }
-    }
-    i = filteredGitaVerse.gitaCommentariesByVerseId.nodes.length;
-    while (i--) {
-      const lSCookieElement = lSCookie.find(
-        (element) =>
-          element.languageId ===
-          filteredGitaVerse.gitaCommentariesByVerseId.nodes[i]?.languageId
+    filteredGitaVerse.gitaTranslationsByVerseId.nodes = gitaTranslationNodes;
+
+    const gitaCommentaryNodes: Maybe<GitaCommentary>[] =
+      filteredGitaVerse.gitaCommentariesByVerseId.nodes.filter(
+        (gitaCommentary) => {
+          const lSCookieElement = lSCookie.find(
+            (element) => element.languageId === gitaCommentary?.languageId
+          );
+          if (
+            lSCookieElement === undefined ||
+            lSCookieElement.selectedCommentators.length === 0
+          ) {
+            return false;
+          } else if (
+            lSCookieElement.selectedCommentators.includes(
+              gitaCommentary?.authorId?.toString()!
+            )
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+          return true;
+        }
       );
-      if (
-        lSCookieElement === undefined ||
-        lSCookieElement.selectedCommentators.length === 0
-      ) {
-        filteredGitaVerse.gitaCommentariesByVerseId.nodes.splice(i, 1);
-      }
-    }
+    filteredGitaVerse.gitaCommentariesByVerseId.nodes = gitaCommentaryNodes;
     return filteredGitaVerse;
   }
 

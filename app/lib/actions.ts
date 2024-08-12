@@ -65,7 +65,7 @@ export async function createlSCookie(formData: FormData) {
     }
     lSCookie.push(lSCookieElement);
   }
-  console.log("lSCookie", lSCookie);
+  // console.log("lSCookie", lSCookie);
   cookies().set(LANGUAGE_SELECTIONS_COOKIE_NAME, JSON.stringify(lSCookie));
   // await setTimeout(2000);
 }
