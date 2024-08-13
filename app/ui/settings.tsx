@@ -12,7 +12,6 @@ import {
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
 } from "../constants";
 import { setupDefaultSAFAL } from "../lib/settingsutil";
-import { GitaAuthor } from "../lib/gqltypes-d";
 
 function Settings({
   authorsForAllLanguages,
@@ -67,8 +66,6 @@ function Settings({
       ? true
       : false
   );
-
-  // const [showData, setShowData] = useState("");
 
   // Below code sets up allLanguageSelectsionData array which we can then iterate through without
   // having to refer to specific state variables like selectedTranslators0.
@@ -280,7 +277,6 @@ function Settings({
           formDataModified={formDataModified}
           setFormDataModified={setFormDataModified}
           submitSaveMsg="Settings sent to browser as cookie."
-          // submitSaveMsg="Settings saved."
           onSubmitButtonClick={handleSubmitButtonClickCB}
         />
         <button

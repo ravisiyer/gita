@@ -1,3 +1,7 @@
+**README update for Version 1.2**
+
+This version adds to the Settings feature of earlier version 1.1, the ability of selecting individual translators and commentators within each language, whose translations and commentaries are shown in verse page. In version 1.1, only languages could be selected and all translations and commentaries of selected languages were shown in verse page.
+
 **README update for Version 1.1**
 
 This version adds to earlier [version 1.0](https://github.com/ravisiyer/gita/releases/tag/v1.0), the feature of user selecting the languages of translations and commentaries in verse page through a 'Settings' page.

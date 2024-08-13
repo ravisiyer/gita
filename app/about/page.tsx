@@ -85,7 +85,7 @@ function Page() {
         .
       </p>
       <p className="mt-4">
-        Web app version: After version 1.1, Date: 3rd August 2024
+        Web app version: Version 1.2, Date: 13th August 2024
         <br />
         Web app author: Ravi S. Iyer
       </p>

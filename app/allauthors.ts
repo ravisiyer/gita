@@ -1,5 +1,8 @@
 import { GitaAuthor } from "./lib/gqltypes-d";
-
+// Hard-coded query results for simplicity of Settings client component code.
+// Main data picked up from gqljson/jsondata/allAuthors.json which is auto created
+// by a small console based program gqljson/writeallauthors.mjs
+// Later consider using client side Apollo client code to pick up data from GraphQL source directly
 export const allGitaAuthors: Partial<GitaAuthor>[] = [
   { __typename: "GitaAuthor", id: 1, name: "Swami Ramsukhdas" },
   { __typename: "GitaAuthor", id: 2, name: "Swami Chinmayananda" },

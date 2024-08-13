@@ -16,7 +16,6 @@ import {
   GitaCommentary,
 } from "@/app/lib/gqltypes-d";
 import { cookies } from "next/headers";
-// import { DEFAULT_LANGUAGE_ID } from "@/app/constants";
 import { IoMdSettings } from "react-icons/io";
 import { LANGUAGE_SELECTIONS_COOKIE_NAME } from "@/app/constants";
 import { LSCookieElementT } from "@/app/lib/addltypes-d";
@@ -48,8 +47,7 @@ async function Page({ params }: { params: { id: string } }) {
   const tmp = cookieStore.get(LANGUAGE_SELECTIONS_COOKIE_NAME)?.value;
   let lSCookie: LSCookieElementT[] = tmp ? JSON.parse(tmp) : [];
   if (!lSCookie.length) {
-    // selectedLanguageIds.push(DEFAULT_LANGUAGE_ID); // Default if no languages in selected Languages
-    // Use defaultcookie
+    // Use default Language Selections in cookie format
     lSCookie = defaultLSInCookieFormat;
   }
 
@@ -111,7 +109,6 @@ async function Page({ params }: { params: { id: string } }) {
   }
 
   let displayGitaVerse = gitaVerse;
-  // If cookie was found filter verse else use full verse (all languages, translations and commentaries)
   if (lSCookie.length) {
     displayGitaVerse = filterVerseByLanguageSelections();
   }
@@ -130,8 +127,8 @@ async function Page({ params }: { params: { id: string } }) {
         <p className="my-4 text-lg ">{displayGitaVerse.wordMeanings}</p>
         <hr className="border border-gray-400" />
         <p className="my-4 text-orange-800">
-          Note: To change languages of translations and commentaries below, go
-          to{" "}
+          Note: To choose languages, translators and commentators for contents
+          below, go to{" "}
           <Link href="/settings" className="underline">
             <IoMdSettings className="size-5 inline" />
             Settings
@@ -170,19 +167,6 @@ async function Page({ params }: { params: { id: string } }) {
             <p className="my-4 ">
               {commentary!.description!.replace(/\?/g, ",")}
             </p>
-            {/* Hack to partially fix ? characters instead of , characters in Swami Sivananda
-            commentaries. Disadvantage is that even ? chars that should be ? will be 
-            changed to , chars. But such cases seem to be very few. */}
-            {/* {commentary!
-              .authorName!.toLowerCase()
-              .includes("swami sivananda") ? (
-              <p className="my-4 ">
-                {commentary!.description!.replace(/\?/g, ",")}
-              </p>
-            ) : (
-              <p className="my-4 ">{commentary!.description}</p>
-            )} */}
-            {/* <p className="my-4 ">{commentary!.description}</p> */}
           </div>
         ))}
         <hr className="border border-gray-400" />

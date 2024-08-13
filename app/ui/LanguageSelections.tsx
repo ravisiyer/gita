@@ -43,16 +43,22 @@ function LanguageSelections({
     !selectedTranslators.length &&
       !selectedCommentators.length &&
       setLanguageChecked(false);
-    // if (selectedTranslators.length === 0 && selectedCommentators.length === 0) {
-    //   setLanguageChecked(false);
-    // }
   }, [selectedTranslators, selectedCommentators]);
 
   function handleLanguageCheckedChange(value: boolean) {
     setLanguageChecked(value);
+    // Below code does select all when language box is checked which seems to force user to uncheck
+    // entries he does not want. So am commenting out but retaining it in case it is required later on.
+    // if (value && !selectedTranslators.length && !selectedCommentators.length) {
+    //   setSelectedTranslators(allTranslators);
+    //   setSelectedCommentators(allCommentators);
+    // }
+    // The alternative UI is to just select first translator or commentator. Below code implements that
     if (value && !selectedTranslators.length && !selectedCommentators.length) {
-      setSelectedTranslators(allTranslators);
-      setSelectedCommentators(allCommentators);
+      allTranslators.length
+        ? setSelectedTranslators([allTranslators[0]])
+        : allCommentators.length &&
+          setSelectedCommentators([allCommentators[0]]);
     }
     setSelectionChanged && setSelectionChanged(true);
   }

@@ -47,10 +47,11 @@ function Page() {
   return islSCookieValid && isLanguagesDataValid ? (
     <Settings authorsForAllLanguages={authorsForAllLanguages} sAFAL={sAFAL} />
   ) : (
-    <div className="px-4 pb-4">
-      <p>
-        Sorry! Web app. error! Program code does not seem to be in sync. with
-        languages data. This page cannot be shown.
+    <div>
+      <h2 className="my-5 text-2xl font-bold">Sorry! Something went wrong!</h2>
+      <p className="my-4">
+        Program code does not seem to be in sync. with languages data. The
+        Settings page cannot be shown.
       </p>
     </div>
   );
