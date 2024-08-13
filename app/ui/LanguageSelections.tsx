@@ -2,6 +2,7 @@
 import { Checkbox, Field, Label } from "@headlessui/react";
 import AuthorList from "./AuthorList";
 import { authorIdNameT } from "../lib/addltypes-d";
+import { useEffect } from "react";
 
 function LanguageSelections({
   languageId,
@@ -38,6 +39,15 @@ function LanguageSelections({
   commentatorsListBoxName: string;
   setSelectionChanged: (selectionChanged: boolean) => void;
 }) {
+  useEffect(() => {
+    !selectedTranslators.length &&
+      !selectedCommentators.length &&
+      setLanguageChecked(false);
+    // if (selectedTranslators.length === 0 && selectedCommentators.length === 0) {
+    //   setLanguageChecked(false);
+    // }
+  }, [selectedTranslators, selectedCommentators]);
+
   function handleLanguageCheckedChange(value: boolean) {
     setLanguageChecked(value);
     if (value && !selectedTranslators.length && !selectedCommentators.length) {

@@ -20,6 +20,7 @@ import { cookies } from "next/headers";
 import { IoMdSettings } from "react-icons/io";
 import { LANGUAGE_SELECTIONS_COOKIE_NAME } from "@/app/constants";
 import { LSCookieElementT } from "@/app/lib/addltypes-d";
+import { defaultLSInCookieFormat } from "@/app/defaultlanguageSelections";
 
 export async function generateMetadata({
   params,
@@ -45,10 +46,11 @@ async function Page({ params }: { params: { id: string } }) {
   let gitaVerse: GitaVerse = data.gitaVerse;
   const cookieStore = cookies();
   const tmp = cookieStore.get(LANGUAGE_SELECTIONS_COOKIE_NAME)?.value;
-  const lSCookie: LSCookieElementT[] = tmp ? JSON.parse(tmp) : [];
+  let lSCookie: LSCookieElementT[] = tmp ? JSON.parse(tmp) : [];
   if (!lSCookie.length) {
     // selectedLanguageIds.push(DEFAULT_LANGUAGE_ID); // Default if no languages in selected Languages
-    // Use defaultcookie????
+    // Use defaultcookie
+    lSCookie = defaultLSInCookieFormat;
   }
 
   function filterVerseByLanguageSelections() {
@@ -102,7 +104,6 @@ async function Page({ params }: { params: { id: string } }) {
           } else {
             return false;
           }
-          return true;
         }
       );
     filteredGitaVerse.gitaCommentariesByVerseId.nodes = gitaCommentaryNodes;
