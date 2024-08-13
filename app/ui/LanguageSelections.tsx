@@ -43,7 +43,7 @@ function LanguageSelections({
     !selectedTranslators.length &&
       !selectedCommentators.length &&
       setLanguageChecked(false);
-  }, [selectedTranslators, selectedCommentators]);
+  }, [selectedTranslators, selectedCommentators, setLanguageChecked]);
 
   function handleLanguageCheckedChange(value: boolean) {
     setLanguageChecked(value);
