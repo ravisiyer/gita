@@ -10,16 +10,24 @@ import {
   LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX,
   TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX,
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
+  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  CHAPTER_PAGE_TRANSLATOR_FIELD_NAME,
 } from "../constants";
-import { setupDefaultSAFAL } from "../lib/settingsutil";
+import {
+  getAllLanguageTranslatorAuthors,
+  setupDefaultSAFAL,
+} from "../lib/settingsutil";
+import ChapterPageTranslatorSelection from "./ChapterPageTranslatorSelection";
 
 function Settings({
   authorsForAllLanguages,
   //SAFAL stands for SelectedAuthorsForAllLanguages
   sAFAL,
+  chapterPageTranslatorAuthorId = DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
 }: {
   authorsForAllLanguages: authorsForLanguageT[];
   sAFAL: Partial<authorsForLanguageT>[];
+  chapterPageTranslatorAuthorId?: string;
 }) {
   const [formDataModified, setFormDataModified] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -115,6 +123,31 @@ function Settings({
     setSelectedCommentators: setSelectedCommentators2,
   };
 
+  const allLanguageTranslatorAuthors = getAllLanguageTranslatorAuthors(
+    authorsForAllLanguages
+  );
+  // const defaultAuthorId = DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID;
+  let numChapterPageTranslatorAuthorId = parseInt(
+    DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID
+  );
+  if (chapterPageTranslatorAuthorId) {
+    const tmp = parseInt(chapterPageTranslatorAuthorId.toString());
+    if (!Number.isNaN(tmp)) {
+      numChapterPageTranslatorAuthorId = tmp;
+    }
+  }
+
+  let defaultAuthorIndex = 0;
+  allLanguageTranslatorAuthors.some((languageTranslatorAuthor, index) => {
+    if (
+      languageTranslatorAuthor.authorId === numChapterPageTranslatorAuthorId
+    ) {
+      defaultAuthorIndex = index;
+      return true;
+    } else {
+      return false;
+    }
+  });
   const router = useRouter();
 
   function handleBack(e: React.MouseEvent) {
@@ -127,7 +160,7 @@ function Settings({
     }
   }
 
-  function handleDefaultLS(e: React.MouseEvent) {
+  function handleDefaultSettings(e: React.MouseEvent) {
     e.preventDefault();
 
     //SAFAL stands for SelectedAuthorsForAllLanguages
@@ -226,50 +259,61 @@ function Settings({
       </Dialog>
       <h2 className="text-2xl">Settings</h2>
       <form className="my-4" action={createlSCookie}>
-        <h4 className="text-lg mb-4">
-          Select languages and associated translators and commentators shown in
-          Verse page
-        </h4>
-        <div className="flex justify-start flex-wrap gap-x-4 gap-y-4">
-          {allLanguageSelectionsData.map((languageSelectionData, index) => {
-            return (
-              <div key={index}>
-                <LanguageSelections
-                  languageId={
-                    languageSelectionData.authorsForLanguage.languageId
-                  }
-                  languageName={
-                    languageSelectionData.authorsForLanguage.languageName
-                  }
-                  languageChecked={languageSelectionData.languageChecked}
-                  setLanguageChecked={languageSelectionData.setLanguageChecked}
-                  languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`}
-                  allTranslators={
-                    languageSelectionData.authorsForLanguage.translatorAuthors
-                  }
-                  selectedTranslators={
-                    languageSelectionData.selectedTranslators!
-                  }
-                  setSelectedTranslators={
-                    languageSelectionData.setSelectedTranslators
-                  }
-                  translatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}`}
-                  allCommentators={
-                    languageSelectionData.authorsForLanguage.commentatorAuthors
-                  }
-                  selectedCommentators={
-                    languageSelectionData.selectedCommentators!
-                  }
-                  setSelectedCommentators={
-                    languageSelectionData.setSelectedCommentators
-                  }
-                  commentatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}`}
-                  setSelectionChanged={setFormDataModified}
-                />
-              </div>
-            );
-          })}
+        <div className="border border-black p-2">
+          <h4 className="text-lg mb-4">
+            Select languages and associated translators and commentators shown
+            in Verse page
+          </h4>
+          <div className="flex justify-start flex-wrap gap-x-4 gap-y-4">
+            {allLanguageSelectionsData.map((languageSelectionData, index) => {
+              return (
+                <div key={index}>
+                  <LanguageSelections
+                    languageId={
+                      languageSelectionData.authorsForLanguage.languageId
+                    }
+                    languageName={
+                      languageSelectionData.authorsForLanguage.languageName
+                    }
+                    languageChecked={languageSelectionData.languageChecked}
+                    setLanguageChecked={
+                      languageSelectionData.setLanguageChecked
+                    }
+                    languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`}
+                    allTranslators={
+                      languageSelectionData.authorsForLanguage.translatorAuthors
+                    }
+                    selectedTranslators={
+                      languageSelectionData.selectedTranslators!
+                    }
+                    setSelectedTranslators={
+                      languageSelectionData.setSelectedTranslators
+                    }
+                    translatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}`}
+                    allCommentators={
+                      languageSelectionData.authorsForLanguage
+                        .commentatorAuthors
+                    }
+                    selectedCommentators={
+                      languageSelectionData.selectedCommentators!
+                    }
+                    setSelectedCommentators={
+                      languageSelectionData.setSelectedCommentators
+                    }
+                    commentatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}`}
+                    setSelectionChanged={setFormDataModified}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
+        <ChapterPageTranslatorSelection
+          allLanguageTranslatorAuthors={allLanguageTranslatorAuthors}
+          defaultAuthorIndex={defaultAuthorIndex}
+          name={CHAPTER_PAGE_TRANSLATOR_FIELD_NAME}
+          setSelectionChanged={setFormDataModified}
+        />
 
         <SubmitButton
           btnLabel="Save settings as browser cookie"
@@ -287,9 +331,10 @@ function Settings({
         </button>
         <button
           className="block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
-          onClick={(e) => handleDefaultLS(e)}
+          onClick={(e) => handleDefaultSettings(e)}
         >
-          Use default languages settings
+          Use default settings
+          {/* Use default languages settings */}
         </button>
       </form>
     </div>

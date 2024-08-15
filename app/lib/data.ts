@@ -34,7 +34,10 @@ export async function getAllChapters() {
   }
 }
 
-export async function getChapter(chapterNumber: string) {
+export async function getChapter(
+  chapterNumber: string,
+  authorId: string = "16"
+) {
   const client = createApolloClient();
   try {
     const { data } = await client.query({
@@ -56,11 +59,13 @@ export async function getChapter(chapterNumber: string) {
                 id
                 text
                 wordMeanings
-                gitaTranslationsByVerseId(condition: { languageId: 1 }, first: 1) {
+                gitaTranslationsByVerseId(condition: { authorId: ${authorId} }, first: 1) {
                   nodes {
                     description
                     verseId
+                    authorId
                     authorName
+                    language
                   }
                 }
               }

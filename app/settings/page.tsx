@@ -1,7 +1,10 @@
 // "use client";
-import { authorsForLanguageT } from "../lib/addltypes-d";
+import { authorsForLanguageT, gitaAppCookieT } from "../lib/addltypes-d";
 import { cookies } from "next/headers";
-import { LANGUAGE_SELECTIONS_COOKIE_NAME } from "../constants";
+import {
+  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  SETTINGS_COOKIE_NAME,
+} from "../constants";
 import { LSCookieElementT } from "../lib/addltypes-d";
 // LS is abbr. for Language Selections
 import { defaultLSInCookieFormat } from "../defaultlanguageSelections";
@@ -15,9 +18,16 @@ import {
 
 function Page() {
   const cookieStore = cookies();
-  const tmp = cookieStore.get(LANGUAGE_SELECTIONS_COOKIE_NAME)?.value;
+  const tmp = cookieStore.get(SETTINGS_COOKIE_NAME)?.value;
   // lSCookie is abbr. for languageSelectionsCookie
-  let lSCookie: LSCookieElementT[] = tmp ? JSON.parse(tmp) : [];
+  let gitaAppCookie: gitaAppCookieT = tmp ? JSON.parse(tmp) : tmp;
+  // let lSCookie: LSCookieElementT[] = tmp ? JSON.parse(tmp) : [];
+  let lSCookie: LSCookieElementT[] = gitaAppCookie
+    ? gitaAppCookie.lSCookie
+    : [];
+  let chapterPageTranslatorAuthorId = gitaAppCookie
+    ? gitaAppCookie.chapterPageTranslatorAuthorId
+    : DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID;
   let islSCookieValid = validateLSCookie(lSCookie);
   if (!islSCookieValid) {
     // Is our default LS in Cookie format in sync. with language data and also otherwise valid
@@ -45,7 +55,11 @@ function Page() {
   }
 
   return islSCookieValid && isLanguagesDataValid ? (
-    <Settings authorsForAllLanguages={authorsForAllLanguages} sAFAL={sAFAL} />
+    <Settings
+      authorsForAllLanguages={authorsForAllLanguages}
+      sAFAL={sAFAL}
+      chapterPageTranslatorAuthorId={chapterPageTranslatorAuthorId}
+    />
   ) : (
     <div>
       <h2 className="my-5 text-2xl font-bold">Sorry! Something went wrong!</h2>

@@ -17,8 +17,8 @@ import {
 } from "@/app/lib/gqltypes-d";
 import { cookies } from "next/headers";
 import { IoMdSettings } from "react-icons/io";
-import { LANGUAGE_SELECTIONS_COOKIE_NAME } from "@/app/constants";
-import { LSCookieElementT } from "@/app/lib/addltypes-d";
+import { SETTINGS_COOKIE_NAME } from "@/app/constants";
+import { LSCookieElementT, gitaAppCookieT } from "@/app/lib/addltypes-d";
 import { defaultLSInCookieFormat } from "@/app/defaultlanguageSelections";
 
 export async function generateMetadata({
@@ -44,8 +44,14 @@ async function Page({ params }: { params: { id: string } }) {
   let data = await getVerse(verseId);
   let gitaVerse: GitaVerse = data.gitaVerse;
   const cookieStore = cookies();
-  const tmp = cookieStore.get(LANGUAGE_SELECTIONS_COOKIE_NAME)?.value;
-  let lSCookie: LSCookieElementT[] = tmp ? JSON.parse(tmp) : [];
+  const tmp = cookieStore.get(SETTINGS_COOKIE_NAME)?.value;
+  // const tmp = cookieStore.get(LANGUAGE_SELECTIONS_COOKIE_NAME)?.value;
+  let gitaAppCookie: gitaAppCookieT = tmp ? JSON.parse(tmp) : tmp;
+
+  // let lSCookie: LSCookieElementT[] = tmp ? JSON.parse(tmp) : [];
+  let lSCookie: LSCookieElementT[] = gitaAppCookie
+    ? gitaAppCookie.lSCookie
+    : [];
   if (!lSCookie.length) {
     // Use default Language Selections in cookie format
     lSCookie = defaultLSInCookieFormat;

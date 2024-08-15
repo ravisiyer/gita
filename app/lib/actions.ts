@@ -6,10 +6,16 @@ import {
   LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX,
   TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX,
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
-  LANGUAGE_SELECTIONS_COOKIE_NAME,
+  SETTINGS_COOKIE_NAME,
+  CHAPTER_PAGE_TRANSLATOR_FIELD_NAME,
+  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
 } from "../constants";
 // LS is abbr. for Language Selections
-import { LSCookieElementT, NUM_KEYS_IN_AUTHORIDNAME } from "./addltypes-d";
+import {
+  gitaAppCookieT,
+  LSCookieElementT,
+  NUM_KEYS_IN_AUTHORIDNAME,
+} from "./addltypes-d";
 
 export async function createlSCookie(formData: FormData) {
   // lSCookie is abbr. for Language Selections Cookie
@@ -66,6 +72,25 @@ export async function createlSCookie(formData: FormData) {
     lSCookie.push(lSCookieElement);
   }
   // console.log("lSCookie", lSCookie);
-  cookies().set(LANGUAGE_SELECTIONS_COOKIE_NAME, JSON.stringify(lSCookie));
+
+  const chapterPageTranslatorAuthorIdValue = formData.get(
+    `${CHAPTER_PAGE_TRANSLATOR_FIELD_NAME}[authorId]`
+  );
+  let chapterPageTranslatorAuthorId =
+    chapterPageTranslatorAuthorIdValue?.toString() ||
+    DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID.toString();
+  // if (chapterPageTranslatorAuthorIdValue) {
+  //   // const tmp = parseInt(chapterPageTranslatorAuthorIdValue?.toString());
+  //   // if (!Number.isNaN(tmp)) {
+  //   //   chapterPageTranslatorAuthorId = tmp;
+  //   // }
+  // }
+
+  const gitaAppCookie: gitaAppCookieT = {
+    lSCookie,
+    chapterPageTranslatorAuthorId,
+  };
+  cookies().set(SETTINGS_COOKIE_NAME, JSON.stringify(gitaAppCookie));
+  // cookies().set(SETTINGS_COOKIE_NAME, JSON.stringify(lSCookie));
   // await setTimeout(2000);
 }

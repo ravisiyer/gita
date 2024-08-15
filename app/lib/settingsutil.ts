@@ -4,7 +4,11 @@ import { capitalizeFirstLetter } from "./util";
 import { allGitaLanguages } from "../alllanguages";
 import { allGitaAuthors } from "../allauthors";
 // LS is abbr. for Language Selections
-import { LSCookieElementT, authorIdNameT } from "./addltypes-d";
+import {
+  LSCookieElementT,
+  authorIdNameT,
+  languageTranslatorAuthorT,
+} from "./addltypes-d";
 import { defaultLSInCookieFormat } from "../defaultlanguageSelections";
 
 export function validateLanguagesData() {
@@ -57,6 +61,45 @@ export function setupAuthorsForAllLanguages() {
   });
   return authorsForAllLanguages;
 }
+
+export function getAllLanguageTranslatorAuthors(
+  authorsForAllLanguages: authorsForLanguageT[]
+) {
+  let allLanguageTranslatorAuthors: languageTranslatorAuthorT[] = [];
+
+  authorsForAllLanguages.map((authorsForLanguage, index) => {
+    authorsForLanguage.translatorAuthors.map((translatorAuthor) => {
+      allLanguageTranslatorAuthors.push({
+        authorId: translatorAuthor.id,
+        languageTranslator: `${authorsForLanguage.languageName}: ${translatorAuthor.name}`,
+      });
+    });
+  });
+  return allLanguageTranslatorAuthors;
+}
+
+// Below code not tested as I realized I could get the info. in a simpler way.
+// export function getLanguageIdOfTranslatorAuthor(authorId: number) {
+//   let languageId: number | undefined = undefined;
+//   allAuthorsByLanguageId.some((allAuthorsByLanguageIDElement) => {
+//     if (
+//       allAuthorsByLanguageIDElement.allGitaAuthorsForLanguageId.some(
+//         (gitaAuthor) => {
+//           if (gitaAuthor.id === authorId) {
+//             languageId = allAuthorsByLanguageIDElement.languageId;
+//           } else {
+//             return false;
+//           }
+//         }
+//       )
+//     )
+//       return true;
+//     else {
+//       return false;
+//     }
+//   });
+//   return languageId;
+// }
 
 export function getAuthorByIdString(idString: string) {
   const id = parseInt(idString);

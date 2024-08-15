@@ -4,8 +4,18 @@ import { Suspense } from "react";
 import { getChapter } from "../../lib/data";
 // import { getChapter } from "../lib/dummydata";
 import Link from "next/link";
-import { getValNumericChapterNumber } from "../../lib/util";
+import {
+  capitalizeFirstLetter,
+  getValNumericChapterNumber,
+} from "../../lib/util";
 import { GitaChapter } from "../../lib/gqltypes-d";
+import { cookies } from "next/headers";
+import {
+  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  SETTINGS_COOKIE_NAME,
+} from "@/app/constants";
+import { gitaAppCookieT } from "@/app/lib/addltypes-d";
+// import { getLanguageIdOfTranslatorAuthor } from "@/app/lib/settingsutil";
 
 export async function generateMetadata({
   params,
@@ -19,6 +29,7 @@ export async function generateMetadata({
 
 async function Page({ params }: { params: { chapternumber: string } }) {
   const chapterNumber: string = params.chapternumber;
+  const authorIdString: string = "18";
 
   const valChapterNumber = getValNumericChapterNumber(chapterNumber);
   if (!valChapterNumber.valid) {
@@ -26,7 +37,26 @@ async function Page({ params }: { params: { chapternumber: string } }) {
   }
   const numericChapterNumber = valChapterNumber.numericChapterNumber;
 
-  let data = await getChapter(chapterNumber);
+  const cookieStore = cookies();
+  const tmp = cookieStore.get(SETTINGS_COOKIE_NAME)?.value;
+  const gitaAppCookie: gitaAppCookieT = tmp ? JSON.parse(tmp) : tmp;
+
+  const chapterPageTranslatorAuthorId: string = gitaAppCookie
+    ? gitaAppCookie.chapterPageTranslatorAuthorId
+    : DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID;
+
+  // let chapterPageTranslatorAuthorLanguageId: number | undefined = undefined;
+  // const numChapterPageTranslatorAuthorId = parseInt(
+  //   chapterPageTranslatorAuthorId
+  // );
+  // if (numChapterPageTranslatorAuthorId) {
+  //   chapterPageTranslatorAuthorLanguageId = getLanguageIdOfTranslatorAuthor(
+  //     numChapterPageTranslatorAuthorId
+  //   );
+  // }
+
+  let data = await getChapter(chapterNumber, chapterPageTranslatorAuthorId);
+  // let data = await getChapter(chapterNumber, authorIdString);
   let gitaChapter: GitaChapter = data.gitaChapter;
 
   return (
@@ -58,9 +88,14 @@ async function Page({ params }: { params: { chapternumber: string } }) {
             <p className="my-4 ">{verse!.transliteration}</p>
             <h4 className="my-4 text-lg font-bold">Word Meanings</h4>
             <p className="my-4 ">{verse!.wordMeanings}</p>
-            <h4 className="my-4 text-lg font-bold">{`English translation by ${
+            <h4 className="my-4 text-lg font-bold">{`${capitalizeFirstLetter(
+              verse!.gitaTranslationsByVerseId.nodes[0]!.language!
+            )} translation by ${
               verse!.gitaTranslationsByVerseId.nodes[0]!.authorName
             }`}</h4>
+            {/* <h4 className="my-4 text-lg font-bold">{`English translation by ${
+              verse!.gitaTranslationsByVerseId.nodes[0]!.authorName
+            }`}</h4> */}
             <p className="my-4 text-xl ">
               {verse!.gitaTranslationsByVerseId.nodes[0]!.description}
             </p>

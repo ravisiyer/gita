@@ -12,11 +12,27 @@ export type authorsForLanguageT = {
   translatorAuthors: authorIdNameT[];
 };
 
+// export type translatorAuthorsForLanguageT = Omit<
+//   authorsForLanguageT,
+//   "commentatorAuthors"
+// >;
+
+export type languageTranslatorAuthorT = {
+  authorId: number;
+  languageTranslator: string;
+};
+
 // LS is abbr. for Language Selections
 export type LSCookieElementT = {
   languageId: number | undefined;
   selectedTranslators: string[]; //authorId as string
   selectedCommentators: string[]; //authorId as string
+};
+
+export type gitaAppCookieT = {
+  lSCookie: LSCookieElementT[];
+  chapterPageTranslatorAuthorId: string;
+  // chapterPageTranslatorAuthorId: number;
 };
 
 export type authorIdNameT = {
