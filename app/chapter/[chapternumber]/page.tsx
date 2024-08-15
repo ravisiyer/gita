@@ -15,7 +15,6 @@ import {
   SETTINGS_COOKIE_NAME,
 } from "@/app/constants";
 import { gitaAppCookieT } from "@/app/lib/addltypes-d";
-// import { getLanguageIdOfTranslatorAuthor } from "@/app/lib/settingsutil";
 
 export async function generateMetadata({
   params,
@@ -29,7 +28,6 @@ export async function generateMetadata({
 
 async function Page({ params }: { params: { chapternumber: string } }) {
   const chapterNumber: string = params.chapternumber;
-  const authorIdString: string = "18";
 
   const valChapterNumber = getValNumericChapterNumber(chapterNumber);
   if (!valChapterNumber.valid) {
@@ -45,18 +43,7 @@ async function Page({ params }: { params: { chapternumber: string } }) {
     ? gitaAppCookie.chapterPageTranslatorAuthorId
     : DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID;
 
-  // let chapterPageTranslatorAuthorLanguageId: number | undefined = undefined;
-  // const numChapterPageTranslatorAuthorId = parseInt(
-  //   chapterPageTranslatorAuthorId
-  // );
-  // if (numChapterPageTranslatorAuthorId) {
-  //   chapterPageTranslatorAuthorLanguageId = getLanguageIdOfTranslatorAuthor(
-  //     numChapterPageTranslatorAuthorId
-  //   );
-  // }
-
   let data = await getChapter(chapterNumber, chapterPageTranslatorAuthorId);
-  // let data = await getChapter(chapterNumber, authorIdString);
   let gitaChapter: GitaChapter = data.gitaChapter;
 
   return (
@@ -76,7 +63,7 @@ async function Page({ params }: { params: { chapternumber: string } }) {
         {gitaChapter.gitaVersesByChapterId.nodes.map((verse) => (
           <div className="p-2" key={verse!.id}>
             <Link href={`/verse/${verse!.id}`}>
-              <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-24">
+              <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-28">
                 <h3 className="text-lg font-bold">{`Verse ${
                   verse!.verseNumber
                 }`}</h3>
@@ -93,9 +80,6 @@ async function Page({ params }: { params: { chapternumber: string } }) {
             )} translation by ${
               verse!.gitaTranslationsByVerseId.nodes[0]!.authorName
             }`}</h4>
-            {/* <h4 className="my-4 text-lg font-bold">{`English translation by ${
-              verse!.gitaTranslationsByVerseId.nodes[0]!.authorName
-            }`}</h4> */}
             <p className="my-4 text-xl ">
               {verse!.gitaTranslationsByVerseId.nodes[0]!.description}
             </p>

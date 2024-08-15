@@ -45,10 +45,8 @@ async function Page({ params }: { params: { id: string } }) {
   let gitaVerse: GitaVerse = data.gitaVerse;
   const cookieStore = cookies();
   const tmp = cookieStore.get(SETTINGS_COOKIE_NAME)?.value;
-  // const tmp = cookieStore.get(LANGUAGE_SELECTIONS_COOKIE_NAME)?.value;
   let gitaAppCookie: gitaAppCookieT = tmp ? JSON.parse(tmp) : tmp;
 
-  // let lSCookie: LSCookieElementT[] = tmp ? JSON.parse(tmp) : [];
   let lSCookie: LSCookieElementT[] = gitaAppCookie
     ? gitaAppCookie.lSCookie
     : [];

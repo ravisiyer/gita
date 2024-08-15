@@ -12,11 +12,6 @@ export type authorsForLanguageT = {
   translatorAuthors: authorIdNameT[];
 };
 
-// export type translatorAuthorsForLanguageT = Omit<
-//   authorsForLanguageT,
-//   "commentatorAuthors"
-// >;
-
 export type languageTranslatorAuthorT = {
   authorId: number;
   languageTranslator: string;
@@ -32,7 +27,6 @@ export type LSCookieElementT = {
 export type gitaAppCookieT = {
   lSCookie: LSCookieElementT[];
   chapterPageTranslatorAuthorId: string;
-  // chapterPageTranslatorAuthorId: number;
 };
 
 export type authorIdNameT = {

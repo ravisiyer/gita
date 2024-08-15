@@ -21,7 +21,6 @@ function Page() {
   const tmp = cookieStore.get(SETTINGS_COOKIE_NAME)?.value;
   // lSCookie is abbr. for languageSelectionsCookie
   let gitaAppCookie: gitaAppCookieT = tmp ? JSON.parse(tmp) : tmp;
-  // let lSCookie: LSCookieElementT[] = tmp ? JSON.parse(tmp) : [];
   let lSCookie: LSCookieElementT[] = gitaAppCookie
     ? gitaAppCookie.lSCookie
     : [];

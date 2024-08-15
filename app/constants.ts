@@ -36,4 +36,3 @@ export const CHAPTER_PAGE_TRANSLATOR_FIELD_NAME = "chptransl";
 export const DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID = "18";
 
 export const SETTINGS_COOKIE_NAME = "GitaAppSettings";
-// export const LANGUAGE_SELECTIONS_COOKIE_NAME = "LanguageSelections";

@@ -78,29 +78,6 @@ export function getAllLanguageTranslatorAuthors(
   return allLanguageTranslatorAuthors;
 }
 
-// Below code not tested as I realized I could get the info. in a simpler way.
-// export function getLanguageIdOfTranslatorAuthor(authorId: number) {
-//   let languageId: number | undefined = undefined;
-//   allAuthorsByLanguageId.some((allAuthorsByLanguageIDElement) => {
-//     if (
-//       allAuthorsByLanguageIDElement.allGitaAuthorsForLanguageId.some(
-//         (gitaAuthor) => {
-//           if (gitaAuthor.id === authorId) {
-//             languageId = allAuthorsByLanguageIDElement.languageId;
-//           } else {
-//             return false;
-//           }
-//         }
-//       )
-//     )
-//       return true;
-//     else {
-//       return false;
-//     }
-//   });
-//   return languageId;
-// }
-
 export function getAuthorByIdString(idString: string) {
   const id = parseInt(idString);
   const foundAuthor = allGitaAuthors.find((author) => author.id === id);

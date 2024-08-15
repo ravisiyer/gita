@@ -79,18 +79,11 @@ export async function createlSCookie(formData: FormData) {
   let chapterPageTranslatorAuthorId =
     chapterPageTranslatorAuthorIdValue?.toString() ||
     DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID.toString();
-  // if (chapterPageTranslatorAuthorIdValue) {
-  //   // const tmp = parseInt(chapterPageTranslatorAuthorIdValue?.toString());
-  //   // if (!Number.isNaN(tmp)) {
-  //   //   chapterPageTranslatorAuthorId = tmp;
-  //   // }
-  // }
 
   const gitaAppCookie: gitaAppCookieT = {
     lSCookie,
     chapterPageTranslatorAuthorId,
   };
   cookies().set(SETTINGS_COOKIE_NAME, JSON.stringify(gitaAppCookie));
-  // cookies().set(SETTINGS_COOKIE_NAME, JSON.stringify(lSCookie));
   // await setTimeout(2000);
 }

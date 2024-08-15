@@ -126,7 +126,6 @@ function Settings({
   const allLanguageTranslatorAuthors = getAllLanguageTranslatorAuthors(
     authorsForAllLanguages
   );
-  // const defaultAuthorId = DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID;
   let numChapterPageTranslatorAuthorId = parseInt(
     DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID
   );
@@ -334,7 +333,6 @@ function Settings({
           onClick={(e) => handleDefaultSettings(e)}
         >
           Use default settings
-          {/* Use default languages settings */}
         </button>
       </form>
     </div>
