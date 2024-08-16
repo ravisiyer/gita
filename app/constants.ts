@@ -36,5 +36,11 @@ export const CHAPTER_PAGE_TRANSLATOR_FIELD_NAME = "chptransl";
 export const DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID = "18";
 export const QMARK_TO_COMMA_FIELD_NAME = "qmarktocomma";
 export const DEFAULT_QMARK_TO_COMMA_VALUE = true;
+// LTS = Language (for) Title (and) Summary
+export const ENGLISH_LTS_LANGUAGE_NAME = "English";
+export const HINDI_LTS_LANGUAGE_NAME = "Hindi";
+export const LTS_FIELD_NAME_SUFFIX = "LTS";
+export const DEFAULT_ENGLISH_LTS_CHECKED = true;
+export const DEFAULT_HINDI_LTS_CHECKED = true;
 
 export const SETTINGS_COOKIE_NAME = "GitaAppSettings";

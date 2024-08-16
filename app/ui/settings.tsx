@@ -14,6 +14,10 @@ import {
   CHAPTER_PAGE_TRANSLATOR_FIELD_NAME,
   QMARK_TO_COMMA_FIELD_NAME,
   DEFAULT_QMARK_TO_COMMA_VALUE,
+  DEFAULT_ENGLISH_LTS_CHECKED,
+  DEFAULT_HINDI_LTS_CHECKED,
+  ENGLISH_LTS_LANGUAGE_NAME,
+  HINDI_LTS_LANGUAGE_NAME,
 } from "../constants";
 import {
   getAllLanguageTranslatorAuthors,
@@ -21,6 +25,7 @@ import {
 } from "../lib/settingsutil";
 import ChapterPageTranslatorSelection from "./ChapterPageTranslatorSelection";
 import QMarkIssueHack from "./QMarkIssueHack";
+import LanguageTitleSummary from "./LanguageTitleSummary";
 
 function Settings({
   authorsForAllLanguages,
@@ -28,11 +33,15 @@ function Settings({
   sAFAL,
   chapterPageTranslatorAuthorId = DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
   qMarkToCommaChecked = DEFAULT_QMARK_TO_COMMA_VALUE,
+  englishLTSChecked = DEFAULT_ENGLISH_LTS_CHECKED,
+  hindiLTSChecked = DEFAULT_HINDI_LTS_CHECKED,
 }: {
   authorsForAllLanguages: authorsForLanguageT[];
   sAFAL: Partial<authorsForLanguageT>[];
   chapterPageTranslatorAuthorId?: string;
   qMarkToCommaChecked?: boolean;
+  englishLTSChecked?: boolean;
+  hindiLTSChecked?: boolean;
 }) {
   const [formDataModified, setFormDataModified] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -328,6 +337,18 @@ function Settings({
             allLanguageTranslatorAuthors={allLanguageTranslatorAuthors}
             defaultAuthorIndex={defaultAuthorIndex}
             name={CHAPTER_PAGE_TRANSLATOR_FIELD_NAME}
+            setSelectionChanged={setFormDataModified}
+          />
+        </div>
+        <div className="border border-black p-2 mt-4">
+          <h3 className="text-2xl mb-4">
+            Home, Chapter and Chapter Summaries Pages
+          </h3>
+          <LanguageTitleSummary
+            initialLanguageEnglishChecked={englishLTSChecked}
+            languageEnglishName={ENGLISH_LTS_LANGUAGE_NAME}
+            initialLanguageHindiChecked={hindiLTSChecked}
+            languageHindiName={HINDI_LTS_LANGUAGE_NAME}
             setSelectionChanged={setFormDataModified}
           />
         </div>

@@ -11,6 +11,9 @@ import {
   DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
   QMARK_TO_COMMA_FIELD_NAME,
   DEFAULT_QMARK_TO_COMMA_VALUE,
+  ENGLISH_LTS_LANGUAGE_NAME,
+  LTS_FIELD_NAME_SUFFIX,
+  HINDI_LTS_LANGUAGE_NAME,
 } from "../constants";
 // LS is abbr. for Language Selections
 import {
@@ -83,11 +86,19 @@ export async function createlSCookie(formData: FormData) {
     DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID.toString();
 
   const isQMarkToCommaChecked = formData.has(`${QMARK_TO_COMMA_FIELD_NAME}`);
+  const englishLTSChecked = formData.has(
+    `${ENGLISH_LTS_LANGUAGE_NAME}${LTS_FIELD_NAME_SUFFIX}`
+  );
+  const hindiLTSChecked = formData.has(
+    `${HINDI_LTS_LANGUAGE_NAME}${LTS_FIELD_NAME_SUFFIX}`
+  );
 
   const gitaAppCookie: gitaAppCookieT = {
     lSCookie,
     chapterPageTranslatorAuthorId,
     qMarkToCommaChecked: isQMarkToCommaChecked,
+    englishLTSChecked,
+    hindiLTSChecked,
   };
 
   cookies().set(SETTINGS_COOKIE_NAME, JSON.stringify(gitaAppCookie));

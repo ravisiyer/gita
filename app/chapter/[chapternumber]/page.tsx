@@ -12,6 +12,8 @@ import { GitaChapter } from "../../lib/gqltypes-d";
 import { cookies } from "next/headers";
 import {
   DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  DEFAULT_ENGLISH_LTS_CHECKED,
+  DEFAULT_HINDI_LTS_CHECKED,
   SETTINGS_COOKIE_NAME,
 } from "@/app/constants";
 import { gitaAppCookieT } from "@/app/lib/addltypes-d";
@@ -43,6 +45,19 @@ async function Page({ params }: { params: { chapternumber: string } }) {
     ? gitaAppCookie.chapterPageTranslatorAuthorId
     : DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID;
 
+  let englishLTSChecked = gitaAppCookie
+    ? gitaAppCookie.englishLTSChecked
+    : DEFAULT_ENGLISH_LTS_CHECKED;
+  let hindiLTSChecked = gitaAppCookie
+    ? gitaAppCookie.hindiLTSChecked
+    : DEFAULT_HINDI_LTS_CHECKED;
+  if (!englishLTSChecked && !hindiLTSChecked) {
+    console.log(
+      "Both english and hindi LTS are false! Making englishLTS true."
+    );
+    englishLTSChecked = true;
+  }
+
   let data = await getChapter(chapterNumber, chapterPageTranslatorAuthorId);
   let gitaChapter: GitaChapter = data.gitaChapter;
 
@@ -54,10 +69,18 @@ async function Page({ params }: { params: { chapternumber: string } }) {
           <span className="block text-3xl font-bold text-center mt-2">{`${gitaChapter.nameTranslated}`}</span>
           <span className="block text-3xl leading-10 font-bold text-center mt-4">{`${gitaChapter.name}`}</span>
         </h3>
-        <h4 className="my-4 text-xl font-bold">English Summary</h4>
-        <p className="my-4 text-lg ">{gitaChapter.chapterSummary}</p>
-        <h4 className="my-4 text-xl font-bold">हिन्दी सारांश</h4>
-        <p className="my-4 text-lg ">{gitaChapter.chapterSummaryHindi}</p>
+        {englishLTSChecked && (
+          <>
+            <h4 className="my-4 text-xl font-bold">English Summary</h4>
+            <p className="my-4 text-lg ">{gitaChapter.chapterSummary}</p>
+          </>
+        )}
+        {hindiLTSChecked && (
+          <>
+            <h4 className="my-4 text-xl font-bold">हिन्दी सारांश</h4>
+            <p className="my-4 text-lg ">{gitaChapter.chapterSummaryHindi}</p>
+          </>
+        )}
         <h4 className="my-4 text-xl font-bold">{`${gitaChapter.versesCount} verses`}</h4>
         <hr className="border border-gray-400 mb-2" />
         {gitaChapter.gitaVersesByChapterId.nodes.map((verse) => (

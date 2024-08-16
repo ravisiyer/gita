@@ -1,8 +1,9 @@
-// "use client";
 import { authorsForLanguageT, gitaAppCookieT } from "../lib/addltypes-d";
 import { cookies } from "next/headers";
 import {
   DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  DEFAULT_ENGLISH_LTS_CHECKED,
+  DEFAULT_HINDI_LTS_CHECKED,
   DEFAULT_QMARK_TO_COMMA_VALUE,
   SETTINGS_COOKIE_NAME,
 } from "../constants";
@@ -20,8 +21,8 @@ import {
 function Page() {
   const cookieStore = cookies();
   const tmp = cookieStore.get(SETTINGS_COOKIE_NAME)?.value;
-  // lSCookie is abbr. for languageSelectionsCookie
   let gitaAppCookie: gitaAppCookieT = tmp ? JSON.parse(tmp) : tmp;
+  // lSCookie is abbr. for languageSelectionsCookie
   let lSCookie: LSCookieElementT[] = gitaAppCookie
     ? gitaAppCookie.lSCookie
     : [];
@@ -31,6 +32,12 @@ function Page() {
   let qMarkToCommaChecked = gitaAppCookie
     ? gitaAppCookie.qMarkToCommaChecked
     : DEFAULT_QMARK_TO_COMMA_VALUE;
+  let englishLTSChecked = gitaAppCookie
+    ? gitaAppCookie.englishLTSChecked
+    : DEFAULT_ENGLISH_LTS_CHECKED;
+  let hindiLTSChecked = gitaAppCookie
+    ? gitaAppCookie.hindiLTSChecked
+    : DEFAULT_HINDI_LTS_CHECKED;
 
   let islSCookieValid = validateLSCookie(lSCookie);
   if (!islSCookieValid) {
@@ -64,6 +71,8 @@ function Page() {
       sAFAL={sAFAL}
       chapterPageTranslatorAuthorId={chapterPageTranslatorAuthorId}
       qMarkToCommaChecked={qMarkToCommaChecked}
+      englishLTSChecked={englishLTSChecked}
+      hindiLTSChecked={hindiLTSChecked}
     />
   ) : (
     <div>

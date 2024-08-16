@@ -2,8 +2,31 @@ import ChapterTiles from "./chaptertiles";
 import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { cookies } from "next/headers";
+import {
+  DEFAULT_ENGLISH_LTS_CHECKED,
+  DEFAULT_HINDI_LTS_CHECKED,
+  SETTINGS_COOKIE_NAME,
+} from "./constants";
+import { gitaAppCookieT } from "./lib/addltypes-d";
 
 export default function Home() {
+  const cookieStore = cookies();
+  const tmp = cookieStore.get(SETTINGS_COOKIE_NAME)?.value;
+  let gitaAppCookie: gitaAppCookieT = tmp ? JSON.parse(tmp) : tmp;
+  let englishLTSChecked = gitaAppCookie
+    ? gitaAppCookie.englishLTSChecked
+    : DEFAULT_ENGLISH_LTS_CHECKED;
+  let hindiLTSChecked = gitaAppCookie
+    ? gitaAppCookie.hindiLTSChecked
+    : DEFAULT_HINDI_LTS_CHECKED;
+  if (!englishLTSChecked && !hindiLTSChecked) {
+    console.log(
+      "Both english and hindi LTS are false! Making englishLTS true."
+    );
+    englishLTSChecked = true;
+  }
+
   return (
     <>
       <div>
@@ -40,8 +63,12 @@ export default function Home() {
         <Link href="/chaptersummaries">
           <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 my-2 rounded-md">
             <h3 className="text-lg font-bold">
-              <span className="block">Chapter Summaries</span>
-              <span className="block">अध्यायों का सारांश</span>
+              {englishLTSChecked && (
+                <span className="block">Chapter Summaries</span>
+              )}
+              {hindiLTSChecked && (
+                <span className="block">अध्यायों का सारांश</span>
+              )}
             </h3>
           </div>
         </Link>

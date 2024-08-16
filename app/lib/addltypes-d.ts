@@ -28,6 +28,8 @@ export type gitaAppCookieT = {
   lSCookie: LSCookieElementT[];
   chapterPageTranslatorAuthorId: string;
   qMarkToCommaChecked: boolean;
+  englishLTSChecked: boolean;
+  hindiLTSChecked: boolean;
 };
 
 export type authorIdNameT = {
