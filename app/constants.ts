@@ -34,5 +34,7 @@ export const TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX = "Transl";
 export const COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX = "Commnt";
 export const CHAPTER_PAGE_TRANSLATOR_FIELD_NAME = "chptransl";
 export const DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID = "18";
+export const QMARK_TO_COMMA_FIELD_NAME = "qmarktocomma";
+export const DEFAULT_QMARK_TO_COMMA_VALUE = true;
 
 export const SETTINGS_COOKIE_NAME = "GitaAppSettings";

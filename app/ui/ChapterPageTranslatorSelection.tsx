@@ -36,7 +36,8 @@ function ChapterPageTranslatorSelection({
         name={name}
         onChange={handleListboxChange}
       >
-        <p className="text-lg">Select Translator for Chapter Page</p>
+        <p className="text-lg">Select Translator</p>
+        {/* <p className="text-lg">Select Translator for Chapter Page</p> */}
         <ListboxButton className="border border-black flex justify-between items-center w-full px-1 my-2 bg-orange-400 ">
           {/* Below code is from or based on Headless UI docs. Above code is my version, simplified. */}
           {/* <ListboxButton className="border border-black flex justify-between items-center w-full px-1 my-2 bg-orange-400 focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"> */}

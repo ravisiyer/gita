@@ -17,7 +17,10 @@ import {
 } from "@/app/lib/gqltypes-d";
 import { cookies } from "next/headers";
 import { IoMdSettings } from "react-icons/io";
-import { SETTINGS_COOKIE_NAME } from "@/app/constants";
+import {
+  SETTINGS_COOKIE_NAME,
+  DEFAULT_QMARK_TO_COMMA_VALUE,
+} from "@/app/constants";
 import { LSCookieElementT, gitaAppCookieT } from "@/app/lib/addltypes-d";
 import { defaultLSInCookieFormat } from "@/app/defaultlanguageSelections";
 
@@ -54,6 +57,10 @@ async function Page({ params }: { params: { id: string } }) {
     // Use default Language Selections in cookie format
     lSCookie = defaultLSInCookieFormat;
   }
+
+  let qMarkToCommaChecked = gitaAppCookie
+    ? gitaAppCookie.qMarkToCommaChecked
+    : DEFAULT_QMARK_TO_COMMA_VALUE;
 
   function filterVerseByLanguageSelections() {
     // Function will be called only if lSCookie has length > 0. But no harm in addl. check here
@@ -153,7 +160,7 @@ async function Page({ params }: { params: { id: string } }) {
         <div className="mt-4 flex flex-col sm:flex-row sm:justify-between sm:items-center ">
           <span className="text-xl font-bold sm:mb-4">Commentaries</span>
           <span className="text-right sm:text-left text-red-600 mb-4 ">
-            Note: ? replaced by , character.{" "}
+            Note: ? {!qMarkToCommaChecked && "not "}replaced by , character.{" "}
             <Link href="/qmarkissue" className="underline">
               More Info
             </Link>
@@ -165,11 +172,13 @@ async function Page({ params }: { params: { id: string } }) {
               In {capitalizeFirstLetter(commentary!.language!)} by{" "}
               {commentary!.authorName}
             </p>
-            {/* Hack to partially fix ? characters instead of , characters in all
-            commentaries. Disadvantage is that even ? chars that should be ? will be 
-            changed to , chars. But such cases may be very few. */}
+            {/* Hack to partially fix ? characters instead of , characters in all commentaries
+             based on qMarkToComma setting. Disadvantage is that even ? chars that should be ?
+             will be changed to , chars. But such cases may be very few. */}
             <p className="my-4 ">
-              {commentary!.description!.replace(/\?/g, ",")}
+              {qMarkToCommaChecked
+                ? commentary!.description!.replace(/\?/g, ",")
+                : commentary!.description}
             </p>
           </div>
         ))}

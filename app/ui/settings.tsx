@@ -12,22 +12,27 @@ import {
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
   DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
   CHAPTER_PAGE_TRANSLATOR_FIELD_NAME,
+  QMARK_TO_COMMA_FIELD_NAME,
+  DEFAULT_QMARK_TO_COMMA_VALUE,
 } from "../constants";
 import {
   getAllLanguageTranslatorAuthors,
   setupDefaultSAFAL,
 } from "../lib/settingsutil";
 import ChapterPageTranslatorSelection from "./ChapterPageTranslatorSelection";
+import QMarkIssueHack from "./QMarkIssueHack";
 
 function Settings({
   authorsForAllLanguages,
   //SAFAL stands for SelectedAuthorsForAllLanguages
   sAFAL,
   chapterPageTranslatorAuthorId = DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  qMarkToCommaChecked = DEFAULT_QMARK_TO_COMMA_VALUE,
 }: {
   authorsForAllLanguages: authorsForLanguageT[];
   sAFAL: Partial<authorsForLanguageT>[];
   chapterPageTranslatorAuthorId?: string;
+  qMarkToCommaChecked?: boolean;
 }) {
   const [formDataModified, setFormDataModified] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -256,64 +261,76 @@ function Settings({
           </DialogPanel>
         </div>
       </Dialog>
-      <h2 className="text-2xl">Settings</h2>
+      <h2 className="text-3xl">Settings</h2>
       <form className="my-4" action={createlSCookie}>
         <div className="border border-black p-2">
-          <h4 className="text-lg mb-4">
-            Select languages and associated translators and commentators shown
-            in Verse page
-          </h4>
-          <div className="flex justify-start flex-wrap gap-x-4 gap-y-4">
-            {allLanguageSelectionsData.map((languageSelectionData, index) => {
-              return (
-                <div key={index}>
-                  <LanguageSelections
-                    languageId={
-                      languageSelectionData.authorsForLanguage.languageId
-                    }
-                    languageName={
-                      languageSelectionData.authorsForLanguage.languageName
-                    }
-                    languageChecked={languageSelectionData.languageChecked}
-                    setLanguageChecked={
-                      languageSelectionData.setLanguageChecked
-                    }
-                    languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`}
-                    allTranslators={
-                      languageSelectionData.authorsForLanguage.translatorAuthors
-                    }
-                    selectedTranslators={
-                      languageSelectionData.selectedTranslators!
-                    }
-                    setSelectedTranslators={
-                      languageSelectionData.setSelectedTranslators
-                    }
-                    translatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}`}
-                    allCommentators={
-                      languageSelectionData.authorsForLanguage
-                        .commentatorAuthors
-                    }
-                    selectedCommentators={
-                      languageSelectionData.selectedCommentators!
-                    }
-                    setSelectedCommentators={
-                      languageSelectionData.setSelectedCommentators
-                    }
-                    commentatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}`}
-                    setSelectionChanged={setFormDataModified}
-                  />
-                </div>
-              );
-            })}
+          <h3 className="text-2xl mb-4">Verse Page</h3>
+          <div>
+            <h4 className="text-lg mb-2">
+              Select languages and associated translators and commentators
+              {/* Select languages and associated translators and commentators shown
+              in Verse page */}
+            </h4>
+            <div className="flex justify-start flex-wrap gap-x-4 gap-y-4">
+              {allLanguageSelectionsData.map((languageSelectionData, index) => {
+                return (
+                  <div key={index}>
+                    <LanguageSelections
+                      languageId={
+                        languageSelectionData.authorsForLanguage.languageId
+                      }
+                      languageName={
+                        languageSelectionData.authorsForLanguage.languageName
+                      }
+                      languageChecked={languageSelectionData.languageChecked}
+                      setLanguageChecked={
+                        languageSelectionData.setLanguageChecked
+                      }
+                      languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`}
+                      allTranslators={
+                        languageSelectionData.authorsForLanguage
+                          .translatorAuthors
+                      }
+                      selectedTranslators={
+                        languageSelectionData.selectedTranslators!
+                      }
+                      setSelectedTranslators={
+                        languageSelectionData.setSelectedTranslators
+                      }
+                      translatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}`}
+                      allCommentators={
+                        languageSelectionData.authorsForLanguage
+                          .commentatorAuthors
+                      }
+                      selectedCommentators={
+                        languageSelectionData.selectedCommentators!
+                      }
+                      setSelectedCommentators={
+                        languageSelectionData.setSelectedCommentators
+                      }
+                      commentatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}`}
+                      setSelectionChanged={setFormDataModified}
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
+          <QMarkIssueHack
+            initialQMarkToCommaChecked={qMarkToCommaChecked}
+            name={QMARK_TO_COMMA_FIELD_NAME}
+            setSelectionChanged={setFormDataModified}
+          />
         </div>
-        <ChapterPageTranslatorSelection
-          allLanguageTranslatorAuthors={allLanguageTranslatorAuthors}
-          defaultAuthorIndex={defaultAuthorIndex}
-          name={CHAPTER_PAGE_TRANSLATOR_FIELD_NAME}
-          setSelectionChanged={setFormDataModified}
-        />
-
+        <div className="border border-black p-2 mt-4">
+          <h3 className="text-2xl mb-4">Chapter Page</h3>
+          <ChapterPageTranslatorSelection
+            allLanguageTranslatorAuthors={allLanguageTranslatorAuthors}
+            defaultAuthorIndex={defaultAuthorIndex}
+            name={CHAPTER_PAGE_TRANSLATOR_FIELD_NAME}
+            setSelectionChanged={setFormDataModified}
+          />
+        </div>
         <SubmitButton
           btnLabel="Save settings as browser cookie"
           TWclasses="px-1 mt-2 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "

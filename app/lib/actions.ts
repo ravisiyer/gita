@@ -9,6 +9,8 @@ import {
   SETTINGS_COOKIE_NAME,
   CHAPTER_PAGE_TRANSLATOR_FIELD_NAME,
   DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  QMARK_TO_COMMA_FIELD_NAME,
+  DEFAULT_QMARK_TO_COMMA_VALUE,
 } from "../constants";
 // LS is abbr. for Language Selections
 import {
@@ -80,10 +82,14 @@ export async function createlSCookie(formData: FormData) {
     chapterPageTranslatorAuthorIdValue?.toString() ||
     DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID.toString();
 
+  const isQMarkToCommaChecked = formData.has(`${QMARK_TO_COMMA_FIELD_NAME}`);
+
   const gitaAppCookie: gitaAppCookieT = {
     lSCookie,
     chapterPageTranslatorAuthorId,
+    qMarkToCommaChecked: isQMarkToCommaChecked,
   };
+
   cookies().set(SETTINGS_COOKIE_NAME, JSON.stringify(gitaAppCookie));
   // await setTimeout(2000);
 }

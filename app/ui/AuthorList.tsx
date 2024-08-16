@@ -1,13 +1,14 @@
 "use client";
 import {
   Listbox,
+  ListboxButton,
   ListboxOption,
   ListboxOptions,
   Checkbox,
   Field,
   Label,
 } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/20/solid";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useState, useEffect } from "react";
 import { authorIdNameT } from "../lib/addltypes-d";
 
@@ -89,7 +90,7 @@ export function AuthorList({
                 key={author.id}
                 disabled={disabled}
                 value={author}
-                className="group flex items-center px-1 data-[selected]:bg-orange-400 data-[disabled]:opacity-50"
+                className="group flex cursor-default items-center px-1 data-[selected]:bg-orange-400 select-none data-[focus]:bg-orange-400 data-[disabled]:opacity-50"
               >
                 <CheckIcon className="invisible size-4  group-data-[selected]:visible" />
                 {author.name}

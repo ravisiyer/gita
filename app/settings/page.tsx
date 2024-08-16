@@ -3,6 +3,7 @@ import { authorsForLanguageT, gitaAppCookieT } from "../lib/addltypes-d";
 import { cookies } from "next/headers";
 import {
   DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  DEFAULT_QMARK_TO_COMMA_VALUE,
   SETTINGS_COOKIE_NAME,
 } from "../constants";
 import { LSCookieElementT } from "../lib/addltypes-d";
@@ -27,6 +28,10 @@ function Page() {
   let chapterPageTranslatorAuthorId = gitaAppCookie
     ? gitaAppCookie.chapterPageTranslatorAuthorId
     : DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID;
+  let qMarkToCommaChecked = gitaAppCookie
+    ? gitaAppCookie.qMarkToCommaChecked
+    : DEFAULT_QMARK_TO_COMMA_VALUE;
+
   let islSCookieValid = validateLSCookie(lSCookie);
   if (!islSCookieValid) {
     // Is our default LS in Cookie format in sync. with language data and also otherwise valid
@@ -58,6 +63,7 @@ function Page() {
       authorsForAllLanguages={authorsForAllLanguages}
       sAFAL={sAFAL}
       chapterPageTranslatorAuthorId={chapterPageTranslatorAuthorId}
+      qMarkToCommaChecked={qMarkToCommaChecked}
     />
   ) : (
     <div>
