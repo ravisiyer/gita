@@ -84,7 +84,6 @@ export async function createlSCookie(formData: FormData) {
   let chapterPageTranslatorAuthorIdStr =
     chapterPageTranslatorAuthorIdValue?.toString() ||
     DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR;
-  // DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR.toString();
 
   const isQMarkToCommaChecked = formData.has(`${QMARK_TO_COMMA_FIELD_NAME}`);
   const englishLTSChecked = formData.has(

@@ -61,11 +61,11 @@ function Page() {
           <IoMdSettings className="size-5 inline" />
           Settings
         </Link>{" "}
-        to replace ? character with , character in all commentaries data
-        retrieved from the data source. User can turn this option on or off. The
-        disadvantage of using this replace option is that even ? characters that
-        should be ? will be changed to , characters. But such cases may be very
-        few.
+        to replace ? (question mark) character with , (comma) character in all
+        commentaries data retrieved from the data source. User can turn this
+        option on or off. The disadvantage of using this replace option is that
+        even ? characters that should be ? will be changed to , characters. But
+        such cases may be very few.
       </p>
       <button
         className="block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "

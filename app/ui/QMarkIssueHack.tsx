@@ -1,6 +1,5 @@
 "use client";
 import { Checkbox, Field, Label } from "@headlessui/react";
-import { useState } from "react";
 import Link from "next/link";
 
 function QMarkIssueHack({
@@ -14,9 +13,6 @@ function QMarkIssueHack({
   name: string;
   setSelectionChanged: (selectionChanged: boolean) => void;
 }) {
-  // const [qMarkToCommaChecked, setQMarkToCommaChecked] = useState(
-  //   initialQMarkToCommaChecked
-  // );
   function handleqMarkToCommaCheckedChange(value: boolean) {
     setQMarkToCommaChecked(value);
     setSelectionChanged && setSelectionChanged(true);

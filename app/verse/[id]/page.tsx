@@ -172,7 +172,7 @@ async function Page({ params }: { params: { id: string } }) {
               In {capitalizeFirstLetter(commentary!.language!)} by{" "}
               {commentary!.authorName}
             </p>
-            {/* Hack to partially fix ? characters instead of , characters in all commentaries
+            {/* Hack to partially fix ? characters instead of , characters in all commentaries,
              based on qMarkToComma setting. Disadvantage is that even ? chars that should be ?
              will be changed to , chars. But such cases may be very few. */}
             <p className="my-4 ">

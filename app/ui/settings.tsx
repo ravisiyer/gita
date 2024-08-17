@@ -298,8 +298,6 @@ function Settings({
           <div>
             <h4 className="text-lg mb-2">
               Select languages and associated translators and commentators
-              {/* Select languages and associated translators and commentators shown
-              in Verse page */}
             </h4>
             <div className="flex justify-start flex-wrap gap-x-4 gap-y-4">
               {allLanguageSelectionsData.map((languageSelectionData, index) => {

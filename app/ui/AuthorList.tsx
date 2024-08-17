@@ -90,7 +90,7 @@ export function AuthorList({
                 key={author.id}
                 disabled={disabled}
                 value={author}
-                className="group flex cursor-default items-center px-1 data-[selected]:bg-orange-400 select-none data-[focus]:bg-orange-400 data-[disabled]:opacity-50"
+                className="group flex cursor-default items-center px-1 data-[selected]:bg-orange-400 data-[disabled]:opacity-50"
               >
                 <CheckIcon className="invisible size-4  group-data-[selected]:visible" />
                 {author.name}

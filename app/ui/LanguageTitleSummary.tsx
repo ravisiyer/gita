@@ -1,8 +1,6 @@
 "use client";
 import { Checkbox, Field, Label } from "@headlessui/react";
-import { useState } from "react";
 import { LTS_FIELD_NAME_SUFFIX } from "../constants";
-// import Link from "next/link";
 
 function LanguageTitleSummary({
   languageEnglishChecked,
@@ -21,12 +19,6 @@ function LanguageTitleSummary({
   languageHindiName: string;
   setSelectionChanged: (selectionChanged: boolean) => void;
 }) {
-  // const [languageEnglishChecked, setLanguageEnglishChecked] = useState(
-  //   initialLanguageEnglishChecked
-  // );
-  // const [languageHindiChecked, setLanguageHindiChecked] = useState(
-  //   initialLanguageHindiChecked
-  // );
   function handleLanguageEnglishCheckedChange(value: boolean) {
     if (!value && !languageHindiChecked) {
       // We need one language to be checked. So ignore this change
@@ -71,35 +63,18 @@ function LanguageTitleSummary({
     allLanguageOptions[0].languageChecked = true;
   }
 
-  // const onlyOneLanguageChecked =
-  //   allLanguageOptions.filter(
-  //     (languageOption) => languageOption.languageChecked
-  //   ).length === 1;
-
   return (
     <div className="border border-black w-fit p-2 mt-2">
       <p className="text-lg mb-2">Select at least one language for summary</p>
       <div>
         {allLanguageOptions.map((languageOption, index) => {
           return (
-            <Field
-              // Below code results in good UI but when checkbox is disabled even if it is checked formData does not
-              // seem to return it. So disabled is not suitable. We need something like readonly
-              // disabled={
-              //   onlyOneLanguageChecked && languageOption.languageChecked
-              //     ? true
-              //     : false
-              // }
-              className="flex items-center gap-2 "
-              key={index}
-            >
+            <Field className="flex items-center gap-2 " key={index}>
               <Checkbox
                 checked={languageOption.languageChecked}
                 onChange={languageOption.handleLanguageCheckedChange}
                 name={`${languageOption.languageName}${LTS_FIELD_NAME_SUFFIX}`}
                 className="group block size-4 rounded border border-black data-[checked]:bg-blue-500"
-                // className="group block size-4 rounded border border-black data-[checked]:bg-blue-500
-                // data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[checked]:data-[disabled]:bg-gray-500"
               >
                 {/* Checkmark icon */}
                 <svg
