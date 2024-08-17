@@ -8,7 +8,7 @@ import {
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
   SETTINGS_COOKIE_NAME,
   CHAPTER_PAGE_TRANSLATOR_FIELD_NAME,
-  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR,
   QMARK_TO_COMMA_FIELD_NAME,
   DEFAULT_QMARK_TO_COMMA_VALUE,
   ENGLISH_LTS_LANGUAGE_NAME,
@@ -81,9 +81,10 @@ export async function createlSCookie(formData: FormData) {
   const chapterPageTranslatorAuthorIdValue = formData.get(
     `${CHAPTER_PAGE_TRANSLATOR_FIELD_NAME}[authorId]`
   );
-  let chapterPageTranslatorAuthorId =
+  let chapterPageTranslatorAuthorIdStr =
     chapterPageTranslatorAuthorIdValue?.toString() ||
-    DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID.toString();
+    DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR;
+  // DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR.toString();
 
   const isQMarkToCommaChecked = formData.has(`${QMARK_TO_COMMA_FIELD_NAME}`);
   const englishLTSChecked = formData.has(
@@ -95,7 +96,7 @@ export async function createlSCookie(formData: FormData) {
 
   const gitaAppCookie: gitaAppCookieT = {
     lSCookie,
-    chapterPageTranslatorAuthorId,
+    chapterPageTranslatorAuthorIdStr,
     qMarkToCommaChecked: isQMarkToCommaChecked,
     englishLTSChecked,
     hindiLTSChecked,

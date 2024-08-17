@@ -11,7 +11,7 @@ import {
 import { GitaChapter } from "../../lib/gqltypes-d";
 import { cookies } from "next/headers";
 import {
-  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR,
   DEFAULT_ENGLISH_LTS_CHECKED,
   DEFAULT_HINDI_LTS_CHECKED,
   SETTINGS_COOKIE_NAME,
@@ -41,9 +41,9 @@ async function Page({ params }: { params: { chapternumber: string } }) {
   const tmp = cookieStore.get(SETTINGS_COOKIE_NAME)?.value;
   const gitaAppCookie: gitaAppCookieT = tmp ? JSON.parse(tmp) : tmp;
 
-  const chapterPageTranslatorAuthorId: string = gitaAppCookie
-    ? gitaAppCookie.chapterPageTranslatorAuthorId
-    : DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID;
+  const chapterPageTranslatorAuthorIdStr: string = gitaAppCookie
+    ? gitaAppCookie.chapterPageTranslatorAuthorIdStr
+    : DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR;
 
   let englishLTSChecked = gitaAppCookie
     ? gitaAppCookie.englishLTSChecked
@@ -58,7 +58,7 @@ async function Page({ params }: { params: { chapternumber: string } }) {
     englishLTSChecked = true;
   }
 
-  let data = await getChapter(chapterNumber, chapterPageTranslatorAuthorId);
+  let data = await getChapter(chapterNumber, chapterPageTranslatorAuthorIdStr);
   let gitaChapter: GitaChapter = data.gitaChapter;
 
   return (

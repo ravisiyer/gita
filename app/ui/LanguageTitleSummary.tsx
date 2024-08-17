@@ -5,24 +5,28 @@ import { LTS_FIELD_NAME_SUFFIX } from "../constants";
 // import Link from "next/link";
 
 function LanguageTitleSummary({
-  initialLanguageEnglishChecked,
+  languageEnglishChecked,
+  setLanguageEnglishChecked,
   languageEnglishName,
-  initialLanguageHindiChecked,
+  languageHindiChecked,
+  setLanguageHindiChecked,
   languageHindiName,
   setSelectionChanged,
 }: {
-  initialLanguageEnglishChecked: boolean;
+  languageEnglishChecked: boolean;
+  setLanguageEnglishChecked: (languageEnglishChecked: boolean) => void;
   languageEnglishName: string;
-  initialLanguageHindiChecked: boolean;
+  languageHindiChecked: boolean;
+  setLanguageHindiChecked: (languageHindiChecked: boolean) => void;
   languageHindiName: string;
   setSelectionChanged: (selectionChanged: boolean) => void;
 }) {
-  const [languageEnglishChecked, setLanguageEnglishChecked] = useState(
-    initialLanguageEnglishChecked
-  );
-  const [languageHindiChecked, setLanguageHindiChecked] = useState(
-    initialLanguageHindiChecked
-  );
+  // const [languageEnglishChecked, setLanguageEnglishChecked] = useState(
+  //   initialLanguageEnglishChecked
+  // );
+  // const [languageHindiChecked, setLanguageHindiChecked] = useState(
+  //   initialLanguageHindiChecked
+  // );
   function handleLanguageEnglishCheckedChange(value: boolean) {
     if (!value && !languageHindiChecked) {
       // We need one language to be checked. So ignore this change

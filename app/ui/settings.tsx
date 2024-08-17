@@ -10,7 +10,7 @@ import {
   LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX,
   TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX,
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
-  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR,
   CHAPTER_PAGE_TRANSLATOR_FIELD_NAME,
   QMARK_TO_COMMA_FIELD_NAME,
   DEFAULT_QMARK_TO_COMMA_VALUE,
@@ -31,21 +31,34 @@ function Settings({
   authorsForAllLanguages,
   //SAFAL stands for SelectedAuthorsForAllLanguages
   sAFAL,
-  chapterPageTranslatorAuthorId = DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
-  qMarkToCommaChecked = DEFAULT_QMARK_TO_COMMA_VALUE,
-  englishLTSChecked = DEFAULT_ENGLISH_LTS_CHECKED,
-  hindiLTSChecked = DEFAULT_HINDI_LTS_CHECKED,
+  initialChapterPageTranslatorAuthorIdStr = DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR,
+  initialQMarkToCommaChecked = DEFAULT_QMARK_TO_COMMA_VALUE,
+  initialEnglishLTSChecked = DEFAULT_ENGLISH_LTS_CHECKED,
+  initialHindiLTSChecked = DEFAULT_HINDI_LTS_CHECKED,
 }: {
   authorsForAllLanguages: authorsForLanguageT[];
   sAFAL: Partial<authorsForLanguageT>[];
-  chapterPageTranslatorAuthorId?: string;
-  qMarkToCommaChecked?: boolean;
-  englishLTSChecked?: boolean;
-  hindiLTSChecked?: boolean;
+  initialChapterPageTranslatorAuthorIdStr?: string;
+  initialQMarkToCommaChecked?: boolean;
+  initialEnglishLTSChecked?: boolean;
+  initialHindiLTSChecked?: boolean;
 }) {
   const [formDataModified, setFormDataModified] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
+  const [qMarkToCommaChecked, setQMarkToCommaChecked] = useState(
+    initialQMarkToCommaChecked
+  );
+  const [englishLTSChecked, setEnglishLTSChecked] = useState(
+    initialEnglishLTSChecked
+  );
+  const [hindiLTSChecked, setHindiLTSChecked] = useState(
+    initialHindiLTSChecked
+  );
+  const [
+    chapterPageTranslatorAuthorIdStr,
+    setChapterPageTranslatorAuthorIdStr,
+  ] = useState(initialChapterPageTranslatorAuthorIdStr);
 
   // Below code is not great. I don't know how to create an array of useState variables in
   // React functional components, and so below code. Note that Headless UI ListBox when used
@@ -141,21 +154,21 @@ function Settings({
     authorsForAllLanguages
   );
   let numChapterPageTranslatorAuthorId = parseInt(
-    DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID
+    DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR
   );
-  if (chapterPageTranslatorAuthorId) {
-    const tmp = parseInt(chapterPageTranslatorAuthorId.toString());
+  if (chapterPageTranslatorAuthorIdStr) {
+    const tmp = parseInt(chapterPageTranslatorAuthorIdStr);
     if (!Number.isNaN(tmp)) {
       numChapterPageTranslatorAuthorId = tmp;
     }
   }
 
-  let defaultAuthorIndex = 0;
+  let selectedAuthorIndex = 0;
   allLanguageTranslatorAuthors.some((languageTranslatorAuthor, index) => {
     if (
       languageTranslatorAuthor.authorId === numChapterPageTranslatorAuthorId
     ) {
-      defaultAuthorIndex = index;
+      selectedAuthorIndex = index;
       return true;
     } else {
       return false;
@@ -207,6 +220,14 @@ function Settings({
     );
     setSelectedTranslators2(defaultSAFAL[2].translatorAuthors);
     setSelectedCommentators2(defaultSAFAL[2].commentatorAuthors);
+
+    setQMarkToCommaChecked(DEFAULT_QMARK_TO_COMMA_VALUE);
+    setEnglishLTSChecked(DEFAULT_ENGLISH_LTS_CHECKED);
+    setHindiLTSChecked(DEFAULT_HINDI_LTS_CHECKED);
+    setChapterPageTranslatorAuthorIdStr(
+      DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR
+    );
+
     setFormDataModified(true);
   }
 
@@ -326,7 +347,8 @@ function Settings({
             </div>
           </div>
           <QMarkIssueHack
-            initialQMarkToCommaChecked={qMarkToCommaChecked}
+            qMarkToCommaChecked={qMarkToCommaChecked}
+            setQMarkToCommaChecked={setQMarkToCommaChecked}
             name={QMARK_TO_COMMA_FIELD_NAME}
             setSelectionChanged={setFormDataModified}
           />
@@ -335,9 +357,13 @@ function Settings({
           <h3 className="text-2xl mb-4">Chapter Page</h3>
           <ChapterPageTranslatorSelection
             allLanguageTranslatorAuthors={allLanguageTranslatorAuthors}
-            defaultAuthorIndex={defaultAuthorIndex}
+            selectedAuthorIndex={selectedAuthorIndex}
             name={CHAPTER_PAGE_TRANSLATOR_FIELD_NAME}
             setSelectionChanged={setFormDataModified}
+            // Below key results in reset of state of ChapterPageTranslatorSelection component
+            // when selectedAuthorIndex changes.
+            // Ref: https://react.dev/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes
+            key={selectedAuthorIndex}
           />
         </div>
         <div className="border border-black p-2 mt-4">
@@ -345,9 +371,11 @@ function Settings({
             Home, Chapter and Chapter Summaries Pages
           </h3>
           <LanguageTitleSummary
-            initialLanguageEnglishChecked={englishLTSChecked}
+            languageEnglishChecked={englishLTSChecked}
+            setLanguageEnglishChecked={setEnglishLTSChecked}
             languageEnglishName={ENGLISH_LTS_LANGUAGE_NAME}
-            initialLanguageHindiChecked={hindiLTSChecked}
+            languageHindiChecked={hindiLTSChecked}
+            setLanguageHindiChecked={setHindiLTSChecked}
             languageHindiName={HINDI_LTS_LANGUAGE_NAME}
             setSelectionChanged={setFormDataModified}
           />

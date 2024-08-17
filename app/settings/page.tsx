@@ -1,7 +1,7 @@
 import { authorsForLanguageT, gitaAppCookieT } from "../lib/addltypes-d";
 import { cookies } from "next/headers";
 import {
-  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID,
+  DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR,
   DEFAULT_ENGLISH_LTS_CHECKED,
   DEFAULT_HINDI_LTS_CHECKED,
   DEFAULT_QMARK_TO_COMMA_VALUE,
@@ -26,9 +26,9 @@ function Page() {
   let lSCookie: LSCookieElementT[] = gitaAppCookie
     ? gitaAppCookie.lSCookie
     : [];
-  let chapterPageTranslatorAuthorId = gitaAppCookie
-    ? gitaAppCookie.chapterPageTranslatorAuthorId
-    : DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID;
+  let chapterPageTranslatorAuthorIdStr = gitaAppCookie
+    ? gitaAppCookie.chapterPageTranslatorAuthorIdStr
+    : DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR;
   let qMarkToCommaChecked = gitaAppCookie
     ? gitaAppCookie.qMarkToCommaChecked
     : DEFAULT_QMARK_TO_COMMA_VALUE;
@@ -69,10 +69,10 @@ function Page() {
     <Settings
       authorsForAllLanguages={authorsForAllLanguages}
       sAFAL={sAFAL}
-      chapterPageTranslatorAuthorId={chapterPageTranslatorAuthorId}
-      qMarkToCommaChecked={qMarkToCommaChecked}
-      englishLTSChecked={englishLTSChecked}
-      hindiLTSChecked={hindiLTSChecked}
+      initialChapterPageTranslatorAuthorIdStr={chapterPageTranslatorAuthorIdStr}
+      initialQMarkToCommaChecked={qMarkToCommaChecked}
+      initialEnglishLTSChecked={englishLTSChecked}
+      initialHindiLTSChecked={hindiLTSChecked}
     />
   ) : (
     <div>

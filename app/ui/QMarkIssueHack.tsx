@@ -4,17 +4,19 @@ import { useState } from "react";
 import Link from "next/link";
 
 function QMarkIssueHack({
-  initialQMarkToCommaChecked,
+  qMarkToCommaChecked,
+  setQMarkToCommaChecked,
   name,
   setSelectionChanged,
 }: {
-  initialQMarkToCommaChecked: boolean;
+  qMarkToCommaChecked: boolean;
+  setQMarkToCommaChecked: (qMarkToCommaChecked: boolean) => void;
   name: string;
   setSelectionChanged: (selectionChanged: boolean) => void;
 }) {
-  const [qMarkToCommaChecked, setQMarkToCommaChecked] = useState(
-    initialQMarkToCommaChecked
-  );
+  // const [qMarkToCommaChecked, setQMarkToCommaChecked] = useState(
+  //   initialQMarkToCommaChecked
+  // );
   function handleqMarkToCommaCheckedChange(value: boolean) {
     setQMarkToCommaChecked(value);
     setSelectionChanged && setSelectionChanged(true);
@@ -22,8 +24,7 @@ function QMarkIssueHack({
   return (
     <div className="border border-black w-fit p-2 mt-2">
       <p className="text-lg mb-2">
-        Temporary fix for question mark character issue for some commentaries
-        data{" "}
+        Fix for ? character issue for commentaries data{" "}
         <Link href="../qmarkissue" className="underline">
           More Info
         </Link>
@@ -49,9 +50,7 @@ function QMarkIssueHack({
             />
           </svg>
         </Checkbox>
-        <Label>
-          Replace ? character with , character in all commentaries data
-        </Label>
+        <Label>Replace ? with ,</Label>
       </Field>
     </div>
   );

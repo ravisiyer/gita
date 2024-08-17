@@ -26,7 +26,7 @@ export type LSCookieElementT = {
 
 export type gitaAppCookieT = {
   lSCookie: LSCookieElementT[];
-  chapterPageTranslatorAuthorId: string;
+  chapterPageTranslatorAuthorIdStr: string;
   qMarkToCommaChecked: boolean;
   englishLTSChecked: boolean;
   hindiLTSChecked: boolean;

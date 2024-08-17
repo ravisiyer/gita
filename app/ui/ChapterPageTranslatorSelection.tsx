@@ -11,19 +11,19 @@ import { useState } from "react";
 
 function ChapterPageTranslatorSelection({
   allLanguageTranslatorAuthors,
-  defaultAuthorIndex = 0,
+  selectedAuthorIndex = 0,
   name,
   setSelectionChanged,
 }: {
   allLanguageTranslatorAuthors: languageTranslatorAuthorT[];
-  defaultAuthorIndex: number;
+  selectedAuthorIndex: number;
   name: string;
   setSelectionChanged: (selectionChanged: boolean) => void;
 }) {
   const [
     selectedLanguageTranslatorAuthor,
     setSelectedLanguageTranslatorAuthor,
-  ] = useState(allLanguageTranslatorAuthors[defaultAuthorIndex]);
+  ] = useState(allLanguageTranslatorAuthors[selectedAuthorIndex]);
   function handleListboxChange(value: languageTranslatorAuthorT) {
     setSelectedLanguageTranslatorAuthor(value);
     setSelectionChanged && setSelectionChanged(true);
