@@ -10,10 +10,10 @@ import {
   CHAPTER_PAGE_TRANSLATOR_FIELD_NAME,
   DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR,
   QMARK_TO_COMMA_FIELD_NAME,
-  DEFAULT_QMARK_TO_COMMA_VALUE,
   ENGLISH_LTS_LANGUAGE_NAME,
   LTS_FIELD_NAME_SUFFIX,
   HINDI_LTS_LANGUAGE_NAME,
+  FULL_WINDOW_WIDTH_FIELD_NAME,
 } from "../constants";
 // LS is abbr. for Language Selections
 import {
@@ -92,6 +92,9 @@ export async function createlSCookie(formData: FormData) {
   const hindiLTSChecked = formData.has(
     `${HINDI_LTS_LANGUAGE_NAME}${LTS_FIELD_NAME_SUFFIX}`
   );
+  const fullWindowWidthChecked = formData.has(
+    `${FULL_WINDOW_WIDTH_FIELD_NAME}`
+  );
 
   const gitaAppCookie: gitaAppCookieT = {
     lSCookie,
@@ -99,6 +102,7 @@ export async function createlSCookie(formData: FormData) {
     qMarkToCommaChecked: isQMarkToCommaChecked,
     englishLTSChecked,
     hindiLTSChecked,
+    fullWindowWidthChecked,
   };
 
   cookies().set(SETTINGS_COOKIE_NAME, JSON.stringify(gitaAppCookie));

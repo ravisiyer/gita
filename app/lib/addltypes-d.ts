@@ -30,6 +30,7 @@ export type gitaAppCookieT = {
   qMarkToCommaChecked: boolean;
   englishLTSChecked: boolean;
   hindiLTSChecked: boolean;
+  fullWindowWidthChecked: boolean;
 };
 
 export type authorIdNameT = {

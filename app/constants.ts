@@ -42,5 +42,7 @@ export const HINDI_LTS_LANGUAGE_NAME = "Hindi";
 export const LTS_FIELD_NAME_SUFFIX = "LTS";
 export const DEFAULT_ENGLISH_LTS_CHECKED = true;
 export const DEFAULT_HINDI_LTS_CHECKED = true;
+export const FULL_WINDOW_WIDTH_FIELD_NAME = "fullwidth";
+export const DEFAULT_FULL_WINDOW_WIDTH_CHECKED = false;
 
 export const SETTINGS_COOKIE_NAME = "GitaAppSettings";

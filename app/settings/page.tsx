@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import {
   DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR,
   DEFAULT_ENGLISH_LTS_CHECKED,
+  DEFAULT_FULL_WINDOW_WIDTH_CHECKED,
   DEFAULT_HINDI_LTS_CHECKED,
   DEFAULT_QMARK_TO_COMMA_VALUE,
   SETTINGS_COOKIE_NAME,
@@ -38,6 +39,9 @@ function Page() {
   let hindiLTSChecked = gitaAppCookie
     ? gitaAppCookie.hindiLTSChecked
     : DEFAULT_HINDI_LTS_CHECKED;
+  let fullWindowWidthChecked = gitaAppCookie
+    ? gitaAppCookie.fullWindowWidthChecked
+    : DEFAULT_FULL_WINDOW_WIDTH_CHECKED;
 
   let islSCookieValid = validateLSCookie(lSCookie);
   if (!islSCookieValid) {
@@ -73,6 +77,7 @@ function Page() {
       initialQMarkToCommaChecked={qMarkToCommaChecked}
       initialEnglishLTSChecked={englishLTSChecked}
       initialHindiLTSChecked={hindiLTSChecked}
+      initialFullWindowWidthChecked={fullWindowWidthChecked}
     />
   ) : (
     <div>

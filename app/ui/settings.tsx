@@ -18,6 +18,8 @@ import {
   DEFAULT_HINDI_LTS_CHECKED,
   ENGLISH_LTS_LANGUAGE_NAME,
   HINDI_LTS_LANGUAGE_NAME,
+  FULL_WINDOW_WIDTH_FIELD_NAME,
+  DEFAULT_FULL_WINDOW_WIDTH_CHECKED,
 } from "../constants";
 import {
   getAllLanguageTranslatorAuthors,
@@ -26,6 +28,7 @@ import {
 import ChapterPageTranslatorSelection from "./ChapterPageTranslatorSelection";
 import QMarkIssueHack from "./QMarkIssueHack";
 import LanguageTitleSummary from "./LanguageTitleSummary";
+import FullWindowWidth from "./FullWindowWidth";
 
 function Settings({
   authorsForAllLanguages,
@@ -35,6 +38,7 @@ function Settings({
   initialQMarkToCommaChecked = DEFAULT_QMARK_TO_COMMA_VALUE,
   initialEnglishLTSChecked = DEFAULT_ENGLISH_LTS_CHECKED,
   initialHindiLTSChecked = DEFAULT_HINDI_LTS_CHECKED,
+  initialFullWindowWidthChecked = DEFAULT_FULL_WINDOW_WIDTH_CHECKED,
 }: {
   authorsForAllLanguages: authorsForLanguageT[];
   sAFAL: Partial<authorsForLanguageT>[];
@@ -42,6 +46,7 @@ function Settings({
   initialQMarkToCommaChecked?: boolean;
   initialEnglishLTSChecked?: boolean;
   initialHindiLTSChecked?: boolean;
+  initialFullWindowWidthChecked?: boolean;
 }) {
   const [formDataModified, setFormDataModified] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -59,6 +64,9 @@ function Settings({
     chapterPageTranslatorAuthorIdStr,
     setChapterPageTranslatorAuthorIdStr,
   ] = useState(initialChapterPageTranslatorAuthorIdStr);
+  const [fullWindowWidthChecked, setFullWindowWidthChecked] = useState(
+    initialFullWindowWidthChecked
+  );
 
   // Below code is not great. I don't know how to create an array of useState variables in
   // React functional components, and so below code. Note that Headless UI ListBox when used
@@ -227,6 +235,7 @@ function Settings({
     setChapterPageTranslatorAuthorIdStr(
       DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR
     );
+    setFullWindowWidthChecked(DEFAULT_FULL_WINDOW_WIDTH_CHECKED);
 
     setFormDataModified(true);
   }
@@ -365,18 +374,24 @@ function Settings({
           />
         </div>
         <div className="border border-black p-2 mt-4">
-          <h3 className="text-2xl mb-4">
-            Home, Chapter and Chapter Summaries Pages
-          </h3>
-          <LanguageTitleSummary
-            languageEnglishChecked={englishLTSChecked}
-            setLanguageEnglishChecked={setEnglishLTSChecked}
-            languageEnglishName={ENGLISH_LTS_LANGUAGE_NAME}
-            languageHindiChecked={hindiLTSChecked}
-            setLanguageHindiChecked={setHindiLTSChecked}
-            languageHindiName={HINDI_LTS_LANGUAGE_NAME}
-            setSelectionChanged={setFormDataModified}
-          />
+          <h3 className="text-2xl mb-4">Entire App</h3>
+          <div className="flex flex-wrap gap-4">
+            <LanguageTitleSummary
+              languageEnglishChecked={englishLTSChecked}
+              setLanguageEnglishChecked={setEnglishLTSChecked}
+              languageEnglishName={ENGLISH_LTS_LANGUAGE_NAME}
+              languageHindiChecked={hindiLTSChecked}
+              setLanguageHindiChecked={setHindiLTSChecked}
+              languageHindiName={HINDI_LTS_LANGUAGE_NAME}
+              setSelectionChanged={setFormDataModified}
+            />
+            <FullWindowWidth
+              fullWindowWidthChecked={fullWindowWidthChecked}
+              setFullWindowWidthChecked={setFullWindowWidthChecked}
+              name={FULL_WINDOW_WIDTH_FIELD_NAME}
+              setSelectionChanged={setFormDataModified}
+            />
+          </div>
         </div>
         <SubmitButton
           btnLabel="Save settings as browser cookie"

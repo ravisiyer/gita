@@ -29,13 +29,14 @@ export default function Home() {
 
   return (
     <>
-      <div>
+      <div className="flex justify-center ">
         <Image
           src="/hero-desktop.jpg"
           alt="Hero Image"
           width={896}
           height={538}
-          className="hidden md:block"
+          className="hidden md:block center"
+          // layout="fill"
           priority={true}
           // Image aspect ratio is retained with width:896 and height:538.
           // Hi-res image is 3040x1824. Compressed image is lesser.
