@@ -9,6 +9,7 @@ import { cookies } from "next/headers";
 import {
   DEFAULT_FULL_WINDOW_WIDTH_CHECKED,
   SETTINGS_COOKIE_NAME,
+  MAIN_CONTAINER_MAX_WIDTH_TAILWIND,
 } from "@/app/constants";
 
 export const metadata: Metadata = {
@@ -39,7 +40,9 @@ export default function RootLayout({
         <main
           className={clsx(
             "mx-auto p-2 scroll-mt-16 min-h-[calc(100vh-45px)] bg-yellow-100",
-            fullWindowWidthChecked ? " max-w-full" : " max-w-4xl"
+            fullWindowWidthChecked
+              ? " max-w-full"
+              : MAIN_CONTAINER_MAX_WIDTH_TAILWIND
           )}
         >
           {children}

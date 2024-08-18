@@ -46,3 +46,6 @@ export const FULL_WINDOW_WIDTH_FIELD_NAME = "fullwidth";
 export const DEFAULT_FULL_WINDOW_WIDTH_CHECKED = false;
 
 export const SETTINGS_COOKIE_NAME = "GitaAppSettings";
+
+export const MAIN_CONTAINER_MAX_WIDTH_TAILWIND = " max-w-[960px]";
+// export const MAIN_CONTAINER_MAX_WIDTH_TAILWIND = " max-w-4xl";

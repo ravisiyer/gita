@@ -6,6 +6,7 @@ import {
   LAST_CHAPTERNUMBER,
   FIRST_VERSEID,
   LAST_VERSEID,
+  MAIN_CONTAINER_MAX_WIDTH_TAILWIND,
 } from "@/app/constants";
 import SelectChapterVerse from "./selectchapver";
 import { usePathname } from "next/navigation";
@@ -138,7 +139,12 @@ function Navbar({ idSuffix = "" }) {
   // console.log("href values:", prevHref, nextHref, upHref);
   return (
     <header className="leading-5 sticky top-0 z-10 bg-blue-800">
-      <section className="mx-auto flex justify-between items-center max-w-4xl p-2">
+      <section
+        className={
+          "mx-auto flex justify-between items-center p-2 " +
+          MAIN_CONTAINER_MAX_WIDTH_TAILWIND
+        }
+      >
         <h1 className="text-xl font-bold">
           <Link
             href="/"

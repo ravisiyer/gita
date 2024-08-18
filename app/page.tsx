@@ -31,21 +31,29 @@ export default function Home() {
     <>
       <div className="flex justify-center ">
         <Image
-          src="/hero-desktop.jpg"
+          // src="/hero-desktop.jpg"
+          src="/hero-desktop-OrigRes.jpg"
           alt="Hero Image"
-          width={896}
-          height={538}
-          className="hidden md:block center"
-          // layout="fill"
+          width={3040}
+          height={1824}
+          // width={1024} //hero-desktop.jpg
+          // height={614} //hero-desktop.jpg
+          // width={896} //hero-desktop.jpg
+          // height={538} //hero-desktop.jpg
+          className="hidden md:block"
           priority={true}
+          // Image aspect ratio is retained with width:1024 and height:614.
           // Image aspect ratio is retained with width:896 and height:538.
           // Hi-res image is 3040x1824. Compressed image is lesser.
         />
         <Image
-          src="/hero-mobile.jpg"
+          src="/hero-mobile-OrigRes.jpg"
+          // src="/hero-mobile.jpg"
           alt="Hero Image"
-          width={768}
-          height={888}
+          width={1578}
+          height={1824}
+          // width={768} //hero-mobile.jpg
+          // height={888} //hero-mobile.jpg
           className="block md:hidden"
           priority={true}
           // Image aspect ratio is retained with width:768 and height:888.
