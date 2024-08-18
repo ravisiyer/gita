@@ -5,10 +5,13 @@ import Image from "next/image";
 import { cookies } from "next/headers";
 import {
   DEFAULT_ENGLISH_LTS_CHECKED,
+  DEFAULT_FULL_WINDOW_WIDTH_CHECKED,
   DEFAULT_HINDI_LTS_CHECKED,
+  MAIN_CONTAINER_MAX_WIDTH_TAILWIND,
   SETTINGS_COOKIE_NAME,
 } from "./constants/constants";
 import { gitaAppCookieT } from "./lib/addltypes-d";
+import clsx from "clsx";
 
 export default function Home() {
   const cookieStore = cookies();
@@ -26,9 +29,18 @@ export default function Home() {
     );
     englishLTSChecked = true;
   }
+  const fullWindowWidthChecked = gitaAppCookie
+    ? gitaAppCookie.fullWindowWidthChecked
+    : DEFAULT_FULL_WINDOW_WIDTH_CHECKED;
 
   return (
-    <>
+    // <>
+    <main
+      className={clsx(
+        "mx-auto p-2 scroll-mt-16 min-h-[calc(100vh-45px)] bg-yellow-100",
+        " max-w-full"
+      )}
+    >
       <div className="flex justify-center ">
         <Image
           // src="/hero-desktop.jpg"
@@ -97,6 +109,7 @@ export default function Home() {
           </a>
         </p>
       </div>
-    </>
+    </main>
+    // {/* </> */}
   );
 }

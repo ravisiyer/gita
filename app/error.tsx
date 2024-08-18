@@ -15,7 +15,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div>
+    <main className="mx-auto p-2 scroll-mt-16 min-h-[calc(100vh-45px)] bg-yellow-100">
       <h2 className="my-5 text-2xl font-bold">Sorry! Something went wrong!</h2>
       <p className="my-4 ">{`Details: ${error.message}`}</p>
       {/* Below Try again button does not work in case of network connection to data source being down initially and
@@ -30,6 +30,6 @@ export default function Error({
       >
         Try again
       </button> */}
-    </div>
+    </main>
   );
 }

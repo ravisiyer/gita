@@ -19,7 +19,7 @@ function FullWindowWidth({
   return (
     <div className="border border-black w-fit p-2 mt-2">
       <p className="text-lg mb-2">
-        For large window width devices like PC or Laptop
+        For large window width devices like PC or Laptop, for all app pages
       </p>
       <Field className="flex items-center gap-2 ">
         <Checkbox

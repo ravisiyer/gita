@@ -1,15 +1,15 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getAllChapters } from "../lib/data";
+import { getAllChapters } from "../../lib/data";
 // import { getAllChapters } from "./lib/dummydata";
-import { GitaChapter } from "../lib/gqltypes-d";
+import { GitaChapter } from "../../lib/gqltypes-d";
 import { cookies } from "next/headers";
 import {
   DEFAULT_ENGLISH_LTS_CHECKED,
   DEFAULT_HINDI_LTS_CHECKED,
   SETTINGS_COOKIE_NAME,
-} from "../constants/constants";
-import { gitaAppCookieT } from "../lib/addltypes-d";
+} from "../../constants/constants";
+import { gitaAppCookieT } from "../../lib/addltypes-d";
 
 export const metadata: Metadata = {
   title: "Chapter Summaries",

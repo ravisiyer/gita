@@ -26,8 +26,10 @@ async function ChapterTiles() {
       <div
         className={clsx(
           "grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-4",
-          fullWindowWidthChecked && " lg:grid-cols-5",
-          fullWindowWidthChecked && " xl:grid-cols-6"
+          " lg:grid-cols-5",
+          " xl:grid-cols-6"
+          // fullWindowWidthChecked && " lg:grid-cols-5",
+          // fullWindowWidthChecked && " xl:grid-cols-6"
         )}
       >
         {allGitaChapters.map((chapter) => (

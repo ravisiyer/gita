@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { getChapter } from "../../lib/data";
+import { getChapter } from "../../../lib/data";
 // import { getChapter } from "../lib/dummydata";
 import Link from "next/link";
 import {
   capitalizeFirstLetter,
   getValNumericChapterNumber,
-} from "../../lib/util";
-import { GitaChapter } from "../../lib/gqltypes-d";
+} from "../../../lib/util";
+import { GitaChapter } from "../../../lib/gqltypes-d";
 import { cookies } from "next/headers";
 import {
   DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR,

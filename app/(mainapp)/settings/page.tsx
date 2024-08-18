@@ -1,4 +1,4 @@
-import { authorsForLanguageT, gitaAppCookieT } from "../lib/addltypes-d";
+import { authorsForLanguageT, gitaAppCookieT } from "../../lib/addltypes-d";
 import { cookies } from "next/headers";
 import {
   DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR,
@@ -7,17 +7,17 @@ import {
   DEFAULT_HINDI_LTS_CHECKED,
   DEFAULT_QMARK_TO_COMMA_VALUE,
   SETTINGS_COOKIE_NAME,
-} from "../constants/constants";
-import { LSCookieElementT } from "../lib/addltypes-d";
+} from "../../constants/constants";
+import { LSCookieElementT } from "../../lib/addltypes-d";
 // LS is abbr. for Language Selections
-import { defaultLSInCookieFormat } from "../constants/defaultlanguageSelections";
-import Settings from "../ui/settings";
+import { defaultLSInCookieFormat } from "../../constants/defaultlanguageSelections";
+import Settings from "../../ui/settings";
 import {
   setupAuthorsForAllLanguages,
   validateLanguagesData,
   validateLSCookie,
   setupSAFALFromCookie,
-} from "../lib/settingsutil";
+} from "../../lib/settingsutil";
 
 function Page() {
   const cookieStore = cookies();
