@@ -1,4 +1,8 @@
-**README update for Version 1.2**
+**README update for Version 1.3**
+
+This version adds to the Settings feature of earlier [version 1.2](https://github.com/ravisiyer/gita/releases/tag/v1.2), the ability of selecting translator for chapter page, use or not use the replace question mark (?) by comma (,) fix for commentaries data, selecting languages for chapter summaries and whether full window width should be used by all app pages for large window width devices like PC or laptop.
+
+**README update for [version 1.2](https://github.com/ravisiyer/gita/releases/tag/v1.2)**
 
 This version adds to the Settings feature of earlier version 1.1, the ability of selecting individual translators and commentators within each language, whose translations and commentaries are shown in verse page. In version 1.1, only languages could be selected and all translations and commentaries of selected languages were shown in verse page.
 

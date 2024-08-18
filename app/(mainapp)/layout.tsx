@@ -1,8 +1,5 @@
 import "@/app/ui/global.css";
-import { inter } from "@/app/ui/fonts";
 import type { Metadata } from "next";
-import Navbar from "../ui/navbar";
-import NextTopLoader from "nextjs-toploader";
 import clsx from "clsx";
 import { gitaAppCookieT } from "@/app/lib/addltypes-d";
 import { cookies } from "next/headers";
@@ -33,20 +30,15 @@ export default function MainAppLayout({
     : DEFAULT_FULL_WINDOW_WIDTH_CHECKED;
 
   return (
-    // <body className={`${inter.className} antialiased mx-2 break-words`}>
-    <>
-      {/* <NextTopLoader color="rgb(251 146 60)" />
-      <Navbar /> */}
-      <main
-        className={clsx(
-          "mx-auto p-2 scroll-mt-16 min-h-[calc(100vh-45px)] bg-yellow-100",
-          fullWindowWidthChecked
-            ? " max-w-full"
-            : MAIN_CONTAINER_MAX_WIDTH_TAILWIND
-        )}
-      >
-        {children}
-      </main>
-    </> // </body>
+    <main
+      className={clsx(
+        "mx-auto p-2 scroll-mt-16 min-h-[calc(100vh-45px)] bg-yellow-100",
+        fullWindowWidthChecked
+          ? " max-w-full"
+          : MAIN_CONTAINER_MAX_WIDTH_TAILWIND
+      )}
+    >
+      {children}
+    </main>
   );
 }

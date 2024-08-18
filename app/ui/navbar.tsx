@@ -19,7 +19,6 @@ import { useEffect, useState } from "react";
 import { GrLinkUp, GrPrevious, GrNext } from "react-icons/gr";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { IconType } from "react-icons";
-import { AiFillHome } from "react-icons/ai";
 import { IoMdSettings } from "react-icons/io";
 
 function MenuLink({
@@ -158,12 +157,6 @@ function Navbar({ idSuffix = "" }) {
         <nav>
           <div className="flex justify-between items-center gap-x-10">
             <ul className="flex flex-row gap-x-3 h-auto pb-0 md:hidden">
-              {/* <MenuLink
-                href="/settings"
-                clickHandler={closeMobileMenuIfOpen}
-                icon={IoMdSettings}
-                text=""
-              /> */}
               <MenuLink
                 href={prevHref}
                 clickHandler={closeMobileMenuIfOpen}
@@ -225,15 +218,6 @@ function Navbar({ idSuffix = "" }) {
                 : " top-[-9999px] left-0 bg-blue-800 text-white")
             }
           >
-            {/* <MenuLink
-              href="/settings"
-              // href="/"
-              clickHandler={closeMobileMenuIfOpen}
-              // icon={AiFillHome}
-              icon={IoMdSettings}
-              text="Settings"
-              // text="Home"
-            /> */}
             <MenuLink
               href={prevHref}
               clickHandler={closeMobileMenuIfOpen}
@@ -257,12 +241,9 @@ function Navbar({ idSuffix = "" }) {
             />
             <MenuLink
               href="/settings"
-              // href="/"
               clickHandler={closeMobileMenuIfOpen}
-              // icon={AiFillHome}
               icon={IoMdSettings}
               text="Settings"
-              // text="Home"
             />
             <li className="flex justify-center items-center w-full h-full md:w-auto md:h-auto">
               <SelectChapterVerse

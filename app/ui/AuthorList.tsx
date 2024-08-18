@@ -1,14 +1,13 @@
 "use client";
 import {
   Listbox,
-  ListboxButton,
   ListboxOption,
   ListboxOptions,
   Checkbox,
   Field,
   Label,
 } from "@headlessui/react";
-import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
+import { CheckIcon } from "@heroicons/react/20/solid";
 import { useState, useEffect } from "react";
 import { authorIdNameT } from "../lib/addltypes-d";
 

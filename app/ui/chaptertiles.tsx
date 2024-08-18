@@ -2,7 +2,6 @@ import Link from "next/link";
 import { getAllChapters } from "../lib/data";
 // import { getAllChapters } from "./lib/dummydata";
 import { GitaChapter } from "../lib/gqltypes-d";
-import clsx from "clsx";
 import { gitaAppCookieT } from "@/app/lib/addltypes-d";
 import { cookies } from "next/headers";
 import {
@@ -23,15 +22,7 @@ async function ChapterTiles() {
 
   return (
     <div>
-      <div
-        className={clsx(
-          "grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-4",
-          " lg:grid-cols-5",
-          " xl:grid-cols-6"
-          // fullWindowWidthChecked && " lg:grid-cols-5",
-          // fullWindowWidthChecked && " xl:grid-cols-6"
-        )}
-      >
+      <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {allGitaChapters.map((chapter) => (
           <div key={chapter.id}>
             <Link href={`/chapter/${chapter.chapterNumber}`}>

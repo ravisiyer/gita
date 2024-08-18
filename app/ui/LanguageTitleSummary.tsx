@@ -65,7 +65,9 @@ function LanguageTitleSummary({
 
   return (
     <div className="border border-black w-fit p-2 mt-2">
-      <p className="text-lg mb-2">Select at least one language for summary</p>
+      <p className="text-lg mb-2">
+        Select at least one language for chapter summary
+      </p>
       <div>
         {allLanguageOptions.map((languageOption, index) => {
           return (
