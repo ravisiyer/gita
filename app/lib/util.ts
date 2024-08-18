@@ -6,7 +6,7 @@ import {
   NUMBER_OF_VERSES_IN_CHAPTERS,
   FIRST_VERSEID,
   LAST_VERSEID,
-} from "@/app/constants";
+} from "@/app/constants/constants";
 
 export function getValNumericChapterNumber(chapterNumber: string) {
   if (isNaN(Number(chapterNumber))) {

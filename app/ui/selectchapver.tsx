@@ -13,7 +13,7 @@ import {
   MIN_VERSE_NUMBER_IN_ALL_CHAPTERS,
   MAX_VERSE_NUMBER_IN_ALL_CHAPTERS,
   NUMBER_OF_VERSES_IN_CHAPTERS,
-} from "../constants";
+} from "../constants/constants";
 
 // idSuffix is used to differentiate between SelectChapterVerse's input element ids if two parent
 // Navbar components are used on same page - e.g. at top of page and bottom of page.

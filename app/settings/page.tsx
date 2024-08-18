@@ -7,10 +7,10 @@ import {
   DEFAULT_HINDI_LTS_CHECKED,
   DEFAULT_QMARK_TO_COMMA_VALUE,
   SETTINGS_COOKIE_NAME,
-} from "../constants";
+} from "../constants/constants";
 import { LSCookieElementT } from "../lib/addltypes-d";
 // LS is abbr. for Language Selections
-import { defaultLSInCookieFormat } from "../defaultlanguageSelections";
+import { defaultLSInCookieFormat } from "../constants/defaultlanguageSelections";
 import Settings from "../ui/settings";
 import {
   setupAuthorsForAllLanguages,

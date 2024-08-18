@@ -20,9 +20,9 @@ import { IoMdSettings } from "react-icons/io";
 import {
   SETTINGS_COOKIE_NAME,
   DEFAULT_QMARK_TO_COMMA_VALUE,
-} from "@/app/constants";
+} from "@/app/constants/constants";
 import { LSCookieElementT, gitaAppCookieT } from "@/app/lib/addltypes-d";
-import { defaultLSInCookieFormat } from "@/app/defaultlanguageSelections";
+import { defaultLSInCookieFormat } from "@/app/constants/defaultlanguageSelections";
 
 export async function generateMetadata({
   params,

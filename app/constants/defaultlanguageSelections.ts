@@ -1,4 +1,4 @@
-import { LSCookieElementT } from "./lib/addltypes-d";
+import { LSCookieElementT } from "../lib/addltypes-d";
 // LS is abbr. for Language Selections
 export const defaultLSInCookieFormat: LSCookieElementT[] = [
   {

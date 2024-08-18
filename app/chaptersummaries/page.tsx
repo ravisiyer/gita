@@ -8,7 +8,7 @@ import {
   DEFAULT_ENGLISH_LTS_CHECKED,
   DEFAULT_HINDI_LTS_CHECKED,
   SETTINGS_COOKIE_NAME,
-} from "../constants";
+} from "../constants/constants";
 import { gitaAppCookieT } from "../lib/addltypes-d";
 
 export const metadata: Metadata = {

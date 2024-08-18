@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { getAllChapters } from "./lib/data";
+import { getAllChapters } from "../lib/data";
 // import { getAllChapters } from "./lib/dummydata";
-import { GitaChapter } from "./lib/gqltypes-d";
+import { GitaChapter } from "../lib/gqltypes-d";
 import clsx from "clsx";
 import { gitaAppCookieT } from "@/app/lib/addltypes-d";
 import { cookies } from "next/headers";
 import {
   DEFAULT_FULL_WINDOW_WIDTH_CHECKED,
   SETTINGS_COOKIE_NAME,
-} from "@/app/constants";
+} from "@/app/constants/constants";
 
 async function ChapterTiles() {
   let data = await getAllChapters();

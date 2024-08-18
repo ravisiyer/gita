@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import createApolloClient from "@/apolloClient";
-import { GRAPHQL_URI } from "@/app/constants";
+import { GRAPHQL_URI } from "@/app/constants/constants";
 
 export async function getAllChapters() {
   const client = createApolloClient();

@@ -1,15 +1,15 @@
 import { authorsForLanguageT } from "./addltypes-d";
-import { allAuthorsByLanguageId } from "../allauthorsbylanguageid";
+import { allAuthorsByLanguageId } from "../constants/allauthorsbylanguageid";
 import { capitalizeFirstLetter } from "./util";
-import { allGitaLanguages } from "../alllanguages";
-import { allGitaAuthors } from "../allauthors";
+import { allGitaLanguages } from "../constants/alllanguages";
+import { allGitaAuthors } from "../constants/allauthors";
 // LS is abbr. for Language Selections
 import {
   LSCookieElementT,
   authorIdNameT,
   languageTranslatorAuthorT,
 } from "./addltypes-d";
-import { defaultLSInCookieFormat } from "../defaultlanguageSelections";
+import { defaultLSInCookieFormat } from "../constants/defaultlanguageSelections";
 
 export function validateLanguagesData() {
   // return false; //For testing ... Test case works as error page is shown

@@ -1,6 +1,6 @@
 "use client";
 import { Checkbox, Field, Label } from "@headlessui/react";
-import { LTS_FIELD_NAME_SUFFIX } from "../constants";
+import { LTS_FIELD_NAME_SUFFIX } from "../constants/constants";
 
 function LanguageTitleSummary({
   languageEnglishChecked,

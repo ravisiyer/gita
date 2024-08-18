@@ -1,6 +1,6 @@
 "use client";
 import { Metadata } from "next";
-import { GRAPHQL_URI, GRAPHQL_EXPLORER_URI } from "@/app/constants";
+import { GRAPHQL_URI, GRAPHQL_EXPLORER_URI } from "@/app/constants/constants";
 import { IoMdSettings } from "react-icons/io";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

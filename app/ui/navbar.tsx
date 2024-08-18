@@ -7,7 +7,7 @@ import {
   FIRST_VERSEID,
   LAST_VERSEID,
   MAIN_CONTAINER_MAX_WIDTH_TAILWIND,
-} from "@/app/constants";
+} from "@/app/constants/constants";
 import SelectChapterVerse from "./selectchapver";
 import { usePathname } from "next/navigation";
 import {

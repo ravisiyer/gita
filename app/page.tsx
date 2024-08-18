@@ -1,4 +1,4 @@
-import ChapterTiles from "./chaptertiles";
+import ChapterTiles from "./ui/chaptertiles";
 import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,7 +7,7 @@ import {
   DEFAULT_ENGLISH_LTS_CHECKED,
   DEFAULT_HINDI_LTS_CHECKED,
   SETTINGS_COOKIE_NAME,
-} from "./constants";
+} from "./constants/constants";
 import { gitaAppCookieT } from "./lib/addltypes-d";
 
 export default function Home() {

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { GRAPHQL_URI, GRAPHQL_EXPLORER_URI } from "@/app/constants";
+import { GRAPHQL_URI, GRAPHQL_EXPLORER_URI } from "@/app/constants/constants";
 
 export const metadata: Metadata = {
   title: "About",

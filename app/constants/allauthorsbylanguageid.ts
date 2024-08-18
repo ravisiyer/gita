@@ -1,4 +1,4 @@
-import { GitaLanguage, GitaAuthor } from "./lib/gqltypes-d";
+import { GitaLanguage, GitaAuthor } from "../lib/gqltypes-d";
 // Hard-coded query results for simplicity of Settings client component code.
 // Main data picked up from gqljson/jsondata/allAuthorsByLanguageId.json which is auto created
 // by a small console based program gqljson/writeallauthorsbylanguageid.mjs

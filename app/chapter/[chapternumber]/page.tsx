@@ -15,7 +15,7 @@ import {
   DEFAULT_ENGLISH_LTS_CHECKED,
   DEFAULT_HINDI_LTS_CHECKED,
   SETTINGS_COOKIE_NAME,
-} from "@/app/constants";
+} from "@/app/constants/constants";
 import { gitaAppCookieT } from "@/app/lib/addltypes-d";
 
 export async function generateMetadata({

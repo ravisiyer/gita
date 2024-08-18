@@ -1,6 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
-import { allGitaLanguages } from "../alllanguages";
+import { allGitaLanguages } from "../constants/alllanguages";
 // import { setTimeout } from "timers/promises";
 import {
   LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX,
@@ -14,7 +14,7 @@ import {
   LTS_FIELD_NAME_SUFFIX,
   HINDI_LTS_LANGUAGE_NAME,
   FULL_WINDOW_WIDTH_FIELD_NAME,
-} from "../constants";
+} from "../constants/constants";
 // LS is abbr. for Language Selections
 import {
   gitaAppCookieT,

@@ -20,7 +20,7 @@ import {
   HINDI_LTS_LANGUAGE_NAME,
   FULL_WINDOW_WIDTH_FIELD_NAME,
   DEFAULT_FULL_WINDOW_WIDTH_CHECKED,
-} from "../constants";
+} from "../constants/constants";
 import {
   getAllLanguageTranslatorAuthors,
   setupDefaultSAFAL,

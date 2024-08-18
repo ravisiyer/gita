@@ -10,7 +10,7 @@ import {
   DEFAULT_FULL_WINDOW_WIDTH_CHECKED,
   SETTINGS_COOKIE_NAME,
   MAIN_CONTAINER_MAX_WIDTH_TAILWIND,
-} from "@/app/constants";
+} from "@/app/constants/constants";
 
 export const metadata: Metadata = {
   title: {
