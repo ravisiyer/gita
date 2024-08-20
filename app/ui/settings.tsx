@@ -261,7 +261,7 @@ function Settings({
   // Below function is a callback passed to SubmitButton component. It is not directly invoked by this component's code
   function handleSubmitButtonClickCB() {
     if (!isAtLeastOneLanguageChecked()) {
-      setDialogMessage("Please select at least one language.");
+      setDialogMessage("Please select at least one language for verse page.");
       setIsDialogOpen(true);
       return false; // Don't proceed to save settings
     } else {
@@ -306,7 +306,8 @@ function Settings({
           <h3 className="text-2xl mb-4">Verse Page</h3>
           <div>
             <h4 className="text-lg mb-2">
-              Select languages and associated translators and commentators
+              Select at least one language and associated translator(s) and/or
+              commentator(s)
             </h4>
             <div className="flex justify-start flex-wrap gap-x-4 gap-y-4">
               {allLanguageSelectionsData.map((languageSelectionData, index) => {

@@ -9,7 +9,6 @@ import {
   SETTINGS_COOKIE_NAME,
 } from "./constants/constants";
 import { gitaAppCookieT } from "./lib/addltypes-d";
-import clsx from "clsx";
 
 export default function Home() {
   const cookieStore = cookies();
@@ -29,39 +28,23 @@ export default function Home() {
   }
 
   return (
-    <main
-      className="mx-auto scroll-mt-16 min-h-[calc(100vh-45px)] bg-yellow-100 max-w-full"
-      // "mx-auto p-2 scroll-mt-16 min-h-[calc(100vh-45px)] bg-yellow-100 max-w-full"
-    >
+    <main className="mx-auto scroll-mt-16 min-h-[calc(100vh-45px)] bg-yellow-100 max-w-full">
       <div className="flex justify-center ">
         <Image
-          // src="/hero-desktop.jpg"
-          src="/hero-desktop-OrigRes.jpg"
+          src="/hero-desktop.jpg"
           alt="Hero Image"
-          width={3040}
-          height={1824}
-          // width={1024} //hero-desktop.jpg
-          // height={614} //hero-desktop.jpg
-          // width={896} //hero-desktop.jpg
-          // height={538} //hero-desktop.jpg
+          width={2792}
+          height={1262}
           className="hidden md:block"
           priority={true}
-          // Image aspect ratio is retained with width:1024 and height:614.
-          // Image aspect ratio is retained with width:896 and height:538.
-          // Hi-res image is 3040x1824. Compressed image is lesser.
         />
         <Image
-          src="/hero-mobile-OrigRes.jpg"
-          // src="/hero-mobile.jpg"
+          src="/hero-mobile.jpg"
           alt="Hero Image"
-          width={1578}
-          height={1824}
-          // width={768} //hero-mobile.jpg
-          // height={888} //hero-mobile.jpg
+          width={1204}
+          height={1262}
           className="block md:hidden"
           priority={true}
-          // Image aspect ratio is retained with width:768 and height:888.
-          // Hi-res image is 1578x1824. Compressed image is lesser.
         />
       </div>
       <div className="">

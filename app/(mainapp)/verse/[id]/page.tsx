@@ -159,12 +159,14 @@ async function Page({ params }: { params: { id: string } }) {
         <hr className="border border-gray-400" />
         <div className="mt-4 flex flex-col sm:flex-row sm:justify-between sm:items-center ">
           <span className="text-xl font-bold sm:mb-4">Commentaries</span>
-          <span className="text-right sm:text-left text-red-600 mb-4 ">
-            Note: ? {!qMarkToCommaChecked && "not "}replaced by , character.{" "}
-            <Link href="/qmarkissue" className="underline">
-              More Info
-            </Link>
-          </span>
+          {displayGitaVerse.gitaCommentariesByVerseId.nodes.length ? (
+            <span className="text-right sm:text-left text-red-600 mb-4 ">
+              Note: ? {!qMarkToCommaChecked && "not "}replaced by , character.{" "}
+              <Link href="/qmarkissue" className="underline">
+                More Info
+              </Link>
+            </span>
+          ) : null}
         </div>
         {displayGitaVerse.gitaCommentariesByVerseId.nodes.map((commentary) => (
           <div key={commentary!.authorId}>
