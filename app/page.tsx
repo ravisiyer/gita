@@ -1,5 +1,5 @@
 import ChapterTiles from "./ui/chaptertiles";
-import { Suspense } from "react";
+// import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { cookies } from "next/headers";
@@ -69,9 +69,9 @@ export default function Home() {
           </div>
         </Link>
 
-        <Suspense fallback={`Loading ...`}>
-          <ChapterTiles />
-        </Suspense>
+        {/* <Suspense fallback={`Loading ...`}> */}
+        <ChapterTiles />
+        {/* </Suspense> */}
         <hr className="border border-gray-400 mt-2" />
         <p className="text-xs text-right">
           Top of page photo by{" "}
