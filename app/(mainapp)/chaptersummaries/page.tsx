@@ -52,15 +52,20 @@ async function Page() {
       {allGitaChapters.map((chapter) => (
         <div className="p-2" key={chapter.id}>
           <hr className="border border-gray-400 mb-4" />
-          <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-72">
+          <div className=" flex w-fit border border-black bg-orange-300 hover:bg-orange-200 active:scale-95 p-2 rounded-md ">
+            {/* <div className=" border border-black bg-orange-300 hover:bg-orange-200 active:scale-95 p-2 rounded-md max-w-80 md:max-w-none md:w-fit"> */}
+            {/* <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-72"> */}
             <Link href={`/chapter/${chapter.chapterNumber}`}>
               <div className="">
-                <p className="text-lg font-bold">{`Chapter ${chapter.chapterNumber}`}</p>
+                <p className="font-semibold">{`Chapter ${chapter.chapterNumber}`}</p>
+                {/* <p className="text-lg font-bold">{`Chapter ${chapter.chapterNumber}`}</p> */}
                 <p></p>
-                <p className="text-lg font-bold mt-2">
-                  {chapter.nameTranslated}
+                <p className="font-semibold mt-2">
+                  <span>{chapter.nameTranslated}</span>
+                  <span className="ml-8">{` ${chapter.name}`}</span>
                 </p>
-                <p className="text-lg font-bold mt-2">{chapter.name}</p>
+                {/* </p>
+                <p className="text-base font-semibold mt-2">{chapter.name}</p> */}
               </div>
             </Link>
           </div>
@@ -76,9 +81,10 @@ async function Page() {
               <p className="my-4 ">{chapter.chapterSummaryHindi}</p>
             </>
           )}
-          <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-24">
+          <div className=" border border-black bg-orange-300 hover:bg-orange-200 active:scale-95 p-2 rounded-md w-24">
+            {/* <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-24"> */}
             <Link href={`/chapter/${chapter.chapterNumber}`}>
-              <p className="text-lg font-bold">{`${chapter.versesCount} verses`}</p>
+              <p className="font-semibold">{`${chapter.versesCount} verses`}</p>
             </Link>
           </div>
         </div>

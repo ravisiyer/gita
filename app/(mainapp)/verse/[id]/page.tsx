@@ -133,11 +133,11 @@ async function Page({ params }: { params: { id: string } }) {
         <h4 className="my-4 text-xl font-bold">Text</h4>
         <p className={`my-4 text-3xl leading-10`}>{displayGitaVerse.text}</p>
         <h4 className="my-4 text-xl font-bold">Transliteration</h4>
-        <p className="my-4 text-lg ">{displayGitaVerse.transliteration}</p>
+        <p className="my-4 text-base ">{displayGitaVerse.transliteration}</p>
         <h4 className="my-4 text-xl font-bold">Word Meanings</h4>
-        <p className="my-4 text-lg ">{displayGitaVerse.wordMeanings}</p>
+        <p className="my-4 text-base ">{displayGitaVerse.wordMeanings}</p>
         <hr className="border border-gray-400" />
-        <p className="my-4 text-orange-800">
+        <p className="my-4 text-sm text-orange-800">
           Note: To choose languages, translators and commentators for contents
           below, go to{" "}
           <Link href="/settings" className="underline">
@@ -153,14 +153,14 @@ async function Page({ params }: { params: { id: string } }) {
               In {capitalizeFirstLetter(translation!.language!)} by{" "}
               {translation!.authorName}
             </p>
-            <p className="my-4 ">{translation!.description}</p>
+            <p className="my-4 text-base ">{translation!.description}</p>
           </div>
         ))}
         <hr className="border border-gray-400" />
         <div className="mt-4 flex flex-col sm:flex-row sm:justify-between sm:items-center ">
           <span className="text-xl font-bold sm:mb-4">Commentaries</span>
           {displayGitaVerse.gitaCommentariesByVerseId.nodes.length ? (
-            <span className="text-right sm:text-left text-red-600 mb-4 ">
+            <span className="text-sm text-right sm:text-left text-red-600 mb-4 ">
               Note: ? {!qMarkToCommaChecked && "not "}replaced by , character.{" "}
               <Link href="/qmarkissue" className="underline">
                 More Info
@@ -177,7 +177,7 @@ async function Page({ params }: { params: { id: string } }) {
             {/* Hack to partially fix ? characters instead of , characters in all commentaries,
              based on qMarkToComma setting. Disadvantage is that even ? chars that should be ?
              will be changed to , chars. But such cases may be very few. */}
-            <p className="my-4 ">
+            <p className="my-4 text-base ">
               {qMarkToCommaChecked
                 ? commentary!.description!.replace(/\?/g, ",")
                 : commentary!.description}

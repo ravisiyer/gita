@@ -395,11 +395,11 @@ function Settings({
           </div>
         </div>
         <SubmitButton
-          btnLabel="Save settings as browser cookie"
+          btnLabel="Save settings"
           TWclasses="px-1 mt-2 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
           formDataModified={formDataModified}
           setFormDataModified={setFormDataModified}
-          submitSaveMsg="Settings sent to browser as cookie."
+          submitSaveMsg="Settings saved"
           onSubmitButtonClick={handleSubmitButtonClickCB}
         />
         <button

@@ -72,13 +72,13 @@ async function Page({ params }: { params: { chapternumber: string } }) {
         {englishLTSChecked && (
           <>
             <h4 className="my-4 text-xl font-bold">English Summary</h4>
-            <p className="my-4 text-lg ">{gitaChapter.chapterSummary}</p>
+            <p className="my-4 text-base ">{gitaChapter.chapterSummary}</p>
           </>
         )}
         {hindiLTSChecked && (
           <>
             <h4 className="my-4 text-xl font-bold">हिन्दी सारांश</h4>
-            <p className="my-4 text-lg ">{gitaChapter.chapterSummaryHindi}</p>
+            <p className="my-4 text-base ">{gitaChapter.chapterSummaryHindi}</p>
           </>
         )}
         <h4 className="my-4 text-xl font-bold">{`${gitaChapter.versesCount} verses`}</h4>
@@ -86,14 +86,17 @@ async function Page({ params }: { params: { chapternumber: string } }) {
         {gitaChapter.gitaVersesByChapterId.nodes.map((verse) => (
           <div className="p-2" key={verse!.id}>
             <Link href={`/verse/${verse!.id}`}>
-              <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-28">
-                <h3 className="text-lg font-bold">{`Verse ${
+              <div className=" border border-black bg-orange-300 hover:bg-orange-200 active:scale-95 p-2 rounded-md w-24">
+                {/* <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 rounded-md w-28"> */}
+                <h3 className="text-base font-semibold">{`Verse ${
+                  // <h3 className="text-lg font-bold">{`Verse ${
                   verse!.verseNumber
                 }`}</h3>
               </div>
             </Link>
             <h4 className="my-4 text-lg font-bold">Text</h4>
-            <p className="my-4 text-2xl ">{verse!.text}</p>
+            <p className="my-4 text-xl ">{verse!.text}</p>
+            {/* <p className="my-4 text-2xl ">{verse!.text}</p> */}
             <h4 className="my-4 text-lg font-bold">Transliteration</h4>
             <p className="my-4 ">{verse!.transliteration}</p>
             <h4 className="my-4 text-lg font-bold">Word Meanings</h4>
@@ -103,12 +106,16 @@ async function Page({ params }: { params: { chapternumber: string } }) {
             )} translation by ${
               verse!.gitaTranslationsByVerseId.nodes[0]!.authorName
             }`}</h4>
-            <p className="my-4 text-xl ">
+            <p className="my-4 text-base ">
+              {/* <p className="my-4 text-xl "> */}
               {verse!.gitaTranslationsByVerseId.nodes[0]!.description}
             </p>
             <Link href={`/verse/${verse!.id}`}>
-              <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 mt-2 rounded-md w-[330px] text-lg font-bold">
-                More Translations & Commentaries
+              <div className=" border border-black bg-orange-300 hover:bg-orange-200 active:scale-95 p-2 mt-2 rounded-md w-16 text-base font-semibold">
+                {/* <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 mt-2 rounded-md w-[330px] text-base font-semibold"> */}
+                {/* <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 mt-2 rounded-md w-[330px] text-lg font-bold"> */}
+                More
+                {/* More Translations & Commentaries */}
               </div>
             </Link>
             <hr className="border border-gray-400 mt-4" />
