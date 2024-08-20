@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getVerse } from "@/app/lib/data";
 // import { getVerse } from "@/app/lib/dummydata";
 import { notFound } from "next/navigation";
-// import { Suspense } from "react";
 import {
   capitalizeFirstLetter,
   getCVNumbersFromVerseId,
@@ -126,7 +125,6 @@ async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div>
-      {/* <Suspense fallback={`Loading ...`}> */}
       <h3 className="text-2xl font-bold text-center mt-2">
         {`Chapter ${displayGitaVerse.chapterNumber}, Verse ${displayGitaVerse.verseNumber}`}
       </h3>
@@ -185,7 +183,6 @@ async function Page({ params }: { params: { id: string } }) {
         </div>
       ))}
       <hr className="border border-gray-400" />
-      {/* </Suspense> */}
     </div>
   );
 }

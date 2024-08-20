@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-// import { Suspense } from "react";
 import { getChapter } from "../../../lib/data";
 // import { getChapter } from "../lib/dummydata";
 import Link from "next/link";
@@ -63,7 +62,6 @@ async function Page({ params }: { params: { chapternumber: string } }) {
 
   return (
     <div>
-      {/* <Suspense fallback={`Loading ...`}> */}
       <h3 className="">
         <span className="block text-xl font-bold text-center mt-2">{`Chapter ${chapterNumber}`}</span>
         <span className="block text-3xl font-bold text-center mt-2">{`${gitaChapter.nameTranslated}`}</span>
@@ -114,7 +112,6 @@ async function Page({ params }: { params: { chapternumber: string } }) {
           <hr className="border border-gray-400 mt-4" />
         </div>
       ))}
-      {/* </Suspense> */}
     </div>
   );
 }

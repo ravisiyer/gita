@@ -10,7 +10,6 @@ import {
   SETTINGS_COOKIE_NAME,
 } from "../../constants/constants";
 import { gitaAppCookieT } from "../../lib/addltypes-d";
-// import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Chapter Summaries",
@@ -38,7 +37,6 @@ async function Page() {
 
   return (
     <div>
-      {/* <Suspense fallback={`Loading ...`}> */}
       <h2 className="">
         {englishLTSChecked && (
           <span className="block text-xl font-bold text-center mt-2">
@@ -85,7 +83,6 @@ async function Page() {
           </div>
         </div>
       ))}
-      {/* </Suspense> */}
     </div>
   );
 }
