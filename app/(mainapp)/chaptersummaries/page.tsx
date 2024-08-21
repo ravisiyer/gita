@@ -10,6 +10,8 @@ import {
   SETTINGS_COOKIE_NAME,
 } from "../../constants/constants";
 import { gitaAppCookieT } from "../../lib/addltypes-d";
+import { Suspense } from "react";
+import LoaderSpinner from "@/app/ui/LoaderSpinner";
 
 export const metadata: Metadata = {
   title: "Chapter Summaries",
@@ -36,54 +38,56 @@ async function Page() {
   }
 
   return (
-    <div>
-      <h2 className="">
-        {englishLTSChecked && (
-          <span className="block text-xl font-bold text-center mt-2">
-            Bhagavad Gita Chapter Summaries
-          </span>
-        )}
-        {hindiLTSChecked && (
-          <span className="block text-3xl leading-10 font-bold text-center mt-4 mb-2">
-            भगवत गीता अध्यायों का सारांश
-          </span>
-        )}
-      </h2>
-      {allGitaChapters.map((chapter) => (
-        <div className="p-2" key={chapter.id}>
-          <hr className="border border-gray-400 mb-4" />
-          <div className=" flex w-fit border border-black bg-orange-300 hover:bg-orange-200 active:scale-95 p-2 rounded-md ">
-            <Link href={`/chapter/${chapter.chapterNumber}`}>
-              <div className="">
-                <p className="font-semibold">{`Chapter ${chapter.chapterNumber}`}</p>
-                <p></p>
-                <p className="font-semibold mt-2">
-                  <span>{chapter.nameTranslated}</span>
-                  <span className="ml-8">{` ${chapter.name}`}</span>
-                </p>
-              </div>
-            </Link>
-          </div>
+    <Suspense fallback={<LoaderSpinner />}>
+      <div>
+        <h2 className="">
           {englishLTSChecked && (
-            <>
-              <h4 className="my-4 text-lg font-bold">English Summary</h4>
-              <p className="my-4">{chapter.chapterSummary}</p>
-            </>
+            <span className="block text-xl font-bold text-center mt-2">
+              Bhagavad Gita Chapter Summaries
+            </span>
           )}
           {hindiLTSChecked && (
-            <>
-              <h4 className="my-4 text-lg font-bold">हिन्दी सारांश</h4>
-              <p className="my-4 ">{chapter.chapterSummaryHindi}</p>
-            </>
+            <span className="block text-3xl leading-10 font-bold text-center mt-4 mb-2">
+              भगवत गीता अध्यायों का सारांश
+            </span>
           )}
-          <div className=" border border-black bg-orange-300 hover:bg-orange-200 active:scale-95 p-2 rounded-md w-24">
-            <Link href={`/chapter/${chapter.chapterNumber}`}>
-              <p className="font-semibold">{`${chapter.versesCount} verses`}</p>
-            </Link>
+        </h2>
+        {allGitaChapters.map((chapter) => (
+          <div className="p-2" key={chapter.id}>
+            <hr className="border border-gray-400 mb-4" />
+            <div className=" flex w-fit border border-black bg-orange-300 hover:bg-orange-200 active:scale-95 p-2 rounded-md ">
+              <Link href={`/chapter/${chapter.chapterNumber}`}>
+                <div className="">
+                  <p className="font-semibold">{`Chapter ${chapter.chapterNumber}`}</p>
+                  <p></p>
+                  <p className="font-semibold mt-2">
+                    <span>{chapter.nameTranslated}</span>
+                    <span className="ml-8">{` ${chapter.name}`}</span>
+                  </p>
+                </div>
+              </Link>
+            </div>
+            {englishLTSChecked && (
+              <>
+                <h4 className="my-4 text-lg font-bold">English Summary</h4>
+                <p className="my-4">{chapter.chapterSummary}</p>
+              </>
+            )}
+            {hindiLTSChecked && (
+              <>
+                <h4 className="my-4 text-lg font-bold">हिन्दी सारांश</h4>
+                <p className="my-4 ">{chapter.chapterSummaryHindi}</p>
+              </>
+            )}
+            <div className=" border border-black bg-orange-300 hover:bg-orange-200 active:scale-95 p-2 rounded-md w-24">
+              <Link href={`/chapter/${chapter.chapterNumber}`}>
+                <p className="font-semibold">{`${chapter.versesCount} verses`}</p>
+              </Link>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </Suspense>
   );
 }
 export default Page;
