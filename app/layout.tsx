@@ -21,7 +21,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased mx-2 break-words `}>
         {/* rgb(251 146 60) bg-orange-400 */}
-        {/* #60a5fa bg-blue-400 #fefce8 bg-yellow-950*/}
         <NextTopLoader
           color="rgb(251 146 60)"
           height={10}
