@@ -29,10 +29,6 @@ export const NUMBER_OF_VERSES_IN_CHAPTERS = [
   78, //Chapter 18, index 17
 ];
 
-export const SCV_CHAPTER_LABEL = "Ch.";
-export const SCV_VERSE_LABEL = "Ve.";
-export const SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR = "-";
-
 export const LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX = "check";
 export const TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX = "Transl";
 export const COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX = "Commnt";

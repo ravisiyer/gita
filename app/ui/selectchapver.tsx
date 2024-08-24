@@ -1,11 +1,13 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import {
   getValNumericChapterNumber,
   getValNumericVerseNumber,
   calcNumericVerseId,
   getMaxVersesInChapter,
+  getValNumericVerseId,
+  getCVNumbersFromVerseId,
 } from "../lib/util";
 import {
   FIRST_CHAPTERNUMBER,
@@ -13,14 +15,18 @@ import {
   MIN_VERSE_NUMBER_IN_ALL_CHAPTERS,
   MAX_VERSE_NUMBER_IN_ALL_CHAPTERS,
   NUMBER_OF_VERSES_IN_CHAPTERS,
+  SCV_VERSE_LABEL,
+  SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR,
 } from "../constants/constants";
+import SetupCOrVLB from "./setupcorvlb";
+import clsx from "clsx";
 
 // idSuffix is used to differentiate between SelectChapterVerse's input element ids if two parent
 // Navbar components are used on same page - e.g. at top of page and bottom of page.
 // Note that HTML spec. states that each element id must be unique
 function SelectChapterVerse({
-  initialChapterNumber = "",
-  initialVerseNumber = "",
+  initialChapterNumber = SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR,
+  initialVerseNumber = SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR,
   idSuffix = "",
   closeMobileMenuIfOpen,
 }: {
@@ -29,27 +35,107 @@ function SelectChapterVerse({
   idSuffix: string;
   closeMobileMenuIfOpen: () => void;
 }) {
-  const [chapterNumber, setChapterNumber] = useState("");
-  const [verseNumber, setVerseNumber] = useState("");
+  const [chapterNumber, setChapterNumber] = useState(
+    SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR
+  );
+  const [verseNumber, setVerseNumber] = useState(
+    SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR
+  );
+  //Below onlyUIVerseNumberReset state variable is a hack to handle specific condition; Later refactor to avoid hack
+  const [onlyUIVerseNumberReset, setOnlyUIVerseNumberReset] = useState(false);
+  const [disableGo, setDisableGo] = useState(true);
 
   // console.log("SCV: initialChapterNumber: ", initialChapterNumber);
   // console.log("SCV: initialVerseNumber: ", initialVerseNumber);
   // console.log("SCV: chapterNumber: ", chapterNumber);
   // console.log("SCV: verseNumber: ", verseNumber);
 
+  const pathname = usePathname();
+
   useEffect(() => {
     setChapterNumber(initialChapterNumber);
     setVerseNumber(initialVerseNumber);
     // console.log(
-    //   "SCV UseEffect: Set chapter and verse number state variables to passed & changed props"
+    //   `SCV UseEffect: Set chapter and verse number state variables to passed & changed props: initialChapterNumber: ${initialChapterNumber}, initialVerseNumber :${initialVerseNumber}`
     // );
   }, [initialChapterNumber, initialVerseNumber]);
 
+  useEffect(() => {
+    const pathSegments = pathname.split("/");
+    if (pathSegments.length === 3 && pathSegments[1] === "chapter") {
+      const pathChapterNumber = pathSegments[2];
+      if (chapterNumber === pathChapterNumber) {
+        //We are already on the required chapter page
+        // console.log(
+        //   "In SCV chapterNumber useEffect: We are already on the required chapter page. Disable Go and return"
+        // );
+        setDisableGo(true);
+        return;
+      }
+    } else if (pathSegments.length === 3 && pathSegments[1] === "verse") {
+      const pathVerseId = pathSegments[2];
+      const valVerseId = getValNumericVerseId(pathVerseId);
+      if (valVerseId.valid) {
+        const numericVerseId = valVerseId.numericVerseId;
+        if (numericVerseId > 0) {
+          const chapVerseNumbers = getCVNumbersFromVerseId(pathVerseId);
+          if (
+            chapterNumber === chapVerseNumbers.chapterNumber &&
+            verseNumber === chapVerseNumbers.verseNumber
+          ) {
+            //We are already on the required chapter and verse page
+            // console.log(
+            //   "In SCV chapterNumber useEffect: We are already on the required chapter and verse page. Disable Go and return"
+            // );
+            setDisableGo(true);
+            return;
+          }
+        }
+      }
+    }
+    const valChapterNumber = getValNumericChapterNumber(chapterNumber);
+    if (valChapterNumber.valid) {
+      setDisableGo(false);
+      if (verseNumber !== SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR) {
+        const valVerseNumber = getValNumericVerseNumber(
+          verseNumber,
+          valChapterNumber.numericChapterNumber
+        );
+        if (!valVerseNumber.valid) {
+          setVerseNumber(SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR);
+          setOnlyUIVerseNumberReset(true);
+        }
+      }
+    }
+  }, [chapterNumber]);
+
+  useEffect(() => {
+    if (onlyUIVerseNumberReset) {
+      setOnlyUIVerseNumberReset(false);
+    } else {
+      checkAndGoToChapterVerse();
+    }
+  }, [verseNumber]);
+
   const { replace } = useRouter();
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    // console.log("SCV handleSubmit handler invoked.");
-    e.preventDefault();
+  function checkAndGoToChapterVerse() {
+    const valChapterNumber = getValNumericChapterNumber(chapterNumber);
+    if (valChapterNumber.valid) {
+      const valVerseNumber = getValNumericVerseNumber(
+        verseNumber,
+        valChapterNumber.numericChapterNumber
+      );
+      if (valVerseNumber.valid) {
+        goToChapterVerse();
+      } else {
+        setVerseNumber(SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR);
+        goToChapterVerse(true); //ignoreVerse set to true
+      }
+    }
+  }
+
+  function goToChapterVerse(ignoreVerse = false) {
     const chapterErrorMessage =
       `For chapter (Ch.), please specify a number between ` +
       `${FIRST_CHAPTERNUMBER} and ${LAST_CHAPTERNUMBER}`;
@@ -61,8 +147,12 @@ function SelectChapterVerse({
     }
     const numericChapterNumber = valChapterNumber.numericChapterNumber;
 
-    if (verseNumber.trim() === "") {
+    if (
+      ignoreVerse ||
+      verseNumber.trim() === SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR
+    ) {
       replace(`/chapter/${chapterNumber}`);
+      setDisableGo(true);
       closeMobileMenuIfOpen();
       return;
     }
@@ -85,7 +175,14 @@ function SelectChapterVerse({
       numericVerseNumber
     );
     replace(`/verse/${numericVerseId}`);
+    setDisableGo(true);
     closeMobileMenuIfOpen();
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    // console.log("SCV handleSubmit handler invoked.");
+    e.preventDefault();
+    checkAndGoToChapterVerse();
   }
 
   const idChapterNumber = `chapternumber${idSuffix}`;
@@ -93,47 +190,43 @@ function SelectChapterVerse({
 
   return (
     <form className="inline" onSubmit={handleSubmit}>
-      <label htmlFor={idChapterNumber} className="mr-1">
-        Ch.
-      </label>
-      <input
-        className="mr-1 text-black border border-neutral-500 w-16 md:w-11 py-px px-0.5"
-        type="number"
-        id={idChapterNumber}
-        size={2}
-        min={FIRST_CHAPTERNUMBER}
-        max={LAST_CHAPTERNUMBER}
-        required
-        value={chapterNumber}
-        onChange={(e) => {
-          setChapterNumber(e.target.value);
-        }}
-      />
-      <label htmlFor={idVerseNumber} className="mr-1">
-        Ve.
-      </label>
-      <input
-        className="mr-1 text-black border border-neutral-500 w-16 md:w-11 py-px px-0.5"
-        type="number"
-        id={idVerseNumber}
-        size={2}
-        min={MIN_VERSE_NUMBER_IN_ALL_CHAPTERS}
-        max={
-          getValNumericChapterNumber(chapterNumber).valid
-            ? getMaxVersesInChapter(chapterNumber)
-            : MAX_VERSE_NUMBER_IN_ALL_CHAPTERS
-        }
-        value={verseNumber}
-        onChange={(e) => {
-          setVerseNumber(e.target.value);
-        }}
-      />
-      <input
-        type="submit"
-        value="Go"
-        className="px-1 ml-1 leading-normal  text-black md:text-lg  bg-orange-400 rounded-md cursor-pointer hover:text-black hover:bg-violet-50 active:scale-90 "
-        onSubmit={(e) => console.log(e)}
-      />
+      <div className="flex gap-x-1 justify-center items-center">
+        {/* Chapter LB (by default) */}
+        <SetupCOrVLB
+          firstEntryBlank={true}
+          selectedCORVNumberString={chapterNumber}
+          setSelectedCORVNumberString={setChapterNumber}
+          firstEntryDisabled={true}
+          key={`Ch.${chapterNumber}`}
+        />
+        {/* Verse LB */}
+        <SetupCOrVLB
+          label={SCV_VERSE_LABEL}
+          maxCORVNumber={
+            getValNumericChapterNumber(chapterNumber).valid
+              ? getMaxVersesInChapter(chapterNumber)
+              : MAX_VERSE_NUMBER_IN_ALL_CHAPTERS
+          }
+          firstEntryBlank={true}
+          selectedCORVNumberString={verseNumber}
+          setSelectedCORVNumberString={setVerseNumber}
+          firstEntryDisabled={false}
+          listboxDisabled={
+            chapterNumber === SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR
+              ? true
+              : false
+          }
+          key={`Ve.${verseNumber}`}
+        />
+        <input
+          type="submit"
+          value="Go"
+          disabled={disableGo ? true : false}
+          className={clsx(
+            "px-1 leading-normal  text-black md:text-lg  bg-orange-400 rounded-md cursor-pointer hover:text-black hover:bg-violet-50 active:scale-90 disabled:bg-gray-500 disabled:pointer-events-none"
+          )}
+        />
+      </div>
     </form>
   );
 }
