@@ -43,8 +43,8 @@ function SelectChapterVerse({
   );
   //Below onlyUIVerseNumberReset state variable is a hack to handle specific condition; Later refactor to avoid hack
   // const [onlyUIVerseNumberReset, setOnlyUIVerseNumberReset] = useState(false);
-  const [disableGo, setDisableGo] = useState(false);
-  // const [disableGo, setDisableGo] = useState(true);
+  // const [disableGo, setDisableGo] = useState(false);
+  const [disableGo, setDisableGo] = useState(true);
 
   // console.log("SCV: initialChapterNumber: ", initialChapterNumber);
   // console.log("SCV: initialVerseNumber: ", initialVerseNumber);
@@ -76,7 +76,7 @@ function SelectChapterVerse({
           // console.log(
           //   "In SCV sCVChapterNumber useEffect: We are already on the required chapter page. Disable Go and return"
           // );
-          // setDisableGo(true);
+          setDisableGo(true);
           return;
         } else {
           // User seems to have clicked on a valid verse number ... We should go to that chapter + verse
@@ -86,7 +86,6 @@ function SelectChapterVerse({
         // User may have chosen a different chapter than we are on currently
         const valChapterNumber = getValNumericChapterNumber(sCVChapterNumber);
         if (valChapterNumber.valid) {
-          // setDisableGo(false);
           if (sCVVerseNumber !== SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR) {
             const valVerseNumber = getValNumericVerseNumber(
               sCVVerseNumber,
@@ -94,7 +93,6 @@ function SelectChapterVerse({
             );
             if (!valVerseNumber.valid) {
               setSCVVerseNumber(SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR);
-              // setOnlyUIVerseNumberReset(true);
               // Now we have to wait for user to click Go button. So return
               return;
             }
@@ -102,7 +100,8 @@ function SelectChapterVerse({
           // below else is for SCV verse number i.e. list box verse number  not specified
           // we don't have to do anything now. If user wants to go to the chapter he has
           // specified, he clicks on Go button
-          // else {}
+          // else {
+          // }
         }
         // below else is for invalid SCV Chapter Number. I think that may not happen here
         // as SCV Chapter Number may be invalid only for non /chapter/ links. Here we
@@ -123,7 +122,7 @@ function SelectChapterVerse({
           // console.log(
           //   "In SCV chapterNumber useEffect: We are already on the required chapter and verse page. Disable Go and return"
           // );
-          // setDisableGo(true);
+          setDisableGo(true);
           return;
         } else {
           //If path chapter number is 18 and path verse is 78 but chapterNumber is 1 (as user chose it), we may come here
@@ -142,20 +141,24 @@ function SelectChapterVerse({
           }
           // Below else may be unreachable.
           // else {}
-          // Now we have to wait for user to click Go button. So return
-          return;
+          // Now we have to wait for user to click Go button.
         }
       } else {
         // Will we come here? I think yes, when user types in url like /verse/1000
         // We need not do anything here
       }
     }
-    // below else condition would match home page, about page etc. We need not do anything here
-    // about these pages.
-    // else {}
+    // below else condition would match home page, about page etc.
+    else {
+      if (sCVChapterNumber === SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR) {
+        setDisableGo(true);
+        return;
+      }
+    }
 
     // Here we need to check if we need to go to a particular chapter or verse and do so if needed.
     // But in intial version we can wait for Go button press.
+    setDisableGo(false);
   }, [sCVChapterNumber, pathname, sCVVerseNumber]);
 
   function checkAndGoToChapterVerse() {
@@ -191,7 +194,7 @@ function SelectChapterVerse({
       sCVVerseNumber.trim() === SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR
     ) {
       replace(`/chapter/${sCVChapterNumber}`);
-      // setDisableGo(true);
+      setDisableGo(true);
       closeMobileMenuIfOpen();
       return;
     }
@@ -214,7 +217,7 @@ function SelectChapterVerse({
       numericVerseNumber
     );
     replace(`/verse/${numericVerseId}`);
-    // setDisableGo(true);
+    setDisableGo(true);
     closeMobileMenuIfOpen();
   }
 

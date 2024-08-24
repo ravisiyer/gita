@@ -256,6 +256,7 @@ function Navbar({ idSuffix = "" }) {
                 initialVerseNumber={verseNumber}
                 idSuffix={idSuffix}
                 closeMobileMenuIfOpen={closeMobileMenuIfOpen}
+                key={`${chapterNumber}:${verseNumber}`}
               />
             </li>
             <MenuLink
