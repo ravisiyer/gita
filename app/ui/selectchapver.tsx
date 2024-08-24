@@ -35,26 +35,28 @@ function SelectChapterVerse({
   idSuffix: string;
   closeMobileMenuIfOpen: () => void;
 }) {
-  const [chapterNumber, setChapterNumber] = useState(
+  const [sCVChapterNumber, setSCVChapterNumber] = useState(
     SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR
   );
-  const [verseNumber, setVerseNumber] = useState(
+  const [sCVVerseNumber, setSCVVerseNumber] = useState(
     SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR
   );
   //Below onlyUIVerseNumberReset state variable is a hack to handle specific condition; Later refactor to avoid hack
-  const [onlyUIVerseNumberReset, setOnlyUIVerseNumberReset] = useState(false);
-  const [disableGo, setDisableGo] = useState(true);
+  // const [onlyUIVerseNumberReset, setOnlyUIVerseNumberReset] = useState(false);
+  const [disableGo, setDisableGo] = useState(false);
+  // const [disableGo, setDisableGo] = useState(true);
 
   // console.log("SCV: initialChapterNumber: ", initialChapterNumber);
   // console.log("SCV: initialVerseNumber: ", initialVerseNumber);
-  // console.log("SCV: chapterNumber: ", chapterNumber);
-  // console.log("SCV: verseNumber: ", verseNumber);
+  // console.log("SCV: sCVChapterNumber: ", sCVChapterNumber);
+  // console.log("SCV: sCVVerseNumber: ", sCVVerseNumber);
 
   const pathname = usePathname();
+  const { replace } = useRouter();
 
   useEffect(() => {
-    setChapterNumber(initialChapterNumber);
-    setVerseNumber(initialVerseNumber);
+    setSCVChapterNumber(initialChapterNumber);
+    setSCVVerseNumber(initialVerseNumber);
     // console.log(
     //   `SCV UseEffect: Set chapter and verse number state variables to passed & changed props: initialChapterNumber: ${initialChapterNumber}, initialVerseNumber :${initialVerseNumber}`
     // );
@@ -62,74 +64,111 @@ function SelectChapterVerse({
 
   useEffect(() => {
     const pathSegments = pathname.split("/");
+    let pathChapterNumber;
+    let pathVerseId;
+    let valPathVerseId;
+    let pathChapVerseNumbers;
     if (pathSegments.length === 3 && pathSegments[1] === "chapter") {
-      const pathChapterNumber = pathSegments[2];
-      if (chapterNumber === pathChapterNumber) {
-        //We are already on the required chapter page
-        // console.log(
-        //   "In SCV chapterNumber useEffect: We are already on the required chapter page. Disable Go and return"
-        // );
-        setDisableGo(true);
-        return;
+      pathChapterNumber = pathSegments[2];
+      if (sCVChapterNumber === pathChapterNumber) {
+        if (sCVVerseNumber === SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR) {
+          //We are already on the required chapter page
+          // console.log(
+          //   "In SCV sCVChapterNumber useEffect: We are already on the required chapter page. Disable Go and return"
+          // );
+          // setDisableGo(true);
+          return;
+        } else {
+          // User seems to have clicked on a valid verse number ... We should go to that chapter + verse
+          // As of now, we don't do anything as user has to press Go button
+        }
+      } else {
+        // User may have chosen a different chapter than we are on currently
+        const valChapterNumber = getValNumericChapterNumber(sCVChapterNumber);
+        if (valChapterNumber.valid) {
+          // setDisableGo(false);
+          if (sCVVerseNumber !== SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR) {
+            const valVerseNumber = getValNumericVerseNumber(
+              sCVVerseNumber,
+              valChapterNumber.numericChapterNumber
+            );
+            if (!valVerseNumber.valid) {
+              setSCVVerseNumber(SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR);
+              // setOnlyUIVerseNumberReset(true);
+              // Now we have to wait for user to click Go button. So return
+              return;
+            }
+          }
+          // below else is for SCV verse number i.e. list box verse number  not specified
+          // we don't have to do anything now. If user wants to go to the chapter he has
+          // specified, he clicks on Go button
+          // else {}
+        }
+        // below else is for invalid SCV Chapter Number. I think that may not happen here
+        // as SCV Chapter Number may be invalid only for non /chapter/ links. Here we
+        // are handling /chapter/ links
+        // else {}
       }
     } else if (pathSegments.length === 3 && pathSegments[1] === "verse") {
-      const pathVerseId = pathSegments[2];
-      const valVerseId = getValNumericVerseId(pathVerseId);
-      if (valVerseId.valid) {
-        const numericVerseId = valVerseId.numericVerseId;
-        if (numericVerseId > 0) {
-          const chapVerseNumbers = getCVNumbersFromVerseId(pathVerseId);
-          if (
-            chapterNumber === chapVerseNumbers.chapterNumber &&
-            verseNumber === chapVerseNumbers.verseNumber
-          ) {
-            //We are already on the required chapter and verse page
-            // console.log(
-            //   "In SCV chapterNumber useEffect: We are already on the required chapter and verse page. Disable Go and return"
-            // );
-            setDisableGo(true);
-            return;
+      pathVerseId = pathSegments[2];
+      valPathVerseId = getValNumericVerseId(pathVerseId);
+      if (valPathVerseId.valid) {
+        const numericVerseId = valPathVerseId.numericVerseId;
+        pathChapVerseNumbers = getCVNumbersFromVerseId(pathVerseId);
+        if (
+          sCVChapterNumber === pathChapVerseNumbers.chapterNumber &&
+          sCVVerseNumber === pathChapVerseNumbers.verseNumber
+        ) {
+          //We are already on the required chapter and verse page
+          // console.log(
+          //   "In SCV chapterNumber useEffect: We are already on the required chapter and verse page. Disable Go and return"
+          // );
+          // setDisableGo(true);
+          return;
+        } else {
+          //If path chapter number is 18 and path verse is 78 but chapterNumber is 1 (as user chose it), we may come here
+          //As verse no. 78 is invalid for chap. 1, we should reset verse number if verse number is invalid
+          const numericChapterNumber = parseInt(sCVChapterNumber);
+          if (numericChapterNumber) {
+            const tmp = getValNumericVerseNumber(
+              sCVVerseNumber,
+              numericChapterNumber
+            );
+            if (!tmp.valid) {
+              setSCVVerseNumber(SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR);
+            }
+            // Below else is for valid SCV Verse number. We need not do anything now for it
+            // else {}
           }
+          // Below else may be unreachable.
+          // else {}
+          // Now we have to wait for user to click Go button. So return
+          return;
         }
+      } else {
+        // Will we come here? I think yes, when user types in url like /verse/1000
+        // We need not do anything here
       }
     }
-    const valChapterNumber = getValNumericChapterNumber(chapterNumber);
-    if (valChapterNumber.valid) {
-      setDisableGo(false);
-      if (verseNumber !== SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR) {
-        const valVerseNumber = getValNumericVerseNumber(
-          verseNumber,
-          valChapterNumber.numericChapterNumber
-        );
-        if (!valVerseNumber.valid) {
-          setVerseNumber(SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR);
-          setOnlyUIVerseNumberReset(true);
-        }
-      }
-    }
-  }, [chapterNumber]);
+    // below else condition would match home page, about page etc. We need not do anything here
+    // about these pages.
+    // else {}
 
-  useEffect(() => {
-    if (onlyUIVerseNumberReset) {
-      setOnlyUIVerseNumberReset(false);
-    } else {
-      checkAndGoToChapterVerse();
-    }
-  }, [verseNumber]);
-
-  const { replace } = useRouter();
+    // Here we need to check if we need to go to a particular chapter or verse and do so if needed.
+    // But in intial version we can wait for Go button press.
+  }, [sCVChapterNumber, pathname, sCVVerseNumber]);
 
   function checkAndGoToChapterVerse() {
-    const valChapterNumber = getValNumericChapterNumber(chapterNumber);
+    const valChapterNumber = getValNumericChapterNumber(sCVChapterNumber);
     if (valChapterNumber.valid) {
       const valVerseNumber = getValNumericVerseNumber(
-        verseNumber,
+        sCVVerseNumber,
         valChapterNumber.numericChapterNumber
       );
       if (valVerseNumber.valid) {
         goToChapterVerse();
       } else {
-        setVerseNumber(SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR);
+        setSCVVerseNumber(SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR);
         goToChapterVerse(true); //ignoreVerse set to true
       }
     }
@@ -140,7 +179,7 @@ function SelectChapterVerse({
       `For chapter (Ch.), please specify a number between ` +
       `${FIRST_CHAPTERNUMBER} and ${LAST_CHAPTERNUMBER}`;
 
-    const valChapterNumber = getValNumericChapterNumber(chapterNumber);
+    const valChapterNumber = getValNumericChapterNumber(sCVChapterNumber);
     if (!valChapterNumber.valid) {
       alert(chapterErrorMessage);
       return;
@@ -149,10 +188,10 @@ function SelectChapterVerse({
 
     if (
       ignoreVerse ||
-      verseNumber.trim() === SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR
+      sCVVerseNumber.trim() === SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR
     ) {
-      replace(`/chapter/${chapterNumber}`);
-      setDisableGo(true);
+      replace(`/chapter/${sCVChapterNumber}`);
+      // setDisableGo(true);
       closeMobileMenuIfOpen();
       return;
     }
@@ -162,7 +201,7 @@ function SelectChapterVerse({
       `${NUMBER_OF_VERSES_IN_CHAPTERS[numericChapterNumber - 1]}`;
 
     const valVerseNumber = getValNumericVerseNumber(
-      verseNumber,
+      sCVVerseNumber,
       numericChapterNumber
     );
     if (!valVerseNumber.valid) {
@@ -175,7 +214,7 @@ function SelectChapterVerse({
       numericVerseNumber
     );
     replace(`/verse/${numericVerseId}`);
-    setDisableGo(true);
+    // setDisableGo(true);
     closeMobileMenuIfOpen();
   }
 
@@ -194,29 +233,29 @@ function SelectChapterVerse({
         {/* Chapter LB (by default) */}
         <SetupCOrVLB
           firstEntryBlank={true}
-          selectedCORVNumberString={chapterNumber}
-          setSelectedCORVNumberString={setChapterNumber}
+          selectedCORVNumberString={sCVChapterNumber}
+          setSelectedCORVNumberString={setSCVChapterNumber}
           firstEntryDisabled={true}
-          key={`Ch.${chapterNumber}`}
+          key={`Ch.${sCVChapterNumber}`}
         />
         {/* Verse LB */}
         <SetupCOrVLB
           label={SCV_VERSE_LABEL}
           maxCORVNumber={
-            getValNumericChapterNumber(chapterNumber).valid
-              ? getMaxVersesInChapter(chapterNumber)
+            getValNumericChapterNumber(sCVChapterNumber).valid
+              ? getMaxVersesInChapter(sCVChapterNumber)
               : MAX_VERSE_NUMBER_IN_ALL_CHAPTERS
           }
           firstEntryBlank={true}
-          selectedCORVNumberString={verseNumber}
-          setSelectedCORVNumberString={setVerseNumber}
+          selectedCORVNumberString={sCVVerseNumber}
+          setSelectedCORVNumberString={setSCVVerseNumber}
           firstEntryDisabled={false}
           listboxDisabled={
-            chapterNumber === SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR
+            sCVChapterNumber === SCV_CHAPTER_OR_VERSE_NOT_SPECIFIED_STR
               ? true
               : false
           }
-          key={`Ve.${verseNumber}`}
+          key={`Ve.${sCVVerseNumber}`}
         />
         <input
           type="submit"
