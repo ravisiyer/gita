@@ -22,7 +22,6 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 import { IconType } from "react-icons";
 import { IoMdSettings } from "react-icons/io";
 import NextTopLoader from "nextjs-toploader";
-// import NProgress from "nprogress";
 
 function MenuLink({
   href,
@@ -85,7 +84,6 @@ function Navbar({ idSuffix = "" }) {
 
   // Code in useEffect to try to avoid unnecessary repeated execution.
   useEffect(() => {
-    // NProgress.done();
     const pathSegments = pathname.split("/");
     if (pathSegments.length === 3 && pathSegments[1] === "chapter") {
       const pathChapterNumber = pathSegments[2];
@@ -140,9 +138,6 @@ function Navbar({ idSuffix = "" }) {
       setNextHref("");
     }
     // console.log("In Navbar useEffect(): Just before exiting");
-    // return () => {
-    //   NProgress.start();
-    // };
   }, [pathname]);
 
   // console.log("Just before rendering Navbar div");

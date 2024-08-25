@@ -21,7 +21,6 @@ import {
 import SetupCOrVLB from "./setupcorvlb";
 import clsx from "clsx";
 import NProgress from "nprogress";
-import nProgress from "nprogress";
 
 // idSuffix is used to differentiate between SelectChapterVerse's input element ids if two parent
 // Navbar components are used on same page - e.g. at top of page and bottom of page.
