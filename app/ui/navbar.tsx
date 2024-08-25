@@ -21,6 +21,8 @@ import { GrLinkUp, GrPrevious, GrNext } from "react-icons/gr";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { IconType } from "react-icons";
 import { IoMdSettings } from "react-icons/io";
+import NextTopLoader from "nextjs-toploader";
+// import NProgress from "nprogress";
 
 function MenuLink({
   href,
@@ -83,6 +85,7 @@ function Navbar({ idSuffix = "" }) {
 
   // Code in useEffect to try to avoid unnecessary repeated execution.
   useEffect(() => {
+    // NProgress.done();
     const pathSegments = pathname.split("/");
     if (pathSegments.length === 3 && pathSegments[1] === "chapter") {
       const pathChapterNumber = pathSegments[2];
@@ -137,12 +140,22 @@ function Navbar({ idSuffix = "" }) {
       setNextHref("");
     }
     // console.log("In Navbar useEffect(): Just before exiting");
+    // return () => {
+    //   NProgress.start();
+    // };
   }, [pathname]);
 
   // console.log("Just before rendering Navbar div");
   // console.log("href values:", prevHref, nextHref, upHref);
   return (
     <header className="leading-5 sticky top-0 z-10 bg-blue-800">
+      {/* rgb(251 146 60) bg-orange-400 */}
+      <NextTopLoader
+        color="rgb(251 146 60)"
+        height={10}
+        initialPosition={0.5}
+        showSpinner={false}
+      />
       <section
         className={
           "mx-auto flex justify-between items-center p-2 " +
