@@ -316,7 +316,7 @@ function Settings({
             </Tab>
           </TabList>
           <TabPanels>
-            <TabPanel>
+            <TabPanel unmount={false}>
               {/* <div className="border border-black p-2">
                 <h3 className="text-2xl mb-4">Verse Page</h3> */}
               <div className=" p-2 mt-3">
@@ -388,7 +388,7 @@ function Settings({
               </div>
               {/* </div> */}
             </TabPanel>
-            <TabPanel>
+            <TabPanel unmount={false}>
               <div className="h-56 p-2 mt-3">
                 {/* <div className="border border-black p-2 mt-3"> */}
                 {/* <h3 className="text-2xl mb-4">Chapter Page</h3> */}
@@ -404,7 +404,7 @@ function Settings({
                 />
               </div>
             </TabPanel>
-            <TabPanel>
+            <TabPanel unmount={false}>
               {/* <div className="border border-black p-2 mt-4">
                 <h3 className="text-2xl mb-4">Entire App</h3> */}
               <div className="flex flex-wrap gap-4 h-56  p-2 mt-3">
