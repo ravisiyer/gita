@@ -29,6 +29,7 @@ import ChapterPageTranslatorSelection from "./ChapterPageTranslatorSelection";
 import QMarkIssueHack from "./QMarkIssueHack";
 import LanguageTitleSummary from "./LanguageTitleSummary";
 import FullWindowWidth from "./FullWindowWidth";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 
 function Settings({
   authorsForAllLanguages,
@@ -302,118 +303,154 @@ function Settings({
       </Dialog>
       <h2 className="text-3xl">Settings</h2>
       <form className="my-4" action={createlSCookie}>
-        <div className="border border-black p-2">
-          <h3 className="text-2xl mb-4">Verse Page</h3>
-          <div>
-            <h4 className="text-lg mb-2">
-              Select at least one language and associated translator(s) and/or
-              commentator(s)
-            </h4>
-            <div className="flex justify-start flex-wrap gap-x-4 gap-y-4">
-              {allLanguageSelectionsData.map((languageSelectionData, index) => {
-                return (
-                  <div key={index}>
-                    <LanguageSelections
-                      languageId={
-                        languageSelectionData.authorsForLanguage.languageId
-                      }
-                      languageName={
-                        languageSelectionData.authorsForLanguage.languageName
-                      }
-                      languageChecked={languageSelectionData.languageChecked}
-                      setLanguageChecked={
-                        languageSelectionData.setLanguageChecked
-                      }
-                      languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`}
-                      allTranslators={
-                        languageSelectionData.authorsForLanguage
-                          .translatorAuthors
-                      }
-                      selectedTranslators={
-                        languageSelectionData.selectedTranslators!
-                      }
-                      setSelectedTranslators={
-                        languageSelectionData.setSelectedTranslators
-                      }
-                      translatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}`}
-                      allCommentators={
-                        languageSelectionData.authorsForLanguage
-                          .commentatorAuthors
-                      }
-                      selectedCommentators={
-                        languageSelectionData.selectedCommentators!
-                      }
-                      setSelectedCommentators={
-                        languageSelectionData.setSelectedCommentators
-                      }
-                      commentatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}`}
-                      setSelectionChanged={setFormDataModified}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <QMarkIssueHack
-            qMarkToCommaChecked={qMarkToCommaChecked}
-            setQMarkToCommaChecked={setQMarkToCommaChecked}
-            name={QMARK_TO_COMMA_FIELD_NAME}
-            setSelectionChanged={setFormDataModified}
+        <TabGroup>
+          <TabList className="flex gap-2">
+            <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
+              Verse Page
+            </Tab>
+            <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
+              Chapter Page
+            </Tab>
+            <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
+              Entire App
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              {/* <div className="border border-black p-2">
+                <h3 className="text-2xl mb-4">Verse Page</h3> */}
+              <div className=" p-2 mt-3">
+                {/* <div className="border border-black p-2 mt-3"> */}
+                <h4 className="text-lg mb-2">
+                  Select at least one language and associated translator(s)
+                  and/or commentator(s)
+                </h4>
+                <div className="flex justify-start flex-wrap gap-x-4 gap-y-4">
+                  {allLanguageSelectionsData.map(
+                    (languageSelectionData, index) => {
+                      return (
+                        <div key={index}>
+                          <LanguageSelections
+                            languageId={
+                              languageSelectionData.authorsForLanguage
+                                .languageId
+                            }
+                            languageName={
+                              languageSelectionData.authorsForLanguage
+                                .languageName
+                            }
+                            languageChecked={
+                              languageSelectionData.languageChecked
+                            }
+                            setLanguageChecked={
+                              languageSelectionData.setLanguageChecked
+                            }
+                            languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`}
+                            allTranslators={
+                              languageSelectionData.authorsForLanguage
+                                .translatorAuthors
+                            }
+                            selectedTranslators={
+                              languageSelectionData.selectedTranslators!
+                            }
+                            setSelectedTranslators={
+                              languageSelectionData.setSelectedTranslators
+                            }
+                            translatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}`}
+                            allCommentators={
+                              languageSelectionData.authorsForLanguage
+                                .commentatorAuthors
+                            }
+                            selectedCommentators={
+                              languageSelectionData.selectedCommentators!
+                            }
+                            setSelectedCommentators={
+                              languageSelectionData.setSelectedCommentators
+                            }
+                            commentatorsListBoxName={`${languageSelectionData.authorsForLanguage.languageId}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}`}
+                            setSelectionChanged={setFormDataModified}
+                          />
+                        </div>
+                      );
+                    }
+                  )}
+                </div>
+              </div>
+              <hr className="border border-gray-400 mt-2" />
+              <div className="p-2">
+                {/* <div className="pb-2"> */}
+                <QMarkIssueHack
+                  qMarkToCommaChecked={qMarkToCommaChecked}
+                  setQMarkToCommaChecked={setQMarkToCommaChecked}
+                  name={QMARK_TO_COMMA_FIELD_NAME}
+                  setSelectionChanged={setFormDataModified}
+                />
+              </div>
+              {/* </div> */}
+            </TabPanel>
+            <TabPanel>
+              <div className="h-56 p-2 mt-3">
+                {/* <div className="border border-black p-2 mt-3"> */}
+                {/* <h3 className="text-2xl mb-4">Chapter Page</h3> */}
+                <ChapterPageTranslatorSelection
+                  allLanguageTranslatorAuthors={allLanguageTranslatorAuthors}
+                  selectedAuthorIndex={selectedAuthorIndex}
+                  name={CHAPTER_PAGE_TRANSLATOR_FIELD_NAME}
+                  setSelectionChanged={setFormDataModified}
+                  // Below key results in reset of state of ChapterPageTranslatorSelection component
+                  // when selectedAuthorIndex changes.
+                  // Ref: https://react.dev/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes
+                  key={selectedAuthorIndex}
+                />
+              </div>
+            </TabPanel>
+            <TabPanel>
+              {/* <div className="border border-black p-2 mt-4">
+                <h3 className="text-2xl mb-4">Entire App</h3> */}
+              <div className="flex flex-wrap gap-4 h-56  p-2 mt-3">
+                <LanguageTitleSummary
+                  languageEnglishChecked={englishLTSChecked}
+                  setLanguageEnglishChecked={setEnglishLTSChecked}
+                  languageEnglishName={ENGLISH_LTS_LANGUAGE_NAME}
+                  languageHindiChecked={hindiLTSChecked}
+                  setLanguageHindiChecked={setHindiLTSChecked}
+                  languageHindiName={HINDI_LTS_LANGUAGE_NAME}
+                  setSelectionChanged={setFormDataModified}
+                />
+                <FullWindowWidth
+                  fullWindowWidthChecked={fullWindowWidthChecked}
+                  setFullWindowWidthChecked={setFullWindowWidthChecked}
+                  name={FULL_WINDOW_WIDTH_FIELD_NAME}
+                  setSelectionChanged={setFormDataModified}
+                />
+              </div>
+              {/* </div> */}
+            </TabPanel>
+          </TabPanels>
+        </TabGroup>
+
+        <div className="ml-2">
+          <SubmitButton
+            btnLabel="Save settings"
+            TWclasses="px-1 mt-2 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
+            formDataModified={formDataModified}
+            setFormDataModified={setFormDataModified}
+            submitSaveMsg="Settings saved"
+            onSubmitButtonClick={handleSubmitButtonClickCB}
           />
+          <button
+            className="block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
+            onClick={(e) => handleBack(e)}
+          >
+            Back
+          </button>
+          <button
+            className="block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
+            onClick={(e) => handleDefaultSettings(e)}
+          >
+            Use default settings
+          </button>
         </div>
-        <div className="border border-black p-2 mt-4">
-          <h3 className="text-2xl mb-4">Chapter Page</h3>
-          <ChapterPageTranslatorSelection
-            allLanguageTranslatorAuthors={allLanguageTranslatorAuthors}
-            selectedAuthorIndex={selectedAuthorIndex}
-            name={CHAPTER_PAGE_TRANSLATOR_FIELD_NAME}
-            setSelectionChanged={setFormDataModified}
-            // Below key results in reset of state of ChapterPageTranslatorSelection component
-            // when selectedAuthorIndex changes.
-            // Ref: https://react.dev/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes
-            key={selectedAuthorIndex}
-          />
-        </div>
-        <div className="border border-black p-2 mt-4">
-          <h3 className="text-2xl mb-4">Entire App</h3>
-          <div className="flex flex-wrap gap-4">
-            <LanguageTitleSummary
-              languageEnglishChecked={englishLTSChecked}
-              setLanguageEnglishChecked={setEnglishLTSChecked}
-              languageEnglishName={ENGLISH_LTS_LANGUAGE_NAME}
-              languageHindiChecked={hindiLTSChecked}
-              setLanguageHindiChecked={setHindiLTSChecked}
-              languageHindiName={HINDI_LTS_LANGUAGE_NAME}
-              setSelectionChanged={setFormDataModified}
-            />
-            <FullWindowWidth
-              fullWindowWidthChecked={fullWindowWidthChecked}
-              setFullWindowWidthChecked={setFullWindowWidthChecked}
-              name={FULL_WINDOW_WIDTH_FIELD_NAME}
-              setSelectionChanged={setFormDataModified}
-            />
-          </div>
-        </div>
-        <SubmitButton
-          btnLabel="Save settings"
-          TWclasses="px-1 mt-2 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
-          formDataModified={formDataModified}
-          setFormDataModified={setFormDataModified}
-          submitSaveMsg="Settings saved"
-          onSubmitButtonClick={handleSubmitButtonClickCB}
-        />
-        <button
-          className="block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
-          onClick={(e) => handleBack(e)}
-        >
-          Back
-        </button>
-        <button
-          className="block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
-          onClick={(e) => handleDefaultSettings(e)}
-        >
-          Use default settings
-        </button>
       </form>
     </div>
   );
