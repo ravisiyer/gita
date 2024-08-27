@@ -12,13 +12,6 @@ export const useMediaQuery = (width: number) => {
       setTargetReached(false);
     }
   };
-  // const updateTarget = useCallback((e: MediaQueryListEvent) => {
-  //   if (e.matches) {
-  //     setTargetReached(true);
-  //   } else {
-  //     setTargetReached(false);
-  //   }
-  // }, []);
 
   useEffect(() => {
     const media = window.matchMedia(`(max-width: ${width}px)`);

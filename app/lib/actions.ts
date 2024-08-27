@@ -57,23 +57,23 @@ export async function createlSCookie(formData: FormData) {
       selectedCommentators: [],
     };
 
-    const isLanguageChecked = formData.has(
-      `${allGitaLanguages[languageIndex].id}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`
-    );
-    if (isLanguageChecked) {
-      for (let j = 0; j < numTranslators; j++) {
-        let key = `${allGitaLanguages[languageIndex].id}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
-        const value = formData.get(key);
-        lSCookieElement.selectedTranslators.push(value?.toString()!);
-      }
+    // const isLanguageChecked = formData.has(
+    //   `${allGitaLanguages[languageIndex].id}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`
+    // );
+    // if (isLanguageChecked) {
+    for (let j = 0; j < numTranslators; j++) {
+      let key = `${allGitaLanguages[languageIndex].id}${TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
+      const value = formData.get(key);
+      lSCookieElement.selectedTranslators.push(value?.toString()!);
     }
-    if (isLanguageChecked) {
-      for (let j = 0; j < numCommentators; j++) {
-        let key = `${allGitaLanguages[languageIndex].id}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
-        const value = formData.get(key);
-        lSCookieElement.selectedCommentators.push(value?.toString()!);
-      }
+    // }
+    // if (isLanguageChecked) {
+    for (let j = 0; j < numCommentators; j++) {
+      let key = `${allGitaLanguages[languageIndex].id}${COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX}[${j}][id]`;
+      const value = formData.get(key);
+      lSCookieElement.selectedCommentators.push(value?.toString()!);
     }
+    // }
     lSCookie.push(lSCookieElement);
   }
   // console.log("lSCookie", lSCookie);

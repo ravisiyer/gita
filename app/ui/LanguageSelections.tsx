@@ -74,17 +74,15 @@ function LanguageSelections({
       <Field
         className={clsx(
           "hidden ",
-          // !mobileView && " md:block"
           !mobileView && "md:flex md:items-center md:gap-2"
         )}
       >
-        <Checkbox
+        {/* <Checkbox
           checked={languageChecked}
           onChange={handleLanguageCheckedChange}
           name={languageCheckBoxName}
           className="group block size-4 rounded border border-black data-[checked]:bg-blue-500"
         >
-          {/* Checkmark icon */}
           <svg
             className="stroke-black opacity-0 group-data-[checked]:opacity-100"
             viewBox="0 0 14 14"
@@ -97,7 +95,7 @@ function LanguageSelections({
               strokeLinejoin="round"
             />
           </svg>
-        </Checkbox>
+        </Checkbox> */}
         <Label className="text-2xl">{`${languageName}`}</Label>
       </Field>
       <div className="flex flex-col sm:flex-row sm:gap-4">

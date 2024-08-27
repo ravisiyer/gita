@@ -59,7 +59,8 @@ export function AuthorList({
     >
       <p className="text-lg">{authorsLabel}</p>
       <div>
-        <Field disabled={disabled} className="flex items-center gap-2 ">
+        <Field className="flex items-center gap-2 ">
+          {/* <Field disabled={disabled} className="flex items-center gap-2 "> */}
           <Checkbox
             checked={selectAll}
             onChange={handleSelectAllChange}
@@ -87,7 +88,7 @@ export function AuthorList({
             {allAuthors.map((author) => (
               <ListboxOption
                 key={author.id}
-                disabled={disabled}
+                // disabled={disabled}
                 value={author}
                 className="group flex cursor-default items-center px-1 data-[selected]:bg-orange-400 data-[disabled]:opacity-50"
               >

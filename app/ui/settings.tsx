@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createlSCookie } from "../lib/actions";
 import { SubmitButton } from "../ui/submit-button";
@@ -262,8 +262,13 @@ function Settings({
 
   function isAtLeastOneLanguageChecked() {
     let atLeastOneLanguageChecked = allLanguageSelectionsData.some(
-      (languageSelectionData) => languageSelectionData.languageChecked
+      (languageSelectionData) =>
+        languageSelectionData.selectedCommentators?.length! > 0 ||
+        languageSelectionData.selectedTranslators?.length! > 0
     );
+    // let atLeastOneLanguageChecked = allLanguageSelectionsData.some(
+    //   (languageSelectionData) => languageSelectionData.languageChecked
+    // );
     // console.log(
     //   `In isAllLanguageSelectionsValid: atLeastOneLanguageChecked is: ${atLeastOneLanguageChecked}`
     // );
@@ -272,7 +277,10 @@ function Settings({
   // Below function is a callback passed to SubmitButton component. It is not directly invoked by this component's code
   function handleSubmitButtonClickCB() {
     if (!isAtLeastOneLanguageChecked()) {
-      setDialogMessage("Please select at least one language for verse page.");
+      setDialogMessage(
+        "Please select at least one translator or commentator for verse page."
+      );
+      // setDialogMessage("Please select at least one language for verse page.");
       setIsDialogOpen(true);
       return false; // Don't proceed to save settings
     } else {
@@ -281,7 +289,7 @@ function Settings({
     }
   }
 
-  const mobileView = useMediaQuery(TAILWIND_MD_BREAKPOINT);
+  const mobileView = useMediaQuery(TAILWIND_MD_BREAKPOINT + 1);
   // md:flex seems to come into play only from 769 (at least on Chrome browser on PC)
 
   return (
@@ -319,10 +327,8 @@ function Settings({
         <TabGroup>
           <TabList className="flex gap-2">
             <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
-              {/* Verse Page */}
               Verse
               <span className="hidden min-[440px]:inline">&nbsp;Page</span>
-              {/* <span className="hidden sm:inline">Bhagavad&nbsp;</span> */}
             </Tab>
             <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
               Chapter
@@ -335,17 +341,12 @@ function Settings({
           </TabList>
           <TabPanels>
             <TabPanel unmount={false}>
-              {/* <div className="border border-black p-2">
-                <h3 className="text-2xl mb-4">Verse Page</h3> */}
               <div className=" p-2 mt-3">
-                {/* <div className="border border-black p-2 mt-3"> */}
                 <h4 className="text-lg mb-2">
                   Select language
                   <span className="hidden min-[440px]:inline">
                     &nbsp;and translator(s) & commentator(s)
                   </span>
-                  {/* Select at least one language and associated translator(s)
-                  and/or commentator(s) */}
                 </h4>
                 <TabGroup>
                   <TabList
@@ -447,7 +448,6 @@ function Settings({
               </div>
               <hr className="border border-gray-400 mt-2" />
               <div className="p-2">
-                {/* <div className="pb-2"> */}
                 <QMarkIssueHack
                   qMarkToCommaChecked={qMarkToCommaChecked}
                   setQMarkToCommaChecked={setQMarkToCommaChecked}
@@ -455,12 +455,9 @@ function Settings({
                   setSelectionChanged={setFormDataModified}
                 />
               </div>
-              {/* </div> */}
             </TabPanel>
             <TabPanel unmount={false}>
               <div className="min-h-80 p-2 mt-3">
-                {/* <div className="border border-black p-2 mt-3"> */}
-                {/* <h3 className="text-2xl mb-4">Chapter Page</h3> */}
                 <ChapterPageTranslatorSelection
                   allLanguageTranslatorAuthors={allLanguageTranslatorAuthors}
                   selectedAuthorIndex={selectedAuthorIndex}
@@ -474,8 +471,6 @@ function Settings({
               </div>
             </TabPanel>
             <TabPanel unmount={false}>
-              {/* <div className="border border-black p-2 mt-4">
-                <h3 className="text-2xl mb-4">Entire App</h3> */}
               <div className="flex flex-wrap gap-4 min-h-80 p-2 mt-3">
                 <LanguageTitleSummary
                   languageEnglishChecked={englishLTSChecked}
@@ -493,7 +488,6 @@ function Settings({
                   setSelectionChanged={setFormDataModified}
                 />
               </div>
-              {/* </div> */}
             </TabPanel>
           </TabPanels>
         </TabGroup>
