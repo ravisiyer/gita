@@ -340,7 +340,7 @@ function Settings({
                           <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
                             {
                               <div className="flex items-center gap-2 ">
-                                {/* <Checkbox className="group block size-4 rounded border border-black data-[checked]:bg-blue-500">
+                                <Checkbox className="group block size-4 rounded border border-black data-[checked]:bg-blue-500">
                                   <svg
                                     className="stroke-black opacity-0 group-data-[checked]:opacity-100"
                                     viewBox="0 0 14 14"
@@ -353,7 +353,7 @@ function Settings({
                                       strokeLinejoin="round"
                                     />
                                   </svg>
-                                </Checkbox> */}
+                                </Checkbox>
                                 {
                                   languageSelectionData.authorsForLanguage
                                     .languageName

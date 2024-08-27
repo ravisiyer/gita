@@ -20,15 +20,23 @@ export function SubmitButton({
 }) {
   const { pending } = useFormStatus();
   const [submitInvokedOnce, setSubmitInvokedOnce] = useState(false);
+  const [proceedWithSave, setProceedWithSave] = useState(true);
 
   useEffect(() => {
-    submitInvokedOnce && !pending && setFormDataModified(false);
+    if (submitInvokedOnce && !pending) {
+      console.log("In SB useEffect: calling setFormDataModified(false)");
+      setFormDataModified(false);
+    }
+    // submitInvokedOnce && !pending && setFormDataModified(false);
   }, [pending, submitInvokedOnce, setFormDataModified]);
 
   function handleSubmitButtonClick(e: React.MouseEvent) {
-    let proceedWithSave = false;
-    onSubmitButtonClick && (proceedWithSave = onSubmitButtonClick());
-    if (!proceedWithSave) {
+    let tmpProceedWithSave = false;
+    if (onSubmitButtonClick) {
+      tmpProceedWithSave = onSubmitButtonClick();
+      setProceedWithSave(tmpProceedWithSave);
+    }
+    if (!tmpProceedWithSave) {
       e.preventDefault();
     }
     setSubmitInvokedOnce(true);
@@ -41,7 +49,7 @@ export function SubmitButton({
         className={
           TWclasses +
           (pending
-            ? " disabled:bg-slate-700 pointer-events-none"
+            ? " disabled:bg-slate-500 pointer-events-none"
             : " pointer-events-auto")
         }
         onClick={handleSubmitButtonClick}
