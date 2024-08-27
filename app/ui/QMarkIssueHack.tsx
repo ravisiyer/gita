@@ -18,12 +18,11 @@ function QMarkIssueHack({
     setSelectionChanged && setSelectionChanged(true);
   }
   return (
-    <div className="border border-black w-fit p-2 mt-2">
+    <div className="border border-black w-fit min-w-72 p-2 mt-2">
       <p className="text-lg mb-2">
-        Fix for ? character issue for commentaries data{" "}
-        <Link href="../qmarkissue" className="underline">
-          More Info
-        </Link>
+        Fix ?{" "}
+        <span className="hidden min-[440px]:inline">character issue&nbsp;</span>
+        in commentaries
       </p>
       <Field className="flex items-center gap-2 ">
         <Checkbox
@@ -46,7 +45,12 @@ function QMarkIssueHack({
             />
           </svg>
         </Checkbox>
-        <Label>Replace ? with ,</Label>
+        <div className="flex justify-between w-full">
+          <Label>Replace ? with ,</Label>
+          <Link href="../qmarkissue" className="underline">
+            More Info
+          </Link>
+        </div>
       </Field>
     </div>
   );

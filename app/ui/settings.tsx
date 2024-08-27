@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createlSCookie } from "../lib/actions";
 import { SubmitButton } from "../ui/submit-button";
@@ -27,6 +27,7 @@ import {
   HINDI_LTS_LANGUAGE_NAME,
   FULL_WINDOW_WIDTH_FIELD_NAME,
   DEFAULT_FULL_WINDOW_WIDTH_CHECKED,
+  TAILWIND_MD_BREAKPOINT,
 } from "../constants/constants";
 import {
   getAllLanguageTranslatorAuthors,
@@ -37,6 +38,8 @@ import QMarkIssueHack from "./QMarkIssueHack";
 import LanguageTitleSummary from "./LanguageTitleSummary";
 import FullWindowWidth from "./FullWindowWidth";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+import clsx from "clsx";
+import useMediaQuery from "../(mainapp)/hooks/usemediaquery";
 
 function Settings({
   authorsForAllLanguages,
@@ -278,6 +281,9 @@ function Settings({
     }
   }
 
+  const mobileView = useMediaQuery(TAILWIND_MD_BREAKPOINT);
+  // md:flex seems to come into play only from 769 (at least on Chrome browser on PC)
+
   return (
     <div className="px-4 pb-4">
       <Dialog
@@ -313,13 +319,18 @@ function Settings({
         <TabGroup>
           <TabList className="flex gap-2">
             <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
-              Verse Page
+              {/* Verse Page */}
+              Verse
+              <span className="hidden min-[440px]:inline">&nbsp;Page</span>
+              {/* <span className="hidden sm:inline">Bhagavad&nbsp;</span> */}
             </Tab>
             <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
-              Chapter Page
+              Chapter
+              <span className="hidden min-[440px]:inline">&nbsp;Page</span>
             </Tab>
             <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
-              Entire App
+              <span className="hidden min-[440px]:inline">Entire&nbsp;</span>
+              App
             </Tab>
           </TabList>
           <TabPanels>
@@ -329,11 +340,17 @@ function Settings({
               <div className=" p-2 mt-3">
                 {/* <div className="border border-black p-2 mt-3"> */}
                 <h4 className="text-lg mb-2">
-                  Select at least one language and associated translator(s)
-                  and/or commentator(s)
+                  Select language
+                  <span className="hidden min-[440px]:inline">
+                    &nbsp;and translator(s) & commentator(s)
+                  </span>
+                  {/* Select at least one language and associated translator(s)
+                  and/or commentator(s) */}
                 </h4>
                 <TabGroup>
-                  <TabList className="flex gap-2">
+                  <TabList
+                    className={clsx("flex gap-2", !mobileView && "hidden")}
+                  >
                     {allLanguageSelectionsData.map(
                       (languageSelectionData, index) => {
                         return (
@@ -373,7 +390,11 @@ function Settings({
                       {allLanguageSelectionsData.map(
                         (languageSelectionData, index) => {
                           return (
-                            <TabPanel key={index} unmount={false}>
+                            <TabPanel
+                              key={index}
+                              unmount={false}
+                              static={mobileView ? false : true}
+                            >
                               <div key={index}>
                                 <LanguageSelections
                                   languageId={
@@ -437,7 +458,7 @@ function Settings({
               {/* </div> */}
             </TabPanel>
             <TabPanel unmount={false}>
-              <div className="h-56 p-2 mt-3">
+              <div className="min-h-80 p-2 mt-3">
                 {/* <div className="border border-black p-2 mt-3"> */}
                 {/* <h3 className="text-2xl mb-4">Chapter Page</h3> */}
                 <ChapterPageTranslatorSelection
@@ -455,7 +476,7 @@ function Settings({
             <TabPanel unmount={false}>
               {/* <div className="border border-black p-2 mt-4">
                 <h3 className="text-2xl mb-4">Entire App</h3> */}
-              <div className="flex flex-wrap gap-4 h-56  p-2 mt-3">
+              <div className="flex flex-wrap gap-4 min-h-80 p-2 mt-3">
                 <LanguageTitleSummary
                   languageEnglishChecked={englishLTSChecked}
                   setLanguageEnglishChecked={setEnglishLTSChecked}
