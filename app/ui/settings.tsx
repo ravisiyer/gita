@@ -337,7 +337,10 @@ function Settings({
                     {allLanguageSelectionsData.map(
                       (languageSelectionData, index) => {
                         return (
-                          <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
+                          <Tab
+                            key={index}
+                            className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black"
+                          >
                             {
                               <div className="flex items-center gap-2 ">
                                 {/* <Checkbox className="group block size-4 rounded border border-black data-[checked]:bg-blue-500">
@@ -370,7 +373,7 @@ function Settings({
                       {allLanguageSelectionsData.map(
                         (languageSelectionData, index) => {
                           return (
-                            <TabPanel unmount={false}>
+                            <TabPanel key={index} unmount={false}>
                               <div key={index}>
                                 <LanguageSelections
                                   languageId={
