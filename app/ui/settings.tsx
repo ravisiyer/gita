@@ -39,7 +39,7 @@ import LanguageTitleSummary from "./LanguageTitleSummary";
 import FullWindowWidth from "./FullWindowWidth";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import clsx from "clsx";
-import useMediaQuery from "../(mainapp)/hooks/usemediaquery";
+import useMediaQuery from "../hooks/usemediaquery";
 
 function Settings({
   authorsForAllLanguages,
@@ -289,11 +289,11 @@ function Settings({
     }
   }
 
-  const mobileView = useMediaQuery(TAILWIND_MD_BREAKPOINT + 1);
-  // md:flex seems to come into play only from 769 (at least on Chrome browser on PC)
+  const tailwindMDBreakpoint = useMediaQuery(TAILWIND_MD_BREAKPOINT);
+  // True if min. window width is TAILWIND_MD_BREAKPOINT (768)
 
   return (
-    <div className="px-4 pb-4">
+    <div className="px-2 pb-2">
       <Dialog
         open={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
@@ -349,9 +349,7 @@ function Settings({
                   </span>
                 </h4>
                 <TabGroup>
-                  <TabList
-                    className={clsx("flex gap-2", !mobileView && "hidden")}
-                  >
+                  <TabList className="flex gap-2 md:hidden">
                     {allLanguageSelectionsData.map(
                       (languageSelectionData, index) => {
                         return (
@@ -394,7 +392,7 @@ function Settings({
                             <TabPanel
                               key={index}
                               unmount={false}
-                              static={mobileView ? false : true}
+                              static={tailwindMDBreakpoint ? true : false}
                             >
                               <div key={index}>
                                 <LanguageSelections

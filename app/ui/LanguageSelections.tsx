@@ -3,9 +3,6 @@ import { Checkbox, Field, Label } from "@headlessui/react";
 import AuthorList from "./AuthorList";
 import { authorIdNameT } from "../lib/addltypes-d";
 import { useEffect } from "react";
-import useMediaQuery from "../(mainapp)/hooks/usemediaquery";
-import clsx from "clsx";
-import { TAILWIND_MD_BREAKPOINT } from "../constants/constants";
 
 function LanguageSelections({
   languageId,
@@ -66,16 +63,15 @@ function LanguageSelections({
     setSelectionChanged && setSelectionChanged(true);
   }
 
-  const mobileView = useMediaQuery(TAILWIND_MD_BREAKPOINT + 1);
-  // md:flex seems to come into play only from 769 (at least on Chrome browser on PC)
-
   return (
     <div className="border border-black p-2">
       <Field
-        className={clsx(
-          "hidden ",
-          !mobileView && "md:flex md:items-center md:gap-2"
-        )}
+        className="hidden md:flex md:items-center md:gap-2"
+        // className={clsx(
+        //   "hidden md:flex md:items-center md:gap-2"
+        //   // "hidden ",
+        //   // !mobileView && "md:flex md:items-center md:gap-2"
+        // )}
       >
         {/* <Checkbox
           checked={languageChecked}
