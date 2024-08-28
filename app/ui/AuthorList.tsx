@@ -17,7 +17,6 @@ export function AuthorList({
   selectedAuthors,
   setSelectedAuthors,
   name,
-  // disabled = false,
   setSelectionChanged,
 }: {
   authorsLabel: string;
@@ -25,7 +24,6 @@ export function AuthorList({
   selectedAuthors: authorIdNameT[];
   setSelectedAuthors: (selectedAuthors: authorIdNameT[] | undefined) => void;
   name: string;
-  // disabled: boolean;
   setSelectionChanged: (selectionChanged: boolean) => void;
 }) {
   const [selectAll, setSelectAll] = useState(
@@ -60,7 +58,6 @@ export function AuthorList({
       <p className="text-lg">{authorsLabel}</p>
       <div>
         <Field className="flex items-center gap-2 ">
-          {/* <Field disabled={disabled} className="flex items-center gap-2 "> */}
           <Checkbox
             checked={selectAll}
             onChange={handleSelectAllChange}
@@ -88,7 +85,6 @@ export function AuthorList({
             {allAuthors.map((author) => (
               <ListboxOption
                 key={author.id}
-                // disabled={disabled}
                 value={author}
                 className="group flex cursor-default items-center px-1 data-[selected]:bg-orange-400 data-[disabled]:opacity-50"
               >
