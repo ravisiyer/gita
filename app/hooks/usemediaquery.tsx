@@ -23,7 +23,7 @@ export const useMediaQuery = (width: number) => {
     }
 
     return () => media.removeEventListener("change", updateTarget);
-  }, []);
+  }, [width]);
 
   return targetReached;
 };
