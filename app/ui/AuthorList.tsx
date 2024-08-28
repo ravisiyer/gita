@@ -17,7 +17,7 @@ export function AuthorList({
   selectedAuthors,
   setSelectedAuthors,
   name,
-  disabled = false,
+  // disabled = false,
   setSelectionChanged,
 }: {
   authorsLabel: string;
@@ -25,7 +25,7 @@ export function AuthorList({
   selectedAuthors: authorIdNameT[];
   setSelectedAuthors: (selectedAuthors: authorIdNameT[] | undefined) => void;
   name: string;
-  disabled: boolean;
+  // disabled: boolean;
   setSelectionChanged: (selectionChanged: boolean) => void;
 }) {
   const [selectAll, setSelectAll] = useState(

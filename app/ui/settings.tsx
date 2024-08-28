@@ -14,7 +14,7 @@ import {
 import LanguageSelections from "../ui/LanguageSelections";
 import { authorsForLanguageT, authorIdNameT } from "../lib/addltypes-d";
 import {
-  LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX,
+  // LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX,
   TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX,
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
   DEFAULT_CHAPTER_PAGE_TRANSLATOR_AUTHOR_ID_STR,
@@ -38,7 +38,6 @@ import QMarkIssueHack from "./QMarkIssueHack";
 import LanguageTitleSummary from "./LanguageTitleSummary";
 import FullWindowWidth from "./FullWindowWidth";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import clsx from "clsx";
 import useMediaQuery from "../hooks/usemediaquery";
 
 function Settings({
@@ -91,11 +90,11 @@ function Settings({
   const [selectedCommentators0, setSelectedCommentators0] = useState(
     sAFAL[0].commentatorAuthors
   );
-  const [language0Checked, setLanguage0Checked] = useState(
-    sAFAL[0].translatorAuthors?.length || sAFAL[0].commentatorAuthors?.length
-      ? true
-      : false
-  );
+  // const [language0Checked, setLanguage0Checked] = useState(
+  //   sAFAL[0].translatorAuthors?.length || sAFAL[0].commentatorAuthors?.length
+  //     ? true
+  //     : false
+  // );
 
   const [selectedTranslators1, setSelectedTranslators1] = useState(
     sAFAL[1].translatorAuthors
@@ -103,11 +102,11 @@ function Settings({
   const [selectedCommentators1, setSelectedCommentators1] = useState(
     sAFAL[1].commentatorAuthors
   );
-  const [language1Checked, setLanguage1Checked] = useState(
-    sAFAL[1].translatorAuthors?.length || sAFAL[1].commentatorAuthors?.length
-      ? true
-      : false
-  );
+  // const [language1Checked, setLanguage1Checked] = useState(
+  //   sAFAL[1].translatorAuthors?.length || sAFAL[1].commentatorAuthors?.length
+  //     ? true
+  //     : false
+  // );
 
   const [selectedTranslators2, setSelectedTranslators2] = useState(
     sAFAL[2].translatorAuthors
@@ -115,11 +114,11 @@ function Settings({
   const [selectedCommentators2, setSelectedCommentators2] = useState(
     sAFAL[2].commentatorAuthors
   );
-  const [language2Checked, setLanguage2Checked] = useState(
-    sAFAL[2].translatorAuthors?.length || sAFAL[2].commentatorAuthors?.length
-      ? true
-      : false
-  );
+  // const [language2Checked, setLanguage2Checked] = useState(
+  //   sAFAL[2].translatorAuthors?.length || sAFAL[2].commentatorAuthors?.length
+  //     ? true
+  //     : false
+  // );
 
   // Below code sets up allLanguageSelectsionData array which we can then iterate through without
   // having to refer to specific state variables like selectedTranslators0.
@@ -128,8 +127,8 @@ function Settings({
   //
   type allLanguageSelectionsDataT = {
     authorsForLanguage: authorsForLanguageT;
-    languageChecked: boolean;
-    setLanguageChecked: (languageChecked: boolean) => void;
+    // languageChecked: boolean;
+    // setLanguageChecked: (languageChecked: boolean) => void;
     selectedTranslators: authorIdNameT[] | undefined;
     setSelectedTranslators: (
       selectedTranslators: authorIdNameT[] | undefined
@@ -143,8 +142,8 @@ function Settings({
   let allLanguageSelectionsData: allLanguageSelectionsDataT[] = [];
   allLanguageSelectionsData[0] = {
     authorsForLanguage: authorsForAllLanguages[0],
-    languageChecked: language0Checked,
-    setLanguageChecked: setLanguage0Checked,
+    // languageChecked: language0Checked,
+    // setLanguageChecked: setLanguage0Checked,
     selectedTranslators: selectedTranslators0,
     setSelectedTranslators: setSelectedTranslators0,
     selectedCommentators: selectedCommentators0,
@@ -152,8 +151,8 @@ function Settings({
   };
   allLanguageSelectionsData[1] = {
     authorsForLanguage: authorsForAllLanguages[1],
-    languageChecked: language1Checked,
-    setLanguageChecked: setLanguage1Checked,
+    // languageChecked: language1Checked,
+    // setLanguageChecked: setLanguage1Checked,
     selectedTranslators: selectedTranslators1,
     setSelectedTranslators: setSelectedTranslators1,
     selectedCommentators: selectedCommentators1,
@@ -161,8 +160,8 @@ function Settings({
   };
   allLanguageSelectionsData[2] = {
     authorsForLanguage: authorsForAllLanguages[2],
-    languageChecked: language2Checked,
-    setLanguageChecked: setLanguage2Checked,
+    // languageChecked: language2Checked,
+    // setLanguageChecked: setLanguage2Checked,
     selectedTranslators: selectedTranslators2,
     setSelectedTranslators: setSelectedTranslators2,
     selectedCommentators: selectedCommentators2,
@@ -215,28 +214,28 @@ function Settings({
     // Once again, the code is not great and the cause, as mentioned earlier, is that I don't know how to
     // define an array of useState variables in React functional components.
     //
-    setLanguage0Checked(
-      defaultSAFAL[0].translatorAuthors?.length ||
-        defaultSAFAL[0].commentatorAuthors?.length
-        ? true
-        : false
-    );
+    // setLanguage0Checked(
+    //   defaultSAFAL[0].translatorAuthors?.length ||
+    //     defaultSAFAL[0].commentatorAuthors?.length
+    //     ? true
+    //     : false
+    // );
     setSelectedTranslators0(defaultSAFAL[0].translatorAuthors);
     setSelectedCommentators0(defaultSAFAL[0].commentatorAuthors);
-    setLanguage1Checked(
-      defaultSAFAL[1].translatorAuthors?.length ||
-        defaultSAFAL[1].commentatorAuthors?.length
-        ? true
-        : false
-    );
+    // setLanguage1Checked(
+    //   defaultSAFAL[1].translatorAuthors?.length ||
+    //     defaultSAFAL[1].commentatorAuthors?.length
+    //     ? true
+    //     : false
+    // );
     setSelectedTranslators1(defaultSAFAL[1].translatorAuthors);
     setSelectedCommentators1(defaultSAFAL[1].commentatorAuthors);
-    setLanguage2Checked(
-      defaultSAFAL[2].translatorAuthors?.length ||
-        defaultSAFAL[2].commentatorAuthors?.length
-        ? true
-        : false
-    );
+    // setLanguage2Checked(
+    //   defaultSAFAL[2].translatorAuthors?.length ||
+    //     defaultSAFAL[2].commentatorAuthors?.length
+    //     ? true
+    //     : false
+    // );
     setSelectedTranslators2(defaultSAFAL[2].translatorAuthors);
     setSelectedCommentators2(defaultSAFAL[2].commentatorAuthors);
 
@@ -260,27 +259,20 @@ function Settings({
     setIsDialogOpen(false);
   }
 
-  function isAtLeastOneLanguageChecked() {
-    let atLeastOneLanguageChecked = allLanguageSelectionsData.some(
+  //TOrC below stands for Translator or Commentator
+  function isAtLeastOneTOrCSelected() {
+    return allLanguageSelectionsData.some(
       (languageSelectionData) =>
         languageSelectionData.selectedCommentators?.length! > 0 ||
         languageSelectionData.selectedTranslators?.length! > 0
     );
-    // let atLeastOneLanguageChecked = allLanguageSelectionsData.some(
-    //   (languageSelectionData) => languageSelectionData.languageChecked
-    // );
-    // console.log(
-    //   `In isAllLanguageSelectionsValid: atLeastOneLanguageChecked is: ${atLeastOneLanguageChecked}`
-    // );
-    return atLeastOneLanguageChecked;
   }
   // Below function is a callback passed to SubmitButton component. It is not directly invoked by this component's code
   function handleSubmitButtonClickCB() {
-    if (!isAtLeastOneLanguageChecked()) {
+    if (!isAtLeastOneTOrCSelected()) {
       setDialogMessage(
         "Please select at least one translator or commentator for verse page."
       );
-      // setDialogMessage("Please select at least one language for verse page.");
       setIsDialogOpen(true);
       return false; // Don't proceed to save settings
     } else {
@@ -404,13 +396,13 @@ function Settings({
                                     languageSelectionData.authorsForLanguage
                                       .languageName
                                   }
-                                  languageChecked={
-                                    languageSelectionData.languageChecked
-                                  }
-                                  setLanguageChecked={
-                                    languageSelectionData.setLanguageChecked
-                                  }
-                                  languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`}
+                                  // languageChecked={
+                                  //   languageSelectionData.languageChecked
+                                  // }
+                                  // setLanguageChecked={
+                                  //   languageSelectionData.setLanguageChecked
+                                  // }
+                                  // languageCheckBoxName={`${languageSelectionData.authorsForLanguage.languageId}${LANGUAGE_CHECKBOX_LSC_NAME_SUFFIX}`}
                                   allTranslators={
                                     languageSelectionData.authorsForLanguage
                                       .translatorAuthors
