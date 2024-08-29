@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-// import { createlSCookie } from "../lib/actions";
-// import { SubmitButton } from "../ui/submit-button";
 import {
   Checkbox,
   Dialog,
@@ -229,7 +227,7 @@ function Settings({
         languageSelectionData.selectedTranslators?.length! > 0
     );
   }
-  // Below function is a callback passed to SubmitButton component. It is not directly invoked by this component's code
+
   function handleSubmit(e: React.FormEvent) {
     if (!isAtLeastOneTOrCSelected()) {
       setDialogMessage(
@@ -241,8 +239,11 @@ function Settings({
     } else {
       setIsDialogOpen(false);
       setSubmitInvokedOnce(true);
-      // Ideally below state variable should be set in the form action
-      // which is called after this function returns from this else branch
+      // Ideally below state variable should be set after the form action completes.
+      // The form action will be/is called after this function returns from this else branch.
+      // But the form action is in a separate standalone file. Could introduce a wrapper
+      // form actin function in this file which invokes that function (passing it the vital
+      // formData) and then sets the below state variable. Consider implementing.
       setFormDataModified(false);
       return; // Proceed to save settings
     }
@@ -250,8 +251,6 @@ function Settings({
 
   const tailwindMDBreakpoint = useMediaQuery(TAILWIND_MD_BREAKPOINT);
   // True if min. window width is TAILWIND_MD_BREAKPOINT (768)
-
-  // <form className="my-4" action={createlSCookie}>
 
   return (
     <div className="px-2 pb-2">
@@ -310,13 +309,6 @@ function Settings({
               <div className=" p-2 mt-3">
                 <h4 className="text-lg mb-2 line-clamp-1">
                   Select translator(s) & commentator(s)
-                  {/* <span className="hidden min-[440px]:inline">
-                    &nbsp;and translator(s) & commentator(s)
-                  </span> */}
-                  {/* Select language
-                  <span className="hidden min-[440px]:inline">
-                    &nbsp;and translator(s) & commentator(s)
-                  </span> */}
                 </h4>
                 <TabGroup>
                   <TabList className="flex gap-2 md:hidden">
@@ -454,14 +446,6 @@ function Settings({
         </TabGroup>
 
         <div className="ml-2">
-          {/* <SubmitButton
-            btnLabel="Save settings"
-            TWclasses="px-1 mt-2 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
-            formDataModified={formDataModified}
-            setFormDataModified={setFormDataModified}
-            submitSaveMsg="Settings saved"
-            onSubmitButtonClick={handleSubmitButtonClickCB}
-          /> */}
           <button
             type="submit"
             disabled={!formDataModified}

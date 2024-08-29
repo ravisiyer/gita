@@ -140,8 +140,6 @@ async function Page({ params }: { params: { id: string } }) {
         <hr className="border border-gray-400" />
         <p className="my-4 text-sm text-orange-800">
           Note: To choose translators and commentators for contents below, go to{" "}
-          {/* Note: To choose languages, translators and commentators for contents
-          below, go to{" "} */}
           <Link href="/settings" className="underline">
             <IoMdSettings className="size-5 inline" />
             Settings
