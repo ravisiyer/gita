@@ -37,6 +37,7 @@ import FullWindowWidth from "./FullWindowWidth";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import useMediaQuery from "../hooks/usemediaquery";
 import { createGitaAppCookie } from "../lib/cookieutil";
+import { revalidateAppPaths } from "../lib/actions";
 
 function Settings({
   authorsForAllLanguages,
@@ -177,7 +178,8 @@ function Settings({
       setDialogMessage("You have modified the settings but not saved them.");
       setIsDialogOpen(true);
     } else {
-      // router.refresh();
+      // router.refresh(); Does not help in 'Back' page not reflecting changed settings until refresh or
+      // some navigation. Seems logical as refresh() will refresh the Settings page and not the 'back' page.
       router.back();
     }
   }
@@ -228,6 +230,12 @@ function Settings({
     );
   }
 
+  async function formActionWrapper(formData: FormData) {
+    createGitaAppCookie(formData);
+    setFormDataModified(false);
+    await revalidateAppPaths(); // server action
+  }
+
   function handleSubmit(e: React.FormEvent) {
     if (!isAtLeastOneTOrCSelected()) {
       setDialogMessage(
@@ -244,7 +252,7 @@ function Settings({
       // But the form action is in a separate standalone file. Could introduce a wrapper
       // form actin function in this file which invokes that function (passing it the vital
       // formData) and then sets the below state variable. Consider implementing.
-      setFormDataModified(false);
+      // setFormDataModified(false);
       return; // Proceed to save settings
     }
   }
@@ -287,8 +295,14 @@ function Settings({
       <form
         className="my-4"
         onSubmit={handleSubmit}
-        action={createGitaAppCookie}
+        action={formActionWrapper}
+        // action={createGitaAppCookie}
       >
+        {/* <form
+        className="my-4"
+        onSubmit={handleSubmit}
+        action={createGitaAppCookie}
+      > */}
         <TabGroup>
           <TabList className="flex gap-2">
             <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
