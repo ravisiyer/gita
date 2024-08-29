@@ -55,7 +55,7 @@ export function AuthorList({
       name={name}
       multiple
     >
-      <p className="text-lg">{authorsLabel}</p>
+      <p className="text-lg bg-slate-400">{authorsLabel}</p>
       <div>
         <Field className="flex items-center gap-2 ">
           <Checkbox
@@ -80,7 +80,7 @@ export function AuthorList({
         </Field>
       </div>
       {
-        <div className="mt-2">
+        <div className="">
           <ListboxOptions static>
             {allAuthors.map((author) => (
               <ListboxOption

@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createlSCookie } from "../lib/actions";
-import { SubmitButton } from "../ui/submit-button";
+// import { createlSCookie } from "../lib/actions";
+// import { SubmitButton } from "../ui/submit-button";
 import {
   Checkbox,
   Dialog,
@@ -38,6 +38,7 @@ import LanguageTitleSummary from "./LanguageTitleSummary";
 import FullWindowWidth from "./FullWindowWidth";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import useMediaQuery from "../hooks/usemediaquery";
+import { createGitaAppCookie } from "../lib/cookieutil";
 
 function Settings({
   authorsForAllLanguages,
@@ -103,6 +104,8 @@ function Settings({
   const [selectedCommentators2, setSelectedCommentators2] = useState(
     sAFAL[2].commentatorAuthors
   );
+
+  const [submitInvokedOnce, setSubmitInvokedOnce] = useState(false);
 
   // Below code sets up allLanguageSelectsionData array which we can then iterate through without
   // having to refer to specific state variables like selectedTranslators0.
@@ -176,6 +179,7 @@ function Settings({
       setDialogMessage("You have modified the settings but not saved them.");
       setIsDialogOpen(true);
     } else {
+      // router.refresh();
       router.back();
     }
   }
@@ -226,21 +230,28 @@ function Settings({
     );
   }
   // Below function is a callback passed to SubmitButton component. It is not directly invoked by this component's code
-  function handleSubmitButtonClickCB() {
+  function handleSubmit(e: React.FormEvent) {
     if (!isAtLeastOneTOrCSelected()) {
       setDialogMessage(
         "Please select at least one translator or commentator for verse page."
       );
       setIsDialogOpen(true);
-      return false; // Don't proceed to save settings
+      e.preventDefault(); // Don't proceed to save settings
+      return;
     } else {
       setIsDialogOpen(false);
-      return true; // Proceed to save settings
+      setSubmitInvokedOnce(true);
+      // Ideally below state variable should be set in the form action
+      // which is called after this function returns from this else branch
+      setFormDataModified(false);
+      return; // Proceed to save settings
     }
   }
 
   const tailwindMDBreakpoint = useMediaQuery(TAILWIND_MD_BREAKPOINT);
   // True if min. window width is TAILWIND_MD_BREAKPOINT (768)
+
+  // <form className="my-4" action={createlSCookie}>
 
   return (
     <div className="px-2 pb-2">
@@ -273,7 +284,12 @@ function Settings({
         </div>
       </Dialog>
       <h2 className="text-3xl">Settings</h2>
-      <form className="my-4" action={createlSCookie}>
+
+      <form
+        className="my-4"
+        onSubmit={handleSubmit}
+        action={createGitaAppCookie}
+      >
         <TabGroup>
           <TabList className="flex gap-2">
             <Tab className="rounded-full py-1 px-3 font-semibold text-black border border-black focus:outline-none data-[selected]:bg-orange-400 data-[hover]:bg-orange-300 data-[selected]:data-[hover]:bg-orange-400 data-[focus]:outline-1 data-[focus]:outline-black">
@@ -292,11 +308,15 @@ function Settings({
           <TabPanels>
             <TabPanel unmount={false}>
               <div className=" p-2 mt-3">
-                <h4 className="text-lg mb-2">
-                  Select language
+                <h4 className="text-lg mb-2 line-clamp-1">
+                  Select translator(s) & commentator(s)
+                  {/* <span className="hidden min-[440px]:inline">
+                    &nbsp;and translator(s) & commentator(s)
+                  </span> */}
+                  {/* Select language
                   <span className="hidden min-[440px]:inline">
                     &nbsp;and translator(s) & commentator(s)
-                  </span>
+                  </span> */}
                 </h4>
                 <TabGroup>
                   <TabList className="flex gap-2 md:hidden">
@@ -434,14 +454,30 @@ function Settings({
         </TabGroup>
 
         <div className="ml-2">
-          <SubmitButton
+          {/* <SubmitButton
             btnLabel="Save settings"
             TWclasses="px-1 mt-2 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
             formDataModified={formDataModified}
             setFormDataModified={setFormDataModified}
             submitSaveMsg="Settings saved"
             onSubmitButtonClick={handleSubmitButtonClickCB}
-          />
+          /> */}
+          <button
+            type="submit"
+            disabled={!formDataModified}
+            className={
+              "px-1 mt-2 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 " +
+              (formDataModified
+                ? " pointer-events-auto"
+                : " disabled:bg-slate-500 pointer-events-none")
+            }
+          >
+            Save settings
+          </button>
+          {submitInvokedOnce && !formDataModified && (
+            <span className="ml-4"> Settings saved </span>
+          )}
+
           <button
             className="block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
             onClick={(e) => handleBack(e)}

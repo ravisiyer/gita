@@ -40,7 +40,7 @@ function LanguageSelections({
   return (
     <div className="border border-black p-2">
       <Field className="hidden md:flex md:items-center md:gap-2">
-        <Label className="text-2xl">{`${languageName}`}</Label>
+        <Label className="text-2xl">{`${languageName} language`}</Label>
       </Field>
       <div className="flex flex-col sm:flex-row sm:gap-4">
         {allTranslators.length ? (
