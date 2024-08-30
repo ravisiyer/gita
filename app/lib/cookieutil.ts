@@ -66,7 +66,7 @@ export function createGitaAppCookie(formData: FormData) {
     }
     lSCookie.push(lSCookieElement);
   }
-  console.log("lSCookie", lSCookie);
+  // console.log("lSCookie", lSCookie);
 
   const chapterPageTranslatorAuthorIdValue = formData.get(
     `${CHAPTER_PAGE_TRANSLATOR_FIELD_NAME}[authorId]`
