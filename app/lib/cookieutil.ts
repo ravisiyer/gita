@@ -1,7 +1,5 @@
-import { getCookie, setCookie } from "cookies-next";
-// import { cookies } from "next/headers";
+import { setCookie } from "cookies-next";
 import { allGitaLanguages } from "../constants/alllanguages";
-// import { setTimeout } from "timers/promises";
 import {
   TRANSLATORS_LISTBOX_LSC_NAME_SUFFIX,
   COMMENTATORS_LISTBOX_LSC_NAME_SUFFIX,
@@ -98,6 +96,4 @@ export function createGitaAppCookie(formData: FormData) {
   };
 
   setCookie(SETTINGS_COOKIE_NAME, JSON.stringify(gitaAppCookie));
-  // cookies().set(SETTINGS_COOKIE_NAME, JSON.stringify(gitaAppCookie));
-  // await setTimeout(2000);
 }
