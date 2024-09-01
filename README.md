@@ -1,6 +1,6 @@
-This is a text only (without audio/video) Gita web app (Next.js, open source, freeware).
+This Gita web app (Next.js, open source, freeware) shows Gita verse text, transliteration and word meaning, along with translations and commentaries in English, Hindi and Sanskrit. It does not have Gita verse audio facility. It is a frontend app depending on a backend developed and deployed by others for its data.
 
-For its data, this Gita web app uses a public GraphQL endpoint: [https://gql.bhagavadgita.io/graphql](https://gql.bhagavadgita.io/graphql) ([GraphQL Explorer](https://gql.bhagavadgita.io/graphiql)), with possibly this [GitHub repository](https://github.com/gita/bhagavad-gita-graphql). I do not know how stable this data source is but for the past few months that I have been using it, it has been available all the time and been stable. This data source seems to be using a subset of data of [IIT Kanpur's Gita Super Site](https://www.gitasupersite.iitk.ac.in/srimad?language=dv&field_chapter_value=1&field_nsutra_value=1) , which publicly shares translations and commentaries of famous spiritual figures from India like [Swami Sivananda](https://en.wikipedia.org/wiki/Sivananda_Saraswati), [Swami Chinmayananda](https://en.wikipedia.org/wiki/Chinmayananda_Saraswati), [Swami Adidevananda](https://en.wikipedia.org/wiki/Swami_Adidevananda) and [Swami Gambirananda](https://en.wikipedia.org/wiki/Gambhirananda) . The Sanskrit commentaries of renowned ancient masters like Sri Shankaracharya, Sri Ramanujacharya and Sri Madhavacharya are also part of this data.
+The backend data service for this Gita web app is a public GraphQL endpoint: [https://gql.bhagavadgita.io/graphql](https://gql.bhagavadgita.io/graphql) ([GraphQL Explorer](https://gql.bhagavadgita.io/graphiql)), with possibly this [GitHub repository](https://github.com/gita/bhagavad-gita-graphql). I do not know how stable this data source is but for the past few months that I have been using it, it has been available all the time and been stable. This data source seems to be using a subset of data of [IIT Kanpur's Gita Super Site](https://www.gitasupersite.iitk.ac.in/srimad?language=dv&field_chapter_value=1&field_nsutra_value=1) , which publicly shares translations and commentaries of famous spiritual figures from India like [Swami Sivananda](https://en.wikipedia.org/wiki/Sivananda_Saraswati), [Swami Chinmayananda](https://en.wikipedia.org/wiki/Chinmayananda_Saraswati), [Swami Adidevananda](https://en.wikipedia.org/wiki/Swami_Adidevananda) and [Swami Gambirananda](https://en.wikipedia.org/wiki/Gambhirananda) . The Sanskrit commentaries of renowned ancient masters like Sri Shankaracharya, Sri Ramanujacharya and Sri Madhavacharya are also part of this data.
 
 This Gita web app is able to utilize the above-mentioned awesome GraphQL data resource to show translations and commentaries of above mentioned spiritual masters and more.
 
@@ -12,7 +12,7 @@ I think this software can be modified and used for any Chapter and Verse kind of
 
 Adaptations of my Gita app for other needs like mentioned above, will need creation of suitable GraphQL database endpoints, or adaption of the app to use other database sources (like SQL (e.g. Postgres) or NoSQL (e.g. MongoDB) databases).
 
-Web app version: 1.4, Date: 30th August 2024
+Web app version: 1.4, Date: 1st September 2024
 
 Web app author: Ravi S. Iyer
 
@@ -24,9 +24,9 @@ Web app author: Ravi S. Iyer
 
 3. An important objective of this app development has been to provide a pathway to self-learner students to follow the path I used to learn the required technologies and develop this app. I have made extensive notes about the path I used in the blog some of whose posts are mentioned below.
 
-4. Some more info. about this web app can be read in the following blog posts, one for each release version of this app:
+4. Blog posts about different versions of this web app (has screenshots):
 
-   [Version 1.4 (this version)](https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html)
+   [This version, version 1.4](https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html)
 
    [Version 1.3](https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v13.html)
 
