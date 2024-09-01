@@ -37,3 +37,5 @@ Web app author: Ravi S. Iyer
    [Version 1.0](https://raviswdev.blogspot.com/2024/07/gita-app-v10-pathway-to-self-learn.html)
 
 5. This Gita web app has been developed on top of [Very Simple Gita](https://github.com/ravisiyer/verysimplegita) which is a very simple but functional, open-source freeware, Bhagavad Gita web app. I have changed the User Interface (UI) of this app to a regular web app UI. But, from a source code point of view, it no longer is a very simple Gita app. Students and other learners may want to first go through the source code of Very Simple Gita app before going through this app's source code.
+
+6. [Missing features and known minor issues in Gita web app v1.4](https://raviswdev.blogspot.com/2024/09/missing-features-and-known-minor-issues.html)
