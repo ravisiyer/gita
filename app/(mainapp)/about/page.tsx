@@ -84,7 +84,7 @@ function Page() {
         though I have not tested it on tablets). Please note that it is NOT a
         native mobile (Android/iPhone) app.
       </p>
-      <p className="mt-4">Web app version: 1.4, Date: 1st September 2024</p>
+      <p className="mt-4">Web app version: Pre-1.4, Date: 1st September 2024</p>
       <div className="my-4 flex flex-col md:flex-row gap-y-4 md:gap-x-8">
         <a
           href="https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html"

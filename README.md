@@ -12,7 +12,7 @@ I think this software can be modified and used for any Chapter and Verse kind of
 
 Adaptations of my Gita app for other needs like mentioned above, will need creation of suitable GraphQL database endpoints, or adaption of the app to use other database sources (like SQL (e.g. Postgres) or NoSQL (e.g. MongoDB) databases).
 
-Web app version: 1.4, Date: 1st September 2024
+Web app version: Pre-1.4, Date: 1st September 2024
 
 Web app author: Ravi S. Iyer
 
