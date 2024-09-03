@@ -20,7 +20,7 @@ Web app author: Ravi S. Iyer
 
 1. This Gita web app uses Next.js and Apollo Client to retrieve Bhagavad Gita chapters and verses data from a GraphQL endpoint, and displays it on browser. It also uses Tailwind CSS and TypeScript.
 
-2. There seems to be a question mark character problem with the data associated with some commentaries for which I am providing a temporary fix in the app. More info on it is provided in a page mentioned in About page of the app.
+2. There seems to be a question mark character problem with the data associated with some commentaries for which I am providing a temporary fix in the app. More info on it is provided in [Question Mark Character Issue page](https://gita-rsi.vercel.app/qmarkissue) of the app.
 
 3. An important objective of this app development has been to provide a pathway to self-learner students to follow the path I used to learn the required technologies and develop this app. I have made extensive notes about the path I used in the blog some of whose posts are mentioned below.
 
