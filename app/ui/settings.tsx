@@ -444,12 +444,13 @@ function Settings({
         <div className="ml-2">
           <button
             type="submit"
-            disabled={!formDataModified}
+            // disabled={!formDataModified}
             className={
-              "px-1 mt-2 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 " +
-              (formDataModified
-                ? " pointer-events-auto"
-                : " disabled:bg-slate-500 pointer-events-none")
+              "px-1 mt-2 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
+              //  +
+              // (formDataModified
+              //   ? " pointer-events-auto"
+              //   : " disabled:bg-slate-500 pointer-events-none")
             }
           >
             Save settings
