@@ -420,22 +420,24 @@ function Settings({
               </div>
             </TabPanel>
             <TabPanel unmount={false}>
-              <div className="flex flex-wrap gap-4 min-h-80 p-2 mt-3">
-                <LanguageTitleSummary
-                  languageEnglishChecked={englishLTSChecked}
-                  setLanguageEnglishChecked={setEnglishLTSChecked}
-                  languageEnglishName={ENGLISH_LTS_LANGUAGE_NAME}
-                  languageHindiChecked={hindiLTSChecked}
-                  setLanguageHindiChecked={setHindiLTSChecked}
-                  languageHindiName={HINDI_LTS_LANGUAGE_NAME}
-                  setSelectionChanged={setFormDataModified}
-                />
-                <FullWindowWidth
-                  fullWindowWidthChecked={fullWindowWidthChecked}
-                  setFullWindowWidthChecked={setFullWindowWidthChecked}
-                  name={FULL_WINDOW_WIDTH_FIELD_NAME}
-                  setSelectionChanged={setFormDataModified}
-                />
+              <div className="min-h-80 p-2 mt-3">
+                <div className="flex flex-wrap gap-4">
+                  <LanguageTitleSummary
+                    languageEnglishChecked={englishLTSChecked}
+                    setLanguageEnglishChecked={setEnglishLTSChecked}
+                    languageEnglishName={ENGLISH_LTS_LANGUAGE_NAME}
+                    languageHindiChecked={hindiLTSChecked}
+                    setLanguageHindiChecked={setHindiLTSChecked}
+                    languageHindiName={HINDI_LTS_LANGUAGE_NAME}
+                    setSelectionChanged={setFormDataModified}
+                  />
+                  <FullWindowWidth
+                    fullWindowWidthChecked={fullWindowWidthChecked}
+                    setFullWindowWidthChecked={setFullWindowWidthChecked}
+                    name={FULL_WINDOW_WIDTH_FIELD_NAME}
+                    setSelectionChanged={setFormDataModified}
+                  />
+                </div>
               </div>
             </TabPanel>
           </TabPanels>
