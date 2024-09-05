@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { GRAPHQL_URI, GRAPHQL_EXPLORER_URI } from "@/app/constants/constants";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About",
@@ -84,7 +85,7 @@ function Page() {
         though I have not tested it on tablets). Please note that it is NOT a
         native mobile (Android/iPhone) app.
       </p>
-      <p className="mt-4">Web app version: 1.4, Date: 3rd September 2024</p>
+      <p className="mt-4">Web app version: 1.4.1, Date: 5th September 2024</p>
       <div className="my-4 flex flex-col md:flex-row gap-y-4 md:gap-x-8">
         <a
           href="https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html"
@@ -111,6 +112,22 @@ function Page() {
         </a>
       </div>
       <p className="mt-4">Web app author: Ravi S. Iyer</p>
+      <p>
+        Application icon{" "}
+        <a
+          href="https://www.freepik.com/icons/bhagavad-gita"
+          className="underline"
+        >
+          <Image
+            src="/icon.ico"
+            alt="Shree icon"
+            width={32}
+            height={32}
+            className="inline"
+          />{" "}
+          by Freepik
+        </a>
+      </p>
     </div>
   );
 }

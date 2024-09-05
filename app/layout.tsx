@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     template: "%s | Bhagavad Gita",
     default: "Bhagavad Gita",
   },
-  description: "Simple Bhagavad Gita web app",
+  description: "Bhagavad Gita web app",
 };
 
 export default function RootLayout({
