@@ -1,3 +1,11 @@
+## Note: App backend is not working
+Today (30 Nov. 2025), I found that the backend data service - [https://gql.bhagavadgita.io/graphql](https://gql.bhagavadgita.io/graphql) - provided by somebody else, and so not in my control, is not working. 
+
+So the app shows a "Sorry! Something went wrong!" message with some techie details. When convenient, I plan to update the app to have a suitable error message about backend not being available.
+
+---
+# Gita web app (Next.js, open source, freeware)  
+  
 This Gita web app (Next.js, open source, freeware) shows Gita verse text, transliteration and word meaning, along with translations and commentaries in English, Hindi and Sanskrit. It does not have Gita verse audio facility. It is a frontend app depending on a backend developed and deployed by others for its data.
 
 The backend data service for this Gita web app is a public GraphQL endpoint: [https://gql.bhagavadgita.io/graphql](https://gql.bhagavadgita.io/graphql) ([GraphQL Explorer](https://gql.bhagavadgita.io/graphiql)), with possibly this [GitHub repository](https://github.com/gita/bhagavad-gita-graphql). I do not know how stable this data source is but for the past few months that I have been using it, it has been available all the time and been stable. This data source seems to be using a subset of data of [IIT Kanpur's Gita Super Site](https://www.gitasupersite.iitk.ac.in/srimad?language=dv&field_chapter_value=1&field_nsutra_value=1) , which publicly shares translations and commentaries of famous spiritual figures from India like [Swami Sivananda](https://en.wikipedia.org/wiki/Sivananda_Saraswati), [Swami Chinmayananda](https://en.wikipedia.org/wiki/Chinmayananda_Saraswati), [Swami Adidevananda](https://en.wikipedia.org/wiki/Swami_Adidevananda) and [Swami Gambirananda](https://en.wikipedia.org/wiki/Gambhirananda) . The Sanskrit commentaries of renowned ancient masters like Sri Shankaracharya, Sri Ramanujacharya and Sri Madhavacharya are also part of this data.
