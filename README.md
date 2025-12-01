@@ -1,7 +1,11 @@
-## Note: App backend is not working
-Today (30 Nov. 2025), I found that the backend data service - [https://gql.bhagavadgita.io/graphql](https://gql.bhagavadgita.io/graphql) - provided by somebody else, and so not in my control, is not working. 
+## Note: App backend data service is not working
+On 30 Nov. 2025, I found that the backend data service - [https://gql.bhagavadgita.io/graphql](https://gql.bhagavadgita.io/graphql) - provided by somebody else, and so not in my control, is not working. 
 
-So the app shows a "Sorry! Something went wrong!" message with some techie details. When convenient, I plan to update the app to have a suitable error message about backend not being available.
+I do not think an alternative graphql backend service for Bhagavad Gita data is available, as of now. So this app is not functional at this time.
+
+I have [put up an issue](https://github.com/gita/bhagavad-gita-graphql/issues/3) in this GitHub repo - https://github.com/gita/bhagavad-gita-graphql - which seems to be for the above service. But I do not know if or when it will be fixed.
+
+To see screenshots of the app when the backend data service was working, please visit my blog post [Gita web app (Next.js, open source) v1.4.1...](https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html).
 
 ---
 # Gita web app (Next.js, open source, freeware)  
