@@ -47,7 +47,7 @@ export default function Home() {
           priority={true}
         />
       </div> */}
-      <div className="">
+      <div className="px-8">
         <h1 className="font-bold italic text-yellow-200 bg-slate-700 mt-2 p-2 rounded-md">
           <span className="block text-3xl">
             Bhagavad Gita - The Song of God
@@ -84,6 +84,17 @@ export default function Home() {
           <a href="https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html"
           className="text-blue-600 hover:text-blue-800 underline">
           Gita web app (Next.js, open source) v1.4.1...</a>.
+        </p>
+        <p className="mt-4 mb-4">
+          <a href="https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html"
+          className="text-blue-600 hover:text-blue-800 underline">
+          This blog post</a>
+          &nbsp;has more details about the issue. Once the backend data service is working again, any Next.js developer can refer to its section&nbsp;
+          <a href="https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html#resetapptomain"
+          className="text-blue-600 hover:text-blue-800 underline">
+          Resetting app to regular functionality</a>
+          &nbsp;to easily deploy the regular functionality app (Open Source, MIT license) on any host. 
+          Of course, if at that time I am in a position to update this app deployment myself, I will do so.
         </p>
         {/* <Link href="/chaptersummaries">
           <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 my-2 rounded-md">

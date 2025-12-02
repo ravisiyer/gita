@@ -7,6 +7,8 @@ I have [put up an issue](https://github.com/gita/bhagavad-gita-graphql/issues/3)
 
 To see screenshots of the app when the backend data service was working, please visit my blog post [Gita web app (Next.js, open source) v1.4.1...](https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html).
 
+[This blog post](https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html) has more details about the issue. Once the backend data service is working again, any Next.js developer can refer to its section [Resetting app to regular functionality](https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html#resetapptomain) to easily deploy the regular functionality app (Open Source, MIT license) on any host. Of course, if at that time I am in a position to update this app deployment myself, I will do so.
+
 ---
 # Gita web app (Next.js, open source, freeware)  
   
