@@ -62,8 +62,8 @@ async function Page({ params }: { params: { chapternumber: string } }) {
 
   let data = await getChapter(chapterNumber, chapterPageTranslatorAuthorIdStr);
   let gitaChapter: GitaChapter = data.gitaChapter;
-  console.log("gitaChapter.gitaVersesByChapterId.nodes[0]?.gitaTranslationsByVerseId.nodes[0]");
-  console.log(gitaChapter.gitaVersesByChapterId.nodes[0]?.gitaTranslationsByVerseId.nodes[0]);
+  // console.log("gitaChapter.gitaVersesByChapterId.nodes[0]?.gitaTranslationsByVerseId.nodes[0]");
+  // console.log(gitaChapter.gitaVersesByChapterId.nodes[0]?.gitaTranslationsByVerseId.nodes[0]);
   return (
     <Suspense fallback={<LoaderSpinner />}>
       <div>
@@ -99,8 +99,8 @@ async function Page({ params }: { params: { chapternumber: string } }) {
             <p className="my-4 text-xl ">{verse!.text}</p>
             <h4 className="my-4 text-lg font-bold">Transliteration</h4>
             <p className="my-4 ">{verse!.transliteration}</p>
-            <h4 className="my-4 text-lg font-bold">Word Meanings</h4>
-            <p className="my-4 ">{verse!.wordMeanings}</p>
+            {/* <h4 className="my-4 text-lg font-bold">Word Meanings</h4>
+            <p className="my-4 ">{verse!.wordMeanings}</p> */}
             <h4 className="my-4 text-lg font-bold">{`${capitalizeFirstLetter(
               verse!.gitaTranslationsByVerseId.nodes[0]!.language!
             )} translation by ${

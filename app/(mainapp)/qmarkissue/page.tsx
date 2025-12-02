@@ -54,7 +54,7 @@ function Page() {
         I do not control the data source. So I am not in a position to
         investigate and fix the data problem.
       </p>
-      <p className="my-4">
+      {/* <p className="my-4">
         As a temporary measure (hack), for the Verse page which is the only page
         which shows commentaries, an option is provided in{" "}
         <Link href="/settings" className="underline">
@@ -66,7 +66,7 @@ function Page() {
         option on or off. The disadvantage of using this replace option is that
         even ? characters that should be ? will be changed to , characters. But
         such cases may be very few.
-      </p>
+      </p> */}
       <button
         className="block px-1 mt-4 leading-normal border-black border  text-black  bg-white rounded-md cursor-pointer hover:text-black hover:bg-violet-400 active:scale-90 "
         onClick={(e) => handleBack(e)}

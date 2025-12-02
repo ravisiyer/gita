@@ -257,6 +257,7 @@ function Navbar({ idSuffix = "" }) {
               clickHandler={closeMobileMenuIfOpen}
               icon={IoMdSettings}
               text="Settings"
+              disabled
             />
             <li className="flex justify-center items-center w-full h-full md:w-auto md:h-auto">
               <SelectChapterVerse

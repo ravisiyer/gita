@@ -10,6 +10,60 @@ export const metadata: Metadata = {
 function Page() {
   return (
     <div>
+      <h1 className="mt-2 text-2xl">Note: Regular app backend data service is not working</h1>
+      <p className="mt-4 mb-4"> On 30 Nov. 2025, I found that the graphql backend data service -&nbsp; 
+        <a href="https://gql.bhagavadgita.io/graphql" 
+        className="bg-orange-400 hover:bg-orange-300 active:scale-95">
+         https://gql.bhagavadgita.io/graphql
+        </a>
+        &nbsp;- used by the regular app is not working. The regular app is dependent on this service 
+        to get Bhagavad Gita data to be shown to the user. This graphql backend data service is provided
+        by somebody else, and so not in my control.
+        I do not think an alternative graphql backend service for Bhagavad Gita data is available, as of now. 
+      </p>
+      <p className="mt-4 mb-4">
+        For the time being, I am using an alternate JSON backend service&nbsp; 
+        <a href="https://vedicscriptures.github.io"
+        className="text-blue-600 hover:text-blue-800 underline">
+        https://vedicscriptures.github.io
+        </a> 
+        &nbsp;which provides Bhagavad Gita data in quite a different manner from the original graphql service. So I had to simplify the app to use translation and commentary for Gita verses of only one author - Swami Sivananda.
+        I also have not been able to test the app properly and so there may be some issues. But the basic functionality of showing Gita chapters and verses with Swami Sivananda translation and commentary is working.
+      </p>
+      <p className="mt-4 mb-4">
+        I have&nbsp; 
+        <a href="https://github.com/gita/bhagavad-gita-graphql/issues/3"
+        className="text-blue-600 hover:text-blue-800 underline">
+        put up an issue
+        </a>
+        &nbsp;in the GitHub repo -&nbsp; 
+        <a href="https://github.com/gita/bhagavad-gita-graphql"
+        className="bg-orange-400 hover:bg-orange-300 active:scale-95">
+            https://github.com/gita/bhagavad-gita-graphql</a>
+          &nbsp;- which seems to be associated with the original graphql service. But I do not know if or when it will be fixed.
+      </p>
+      <p className="mt-4 mb-4">
+        To see screenshots of the app when the original graphql backend data service was working, please visit my blog post&nbsp; 
+        <a href="https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html"
+        className="text-blue-600 hover:text-blue-800 underline">
+        Gita web app (Next.js, open source) v1.4.1...</a>.
+      </p>
+      <p className="mt-4 mb-4">
+        <a href="https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html"
+        className="text-blue-600 hover:text-blue-800 underline">
+        This blog post</a>
+        &nbsp;has more details about the original graphql service being down issue. Once that backend data service is working again, any Next.js developer can refer to its section&nbsp;
+        <a href="https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html#resetapptomain"
+        className="text-blue-600 hover:text-blue-800 underline">
+        Resetting app to regular functionality</a>
+        &nbsp;to easily deploy the regular functionality app (Open Source, MIT license) on any host. 
+        Of course, if at that time I am in a position to update this app deployment myself, I will do so.
+      </p>
+      <p className="mt-4">Author: Ravi S. Iyer, Date: 3rd December 2025</p>
+      <p className="mt-4 mb-4">
+        The contents below are from the previous version of the app, before the original backend data service went down.
+      </p>
+      <hr/>
       <h2 className="my-5 text-2xl font-bold">About Web App & Data</h2>
       <p className="my-4">
         This Gita web app (Next.js, open source, freeware) shows Gita verse

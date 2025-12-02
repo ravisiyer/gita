@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getVerse } from "@/app/lib/data";
+import { getVerse } from "@/app/lib/datarest";
+// import { getVerse } from "@/app/lib/data";
 // import { getVerse } from "@/app/lib/dummydata";
 import { notFound } from "next/navigation";
 import {
@@ -121,9 +122,9 @@ async function Page({ params }: { params: { id: string } }) {
   }
 
   let displayGitaVerse = gitaVerse;
-  if (lSCookie.length) {
-    displayGitaVerse = filterVerseByLanguageSelections();
-  }
+  // if (lSCookie.length) {
+  //   displayGitaVerse = filterVerseByLanguageSelections();
+  // }
 
   return (
     <Suspense fallback={<LoaderSpinner />}>
@@ -135,17 +136,17 @@ async function Page({ params }: { params: { id: string } }) {
         <p className={`my-4 text-3xl leading-10`}>{displayGitaVerse.text}</p>
         <h4 className="my-4 text-xl font-bold">Transliteration</h4>
         <p className="my-4 text-base ">{displayGitaVerse.transliteration}</p>
-        <h4 className="my-4 text-xl font-bold">Word Meanings</h4>
-        <p className="my-4 text-base ">{displayGitaVerse.wordMeanings}</p>
+        {/* <h4 className="my-4 text-xl font-bold">Word Meanings</h4>
+        <p className="my-4 text-base ">{displayGitaVerse.wordMeanings}</p> */}
         <hr className="border border-gray-400" />
-        <p className="my-4 text-sm text-orange-800">
+        {/* <p className="my-4 text-sm text-orange-800">
           Note: To choose translators and commentators for contents below, go to{" "}
           <Link href="/settings" className="underline">
             <IoMdSettings className="size-5 inline" />
             Settings
           </Link>
         </p>
-        <hr className="border border-gray-400" />
+        <hr className="border border-gray-400" /> */}
         <h4 className="my-4 text-xl font-bold">Translations</h4>
         {displayGitaVerse.gitaTranslationsByVerseId.nodes.map((translation) => (
           <div key={translation!.authorId}>

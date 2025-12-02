@@ -69,6 +69,8 @@ function Page() {
     }
   }
 
+  return (<></>)
+
   return islSCookieValid && isLanguagesDataValid ? (
     <Settings
       authorsForAllLanguages={authorsForAllLanguages}
