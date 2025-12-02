@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getAllChapters } from "../../lib/data";
+import { getAllChapters } from "../../lib/datarest";
+// import { getAllChapters } from "../../lib/data";
 // import { getAllChapters } from "./lib/dummydata";
 import { GitaChapter } from "../../lib/gqltypes-d";
 import { cookies } from "next/headers";

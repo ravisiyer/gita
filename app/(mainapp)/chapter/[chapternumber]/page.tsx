@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getChapter } from "../../../lib/data";
+import { getChapter } from "../../../lib/datarest";
+// import { getChapter } from "../../../lib/data";
 // import { getChapter } from "../lib/dummydata";
 import Link from "next/link";
 import {
@@ -61,7 +62,8 @@ async function Page({ params }: { params: { chapternumber: string } }) {
 
   let data = await getChapter(chapterNumber, chapterPageTranslatorAuthorIdStr);
   let gitaChapter: GitaChapter = data.gitaChapter;
-
+  console.log("gitaChapter.gitaVersesByChapterId.nodes[0]?.gitaTranslationsByVerseId.nodes[0]");
+  console.log(gitaChapter.gitaVersesByChapterId.nodes[0]?.gitaTranslationsByVerseId.nodes[0]);
   return (
     <Suspense fallback={<LoaderSpinner />}>
       <div>
