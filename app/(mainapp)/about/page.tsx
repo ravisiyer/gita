@@ -10,19 +10,19 @@ export const metadata: Metadata = {
 function Page() {
   return (
     <div>
-      <h1 className="mt-2 text-2xl">Note: Regular app backend data service is not working</h1>
-      <p className="mt-4 mb-4"> On 30 Nov. 2025, I found that the graphql backend data service - 
+      <h1 className="mt-2 text-2xl">Note: Regular app backend data service is not working and so using simpler backend data service</h1>
+      <p className="mt-4 mb-4"> On 30 Nov. 2025, I found that the free graphql backend data service - 
         <a href="https://gql.bhagavadgita.io/graphql" 
         className="mx-1 bg-orange-400 hover:bg-orange-300 active:scale-95">
          https://gql.bhagavadgita.io/graphql
         </a>
-        - used by the regular app is not working. The regular app is dependent on this service 
+        - used by the regular app, is not working. The regular app is dependent on this service 
         to get Bhagavad Gita data to be shown to the user. This graphql backend data service is provided
         by somebody else, and so not in my control.
-        I do not think an alternative graphql backend service for Bhagavad Gita data is available, as of now. 
+        I do not think an alternative free graphql backend service for Bhagavad Gita data is available, as of now. 
       </p>
       <p className="mt-4 mb-4">
-        For the time being, I am using an alternate simpler JSON backend service&nbsp; 
+        For the time being, I am using an alternate, simpler and free JSON backend service&nbsp; 
         <a href="https://vedicscriptures.github.io"
         className="text-blue-600 hover:text-blue-800 underline">
         https://vedicscriptures.github.io
@@ -59,7 +59,7 @@ function Page() {
         <a href="https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html"
         className="text-blue-600 hover:text-blue-800 underline">
         This blog post</a>
-        &nbsp;has more details about the original graphql service being down issue. Once that backend data service is working again, any Next.js developer can refer to its section&nbsp;
+        &nbsp;has more details about the original graphql service being down issue. Once the graphql backend data service is working again, any Next.js developer can refer to its section&nbsp;
         <a href="https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html#resetapptomain"
         className="text-blue-600 hover:text-blue-800 underline">
         Resetting app to regular functionality</a>
@@ -68,9 +68,9 @@ function Page() {
       </p>
       <p className="mt-4">Author: Ravi S. Iyer, Date: 3rd December 2025</p>
       <p className="mt-4 mb-4">
-        The contents below are from the previous version of the app, before the original backend data service went down.
+        The contents below are from the previous version of the app, before the original graphql backend data service went down.
       </p>
-      <hr/>
+      <hr className="border-t-2 border-gray-500"/>
       <h2 className="my-5 text-2xl font-bold">About Web App & Data</h2>
       <p className="my-4">
         This Gita web app (Next.js, open source, freeware) shows Gita verse

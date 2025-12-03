@@ -57,7 +57,7 @@ export default function Home() {
           </span>
         </h1>
         <p className="italic text-gray-900 mt-2 p-2">
-          3 Dec. 2025 — Note: Regular backend service is down. The app now uses a simpler free alternate service, so functionality is limited. See the
+          3 Dec. 2025 — Note: Regular backend service is down. The app now uses a simpler alternate service, so functionality is limited. See the
           <Link href="/about"
             className="mx-1 text-blue-600 hover:text-blue-800 underline">
             About page

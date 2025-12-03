@@ -1,13 +1,17 @@
-## Note: App backend data service is not working
-On 30 Nov. 2025, I found that the backend data service - [https://gql.bhagavadgita.io/graphql](https://gql.bhagavadgita.io/graphql) - provided by somebody else, and so not in my control, is not working. 
+## Note: Regular app backend data service is not working and so using simpler backend data service
+On 30 Nov. 2025, I found that the free graphql backend data service -https://gql.bhagavadgita.io/graphql- used by the regular app, is not working. The regular app is dependent on this service to get Bhagavad Gita data to be shown to the user. This graphql backend data service is provided by somebody else, and so not in my control. I do not think an alternative free graphql backend service for Bhagavad Gita data is available, as of now.
 
-I do not think an alternative graphql backend service for Bhagavad Gita data is available, as of now. So this app is not functional at this time.
+For the time being, I am using an alternate, simpler and free JSON backend service https://vedicscriptures.github.io which provides Bhagavad Gita data in quite a different manner from the original graphql service. So I had to simplify the app to use translation and commentary for Gita verses of only one author — Swami Sivananda — and therefore disabled the Settings menu item, which previously allowed selection of translators and commentators.
 
-I have [put up an issue](https://github.com/gita/bhagavad-gita-graphql/issues/3) in this GitHub repo - https://github.com/gita/bhagavad-gita-graphql - which seems to be for the above service. But I do not know if or when it will be fixed.
+The basic app functionality of showing Gita chapters and verses with Swami Sivananda translation and commentary is working. But I have not been able to test the app thoroughly and so there may be some issues.
 
-To see screenshots of the app when the backend data service was working, please visit my blog post [Gita web app (Next.js, open source) v1.4.1...](https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html).
+I have [put up an issue](https://github.com/gita/bhagavad-gita-graphql/issues/3) in this GitHub repo - https://github.com/gita/bhagavad-gita-graphql - which seems to be associated with the original graphql service. But I do not know if or when it will be fixed.
 
-[This blog post](https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html) has more details about the issue. Once the backend data service is working again, any Next.js developer can refer to its section [Resetting app to regular functionality](https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html#resetapptomain) to easily deploy the regular functionality app (Open Source, MIT license) on any host. Of course, if at that time I am in a position to update this app deployment myself, I will do so.
+To see screenshots of the app when the original graphql backend data service was working, please visit my blog post [Gita web app (Next.js, open source) v1.4.1...](https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html).
+
+[This blog post](https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html) has more details about the original graphql service being down issue. Once the graphql backend data service is working again, any Next.js developer can refer to its section [Resetting app to regular functionality](https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html#resetapptomain) to easily deploy the regular functionality app (Open Source, MIT license) on any host. Of course, if at that time I am in a position to update this app deployment myself, I will do so.
+
+The contents below are from the previous version of the app, before the original graphql backend data service went down.
 
 ---
 # Gita web app (Next.js, open source, freeware)  
