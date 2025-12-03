@@ -56,6 +56,22 @@ export default function Home() {
             Sacred Hindu Scripture, Revered Across Millennia
           </span>
         </h1>
+        <p className="italic text-gray-900 mt-2 p-2">
+          3 Dec. 2025 — Note: Regular backend service is down. The app now uses a simpler free alternate service, so functionality is limited. See the
+          <Link href="/about"
+            className="mx-1 text-blue-600 hover:text-blue-800 underline">
+            About page
+          </Link>
+          for details.
+        </p>
+        {/* <p className="text-gray-900 mt-2 p-2">
+          3 Dec. 2025 — Note: Regular backend service is down. The app now uses a simpler free alternate service, so functionality is limited. See the&nbsp;
+          <Link href="/about"
+            className="text-blue-600 hover:text-blue-800 underline">
+            About page
+          </Link>
+          &nbsp;for details.
+        </p> */}
         <Link href="/chaptersummaries">
           <div className=" border border-black bg-orange-400 hover:bg-orange-300 active:scale-95 p-2 my-2 rounded-md">
             <h3 className="text-lg font-bold">

@@ -11,24 +11,31 @@ function Page() {
   return (
     <div>
       <h1 className="mt-2 text-2xl">Note: Regular app backend data service is not working</h1>
-      <p className="mt-4 mb-4"> On 30 Nov. 2025, I found that the graphql backend data service -&nbsp; 
+      <p className="mt-4 mb-4"> On 30 Nov. 2025, I found that the graphql backend data service - 
         <a href="https://gql.bhagavadgita.io/graphql" 
-        className="bg-orange-400 hover:bg-orange-300 active:scale-95">
+        className="mx-1 bg-orange-400 hover:bg-orange-300 active:scale-95">
          https://gql.bhagavadgita.io/graphql
         </a>
-        &nbsp;- used by the regular app is not working. The regular app is dependent on this service 
+        - used by the regular app is not working. The regular app is dependent on this service 
         to get Bhagavad Gita data to be shown to the user. This graphql backend data service is provided
         by somebody else, and so not in my control.
         I do not think an alternative graphql backend service for Bhagavad Gita data is available, as of now. 
       </p>
       <p className="mt-4 mb-4">
-        For the time being, I am using an alternate JSON backend service&nbsp; 
+        For the time being, I am using an alternate simpler JSON backend service&nbsp; 
         <a href="https://vedicscriptures.github.io"
         className="text-blue-600 hover:text-blue-800 underline">
         https://vedicscriptures.github.io
         </a> 
-        &nbsp;which provides Bhagavad Gita data in quite a different manner from the original graphql service. So I had to simplify the app to use translation and commentary for Gita verses of only one author - Swami Sivananda.
-        I also have not been able to test the app properly and so there may be some issues. But the basic functionality of showing Gita chapters and verses with Swami Sivananda translation and commentary is working.
+        &nbsp;which provides Bhagavad Gita data in quite a different manner from the original graphql service.
+        So I had to simplify the app to use translation and commentary for Gita verses of only one author
+         — Swami Sivananda — and therefore disabled the Settings menu item, which previously allowed 
+         selection of translators and commentators.
+      </p>
+      <p className="mt-4 mb-4">
+        The basic app functionality of showing Gita chapters and verses with Swami Sivananda translation
+        and commentary is working.
+        But I have not been able to test the app thoroughly and so there may be some issues. 
       </p>
       <p className="mt-4 mb-4">
         I have&nbsp; 
