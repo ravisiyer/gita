@@ -196,6 +196,7 @@ function Navbar({ idSuffix = "" }) {
                 clickHandler={closeMobileMenuIfOpen}
                 icon={IoMdSettings}
                 text=""
+                disabled
               />
             </ul>
             <button

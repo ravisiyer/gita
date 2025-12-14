@@ -66,7 +66,21 @@ function Page() {
         &nbsp;to easily deploy the regular functionality app (Open Source, MIT license) on any host. 
         Of course, if at that time I am in a position to update this app deployment myself, I will do so.
       </p>
-      <p className="mt-4">Author: Ravi S. Iyer, Date: 3rd December 2025</p>
+      <p className="mt-4 mb-4">
+        My blog post:&nbsp; 
+        <a href="https://raviswdev.blogspot.com/2025/12/create-gita-json-file-rest-api-hosted.html"
+        className="text-blue-600 hover:text-blue-800 underline">
+        Creating Gita API: Static JSON files API hosted on GitHub Pages; Regular REST and GraphQL APIs using SQL DB - ChatGPT
+        </a>
+        &nbsp;shares an approach for using available public domain Gita data to create a static Gita JSON files API hosted on
+        GitHub Pages with very generous free-tier. As of now, I am not planning to take up this work. But if anybody else would like to do it, this post could provide useful guidance.
+      </p>
+      <p className="mt-4 mb-4">
+        Once such a very generous free-tier API is available, my regular functionality app can be modified to use that API
+        instead of the currently down graphQL data service (API). Once again, if at that time I am in a position to modify my regular
+        functionality app myself, I will do so.
+      </p>
+      <p className="mt-4">Author: Ravi S. Iyer, Date: 14th December 2025</p>
       <p className="mt-4 mb-4">
         The contents below are from the previous version of the app, before the original graphql backend data service went down.
       </p>

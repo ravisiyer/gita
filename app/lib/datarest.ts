@@ -1,5 +1,5 @@
 import { GitaChapter } from "./gqltypes-d";
-import { getCVNumbersFromVerseId } from "./util";
+import { calcNumericVerseId, getCVNumbersFromVerseId } from "./util";
 
 // data-rest.ts
 const REST_BASE = "https://vedicscriptures.github.io";
@@ -125,10 +125,16 @@ export async function getChapter(
       }
     }
 
+    const numericVerseId = calcNumericVerseId(
+      parseInt(v.chapter),
+      parseInt(v.verse)
+    );
+
     return {
       __typename: "GitaVerse" as const,
       nodeId: `${v.chapter}-${v.verse}`,
-      id: v.verse,
+      id: numericVerseId,
+      // id: v.verse,
       chapterId: parseInt(chapterNumber),
       chapterNumber: v.chapter,
       text: v.slok,
