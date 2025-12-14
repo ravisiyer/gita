@@ -15,7 +15,7 @@
     "clsx": "^2.1.1",
     "cookies-next": "^4.2.1",
     "graphql": "^16.8.1",
-    "next": "14.2.3",
+    "next": "14.2.35",
     "nextjs-toploader": "^1.6.12",
     "nprogress": "^0.2.0",
     "react": "^18",
