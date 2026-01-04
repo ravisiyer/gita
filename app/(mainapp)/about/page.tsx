@@ -11,6 +11,16 @@ function Page() {
   return (
     <div>
       <h1 className="mt-2 text-2xl">Note: Regular app backend data service is not working and so using simpler backend data service</h1>
+      <p className="italic text-gray-900 mt-2 p-2">
+        Persons interested in
+        <a href="https://raviswdev.blogspot.com/2025/12/are-any-persons-interested-in.html"
+          className="mx-1 text-blue-600 hover:text-blue-800 underline">
+          sponsoring software development for Gita JSON files API and restoring
+          this app&apos;s regular functionality by using the API 
+        </a>
+        — may email me at riyer02@gmail.com. The software will be open source and the development work 
+        will be at deeply discounted rates.
+      </p>
       <p className="mt-4 mb-4"> On 30 Nov. 2025, I found that the free graphql backend data service - 
         <a href="https://gql.bhagavadgita.io/graphql" 
         className="mx-1 bg-orange-400 hover:bg-orange-300 active:scale-95">
