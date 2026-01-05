@@ -1,5 +1,8 @@
 ## Note: App backend data service is not working; Simpler app with alternative backend is on datarest branch
 
+### Persons interested in [sponsoring software development for Gita JSON files API and restoring this app's regular functionality by using the API](https://raviswdev.blogspot.com/2025/12/are-any-persons-interested-in.html) — may email me at riyer02@gmail.com. The software will be open source and the development work will be at deeply discounted rates.
+-------
+
 On 30 Nov. 2025, I found that the free graphql backend data service - https://gql.bhagavadgita.io/graphql - used by
 the app built from this main branch (regular app), is not working. The regular app is dependent on this service to get Bhagavad Gita data to be shown to the user. This graphql backend data service is provided by somebody else, and so not in my control. I do not think an alternative free graphql backend service for Bhagavad Gita data is available, as of now.
 
