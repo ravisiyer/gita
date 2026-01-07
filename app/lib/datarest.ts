@@ -3,6 +3,7 @@ import { calcNumericVerseId, getCVNumbersFromVerseId } from "./util";
 
 // data-rest.ts
 const REST_BASE = "https://vedicscriptures.github.io";
+const REST_NEW_BASE = "https://ravisiyer.github.io/gita-data/v1";
 
 /**
  * Fetches the chapters list from vedicscriptures.github.io and
@@ -10,7 +11,8 @@ const REST_BASE = "https://vedicscriptures.github.io";
  */
 export async function getAllChapters() {
   try {
-    const res = await fetch("https://vedicscriptures.github.io/chapters/");
+    const apiurl = `${REST_NEW_BASE}/chapters.json`;
+    const res = await fetch(apiurl);
     const apiChapters = await res.json();
 
     const nodes: GitaChapter[] = apiChapters.map((c: any) => ({
@@ -22,13 +24,13 @@ export async function getAllChapters() {
       // required GitaChapter fields
       id: c.chapter_number,
       chapterNumber: c.chapter_number,
-      chapterSummary: c.summary?.en ?? "",
-      chapterSummaryHindi: c.summary?.hi ?? "",
+      chapterSummary: c.chapter_summary ?? "",
+      chapterSummaryHindi: c.chapter_summary_hindi ?? "",
 
       name: c.name ?? "",
-      nameTranslated: c.translation ?? "",
-      nameMeaning: "",
-      nameTransliterated: "",
+      nameTranslated: c.name_translation ?? "",
+      nameMeaning: c.name_meaning ?? "",
+      nameTransliterated: c.name_transliterated ?? "",
       slug: "",
 
       versesCount: c.verses_count ?? 0,
@@ -52,7 +54,7 @@ export async function getAllChapters() {
     return { allGitaChapters: nodes };
   } catch (err) {
     console.error(err);
-    throw new Error("Failed to fetch chapters from REST API");
+    throw new Error("Failed to fetch chapters from JSON API");
   }
 }
 
@@ -62,27 +64,53 @@ const TRANSLATOR_AUTHORS: Record<string, string> = {
   18: "Swami Sivananda",
 };
 
+async function getChapterMeta(chapterNumber: string) {
+  const apiurl = `${REST_NEW_BASE}/chapters.json`;
+  try {
+    const res = await fetch(apiurl);
+    const apiChapters = await res.json();
+    const numericChapterNumber = parseInt(chapterNumber);
+    const apiChapter = apiChapters.find((c: any) => c.chapter_number === numericChapterNumber);
+    if (!apiChapter) {
+      throw new Error(`Chapter not found: ${chapterNumber}`);
+    }
+    return apiChapter;
+  } catch (err) {
+    console.error(err);
+    throw new Error("Failed to fetch chapters from JSON API");
+  }
+}
+
+async function getVersesForChapter(chapterNumber: string) {
+  const apiurl = `${REST_NEW_BASE}/verse.json`;
+  try {
+    const res = await fetch(apiurl);
+    const apiVerses = await res.json();
+    const numericChapterNumber = parseInt(chapterNumber);
+    const apiVersesForChapter = apiVerses.filter((v: any) => v.chapter_number === numericChapterNumber);
+    if (!apiVersesForChapter) {
+      throw new Error(`Verses not found for chapter: ${chapterNumber}`);
+    }
+    return apiVersesForChapter;
+  } catch (err) {
+    console.error(err);
+    throw new Error("Failed to fetch verses from JSON API");
+  }
+}
+
 export async function getChapter(
   chapterNumber: string,
   translatorAuthorId: string
 ) {
-  const metaRes = await fetch(
-    `https://vedicscriptures.github.io/chapter/${chapterNumber}/`,
-    { next: { revalidate: 3600 } }
-  );
-
-  if (!metaRes.ok) {
-    throw new Error(`Chapter metadata not found for ${chapterNumber}`);
-  }
-
-  const meta = await metaRes.json();
-  const versesCount = meta.verses_count;
+  const apiChapter = await getChapterMeta(chapterNumber);
+  const versesCount = apiChapter.verses_count;
 
   const translatorName = TRANSLATOR_AUTHORS[translatorAuthorId];
   if (!translatorName) {
     throw new Error(`Unknown translatorAuthorId: ${translatorAuthorId}`);
   }
 
+  const apiVersesForChapter = await getVersesForChapter(chapterNumber);
   // Fetch all verses
   const versePromises = [];
   for (let v = 1; v <= versesCount; v++) {
@@ -106,41 +134,54 @@ export async function getChapter(
   // console.log("translatorName ", translatorName);
 
   // Map verses
-  const nodes = versesRaw.map((v: any, index: number) => {
+  const nodes = apiVersesForChapter.map((v: any, index: number) => {
     // if (!index) {console.log("v", v);}
     let filteredTranslations = [];
-    if (v.siva.author === translatorName && v.siva.et){
-      filteredTranslations[0] = {
-        __typename: "GitaTranslation" as const,
-        nodeId: `${v.chapter}-${v.verse}`,
-        id: 1,
-        authorName: translatorName,
-        description: v.siva.et,
-        gitaVerseByVerseId: null,
-        gitaAuthorByAuthorId: null,
-        gitaLanguageByLanguageId: null,
-        language: "English",
-        languageId: null,
-        verseId: v.verse,
-      }
+    filteredTranslations[0] = {
+      __typename: "GitaTranslation" as const,
+      nodeId: `${v.chapter}-${v.verse}`,
+      id: 1,
+      authorName: translatorName,
+      description: "Dummy translation text.",
+      gitaVerseByVerseId: null,
+      gitaAuthorByAuthorId: null,
+      gitaLanguageByLanguageId: null,
+      language: "English",
+      languageId: null,
+      verseId: v.verse_order,
     }
+    // if (v.siva.author === translatorName && v.siva.et){
+    //   filteredTranslations[0] = {
+    //     __typename: "GitaTranslation" as const,
+    //     nodeId: `${v.chapter}-${v.verse}`,
+    //     id: 1,
+    //     authorName: translatorName,
+    //     description: v.siva.et,
+    //     gitaVerseByVerseId: null,
+    //     gitaAuthorByAuthorId: null,
+    //     gitaLanguageByLanguageId: null,
+    //     language: "English",
+    //     languageId: null,
+    //     verseId: v.verse,
+    //   }
+    // }
 
-    const numericVerseId = calcNumericVerseId(
-      parseInt(v.chapter),
-      parseInt(v.verse)
-    );
+    // const numericVerseId = calcNumericVerseId(
+    //   parseInt(v.chapter),
+    //   parseInt(v.verse)
+    // );
 
     return {
       __typename: "GitaVerse" as const,
-      nodeId: `${v.chapter}-${v.verse}`,
-      id: numericVerseId,
-      // id: v.verse,
+      nodeId: `${v.chapter}-${v.verse_number}`,
+      // id: numericVerseId,
+      id: v.verse_order,
       chapterId: parseInt(chapterNumber),
-      chapterNumber: v.chapter,
-      text: v.slok,
+      chapterNumber: v.chapter_number,
+      text: v.text,
       transliteration: v.transliteration,
-      verseNumber: v.verse,
-      wordMeanings: v.tepa ?? null,
+      verseNumber: v.verse_number,
+      wordMeanings: v.word_meanings ?? null,
       gitaTranslationsByVerseId: {
         __typename: "GitaTranslationsConnection" as const,
         nodes: filteredTranslations,
@@ -169,16 +210,16 @@ export async function getChapter(
       __typename: "GitaChapter" as const,
       nodeId: `chapter-${chapterNumber}`,
       id: parseInt(chapterNumber),
-      chapterNumber: meta.chapter_number,
-      name: meta.name ?? null,
-      nameTranslated: meta.transliteration ?? null,
-      chapterSummary: meta?.summary?.en ?? null,
-      chapterSummaryHindi: meta?.summary?.hi ?? null,
+      chapterNumber: apiChapter.chapter_number,
+      name: apiChapter.name ?? null,
+      nameTranslated: apiChapter.name_translation ?? null,
+      chapterSummary: apiChapter?.chapter_summary ?? null,
+      chapterSummaryHindi: apiChapter?.chapter_summary_hindi ?? null,
       versesCount,
       gitaVersesByChapterId: {
         __typename: "GitaVersesConnection" as const,
         nodes,
-        edges: nodes.map((n) => ({ __typename: "GitaVersesEdge" as const, cursor: n.nodeId, node: n })),
+        edges: nodes.map((n: any) => ({ __typename: "GitaVersesEdge" as const, cursor: n.nodeId, node: n })),
         pageInfo: { __typename: "PageInfo" as const, hasNextPage: false, hasPreviousPage: false, startCursor: null, endCursor: null },
         totalCount: nodes.length,
       },
