@@ -1,3 +1,4 @@
+import { NUMBER_OF_VERSES_IN_CHAPTERS } from "../constants/constants";
 import { GitaChapter } from "./gqltypes-d";
 import { calcNumericVerseId, getCVNumbersFromVerseId } from "./util";
 
@@ -98,6 +99,54 @@ async function getVersesForChapter(chapterNumber: string) {
   }
 }
 
+/**
+ * Groups translation entries by verse_id.
+ *
+ * @param {Array<Object>} translations
+ * @returns {Object} Record<verse_id, Array<translation>>
+ */
+export function groupTranslationsByVerseId(translations: any) {
+  const byVerseId: any = {}; // Plain object used as a key-based lookup (dictionary), not an array
+
+  for (const entry of translations) {
+    const verseId = entry.verse_id;
+
+    if (verseId == null) {
+      // Defensive: skip malformed entries
+      continue;
+    }
+
+    if (byVerseId[verseId] === undefined) {
+      byVerseId[verseId] = [];  // Initialize the value for this verseId key as an empty array
+    }
+
+    byVerseId[verseId].push(entry); // Push entry to array at verseId key
+  }
+
+  return byVerseId;
+}
+
+async function getTranslationsForChapter(chapterNumber: string) {
+  const apiurl = `${REST_NEW_BASE}/translation.json`;
+  try {
+    const res = await fetch(apiurl);
+    const apiTranslations = await res.json();
+    const numericChapterNumber = parseInt(chapterNumber);
+    const firstVerseIdInChapter = calcNumericVerseId(numericChapterNumber, 1);
+    const lastVerseIdInChapter = firstVerseIdInChapter + NUMBER_OF_VERSES_IN_CHAPTERS[numericChapterNumber - 1] - 1;
+    const apiTranslationsForChapter = 
+      apiTranslations.filter((t: any) => t.verse_id >= firstVerseIdInChapter && t.verse_id <= lastVerseIdInChapter);
+    if (!apiTranslationsForChapter) {
+      throw new Error(`Translations not found for chapter: ${chapterNumber}`);
+    }
+    const groupedTranslationsbyVerseId = groupTranslationsByVerseId(apiTranslationsForChapter);
+    return groupedTranslationsbyVerseId;
+  } catch (err) {
+    console.error(err);
+    throw new Error("Failed to fetch translations from JSON API");
+  }
+}
+
 export async function getChapter(
   chapterNumber: string,
   translatorAuthorId: string
@@ -111,45 +160,58 @@ export async function getChapter(
   }
 
   const apiVersesForChapter = await getVersesForChapter(chapterNumber);
+  const groupedTranslationsbyVerseId = await getTranslationsForChapter(chapterNumber);
   // Fetch all verses
-  const versePromises = [];
-  for (let v = 1; v <= versesCount; v++) {
-    versePromises.push(
-      fetch(
-        `https://vedicscriptures.github.io/slok/${chapterNumber}/${v}/`,
-        { next: { revalidate: 3600 } }
-      ).then((res) => {
-        if (!res.ok) {
-          throw new Error(
-            `Verse not found: chapter ${chapterNumber}, verse ${v}`
-          );
-        }
-        return res.json();
-      })
-    );
-  }
+  // const versePromises = [];
+  // for (let v = 1; v <= versesCount; v++) {
+  //   versePromises.push(
+  //     fetch(
+  //       `https://vedicscriptures.github.io/slok/${chapterNumber}/${v}/`,
+  //       { next: { revalidate: 3600 } }
+  //     ).then((res) => {
+  //       if (!res.ok) {
+  //         throw new Error(
+  //           `Verse not found: chapter ${chapterNumber}, verse ${v}`
+  //         );
+  //       }
+  //       return res.json();
+  //     })
+  //   );
+  // }
 
-  const versesRaw = await Promise.all(versePromises);
+  // const versesRaw = await Promise.all(versePromises);
   // console.log("versesRaw.length ", versesRaw.length);
   // console.log("translatorName ", translatorName);
 
   // Map verses
   const nodes = apiVersesForChapter.map((v: any, index: number) => {
-    // if (!index) {console.log("v", v);}
     let filteredTranslations = [];
-    filteredTranslations[0] = {
-      __typename: "GitaTranslation" as const,
-      nodeId: `${v.chapter}-${v.verse}`,
-      id: 1,
-      authorName: translatorName,
-      description: "Dummy translation text.",
-      gitaVerseByVerseId: null,
-      gitaAuthorByAuthorId: null,
-      gitaLanguageByLanguageId: null,
-      language: "English",
-      languageId: null,
-      verseId: v.verse_order,
-    }
+    if (groupedTranslationsbyVerseId[v.id]) {
+      const translationEntry =
+        groupedTranslationsbyVerseId[v.id].find(
+          (tr: any) => tr.author_id.toString() === translatorAuthorId
+        );
+
+      const translationText =
+        translationEntry?.description
+        ?? `No translation found for author: ${translatorName} with author id: ${translatorAuthorId}`;
+      filteredTranslations[0] = {
+        __typename: "GitaTranslation" as const,
+        nodeId: `${v.chapter}-${v.verse}`,
+        id: 1,
+        authorName: translatorName,
+        description: translationText,
+        gitaVerseByVerseId: null,
+        gitaAuthorByAuthorId: null,
+        gitaLanguageByLanguageId: null,
+        language: "English",
+        languageId: null,
+        verseId: v.id,
+      }
+    } 
+    // else {
+    //   console.error("Verse ids of corresponding verse and translation entries do not match ", v.id, apiTranslationsForChapter[index].verse_id);
+    // }
     // if (v.siva.author === translatorName && v.siva.et){
     //   filteredTranslations[0] = {
     //     __typename: "GitaTranslation" as const,
