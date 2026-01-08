@@ -60,9 +60,8 @@ export async function getAllChapters() {
 }
 
 const TRANSLATOR_AUTHORS: Record<string, string> = {
-  id1: "Swami Prabhupada",
-  id2: "A.C. Bhaktivedanta",
-  18: "Swami Sivananda",
+  16: "Swami Sivananda",
+  18: "Swami Adidevananda",
 };
 
 async function getChapterMeta(chapterNumber: string) {
