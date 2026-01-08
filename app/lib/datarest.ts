@@ -160,28 +160,7 @@ export async function getChapter(
 
   const apiVersesForChapter = await getVersesForChapter(chapterNumber);
   const groupedTranslationsbyVerseId = await getTranslationsForChapter(chapterNumber);
-  // Fetch all verses
-  // const versePromises = [];
-  // for (let v = 1; v <= versesCount; v++) {
-  //   versePromises.push(
-  //     fetch(
-  //       `https://vedicscriptures.github.io/slok/${chapterNumber}/${v}/`,
-  //       { next: { revalidate: 3600 } }
-  //     ).then((res) => {
-  //       if (!res.ok) {
-  //         throw new Error(
-  //           `Verse not found: chapter ${chapterNumber}, verse ${v}`
-  //         );
-  //       }
-  //       return res.json();
-  //     })
-  //   );
-  // }
-
-  // const versesRaw = await Promise.all(versePromises);
-  // console.log("versesRaw.length ", versesRaw.length);
-  // console.log("translatorName ", translatorName);
-
+  
   // Map verses
   const nodes = apiVersesForChapter.map((v: any, index: number) => {
     let filteredTranslations = [];
@@ -208,34 +187,10 @@ export async function getChapter(
         verseId: v.id,
       }
     } 
-    // else {
-    //   console.error("Verse ids of corresponding verse and translation entries do not match ", v.id, apiTranslationsForChapter[index].verse_id);
-    // }
-    // if (v.siva.author === translatorName && v.siva.et){
-    //   filteredTranslations[0] = {
-    //     __typename: "GitaTranslation" as const,
-    //     nodeId: `${v.chapter}-${v.verse}`,
-    //     id: 1,
-    //     authorName: translatorName,
-    //     description: v.siva.et,
-    //     gitaVerseByVerseId: null,
-    //     gitaAuthorByAuthorId: null,
-    //     gitaLanguageByLanguageId: null,
-    //     language: "English",
-    //     languageId: null,
-    //     verseId: v.verse,
-    //   }
-    // }
-
-    // const numericVerseId = calcNumericVerseId(
-    //   parseInt(v.chapter),
-    //   parseInt(v.verse)
-    // );
 
     return {
       __typename: "GitaVerse" as const,
       nodeId: `${v.chapter}-${v.verse_number}`,
-      // id: numericVerseId,
       id: v.verse_order,
       chapterId: parseInt(chapterNumber),
       chapterNumber: v.chapter_number,

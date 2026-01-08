@@ -10,16 +10,16 @@ export const metadata: Metadata = {
 function Page() {
   return (
     <div>
-      <h1 className="mt-2 text-2xl">Note: Regular app backend data service is not working and so using simpler backend data service</h1>
+      <h1 className="mt-2 text-2xl">Note: Regular app backend data service is not working and so using under-development JSON API</h1>
       <p className="italic text-gray-900 mt-2 p-2">
         Persons interested in
         <a href="https://raviswdev.blogspot.com/2025/12/are-any-persons-interested-in.html"
           className="mx-1 text-blue-600 hover:text-blue-800 underline">
-          sponsoring software development for Gita JSON files API and restoring
+          sponsoring software development for in-progress Gita JSON files API and restoring
           this app&apos;s regular functionality by using the API 
         </a>
-        — may email me at riyer02@gmail.com. The software will be open source and the development work 
-        will be at deeply discounted rates.
+        — may email me at riyer02@gmail.com. The software is open source and the development work 
+        is being done at deeply discounted rates.
       </p>
       <p className="mt-4 mb-4"> On 30 Nov. 2025, I found that the free graphql backend data service - 
         <a href="https://gql.bhagavadgita.io/graphql" 
@@ -32,13 +32,13 @@ function Page() {
         I do not think an alternative free graphql backend service for Bhagavad Gita data is available, as of now. 
       </p>
       <p className="mt-4 mb-4">
-        For the time being, I am using an alternate, simpler and free JSON backend service&nbsp; 
-        <a href="https://vedicscriptures.github.io"
-        className="text-blue-600 hover:text-blue-800 underline">
-        https://vedicscriptures.github.io
-        </a> 
-        &nbsp;which provides Bhagavad Gita data in quite a different manner from the original graphql service.
-        So I had to simplify the app to use translation and commentary for Gita verses of only one author
+        This app version is using 
+        <a href="https://github.com/ravisiyer/gita-data"
+          className="mx-1 text-blue-600 hover:text-blue-800 underline">
+          gita-data JSON API
+        </a>
+        which is under development. For verse details page, it uses another API which I plan to migrate to above API after its development is completed.
+        I had to simplify the app to use translation and commentary for Gita verses of only one author
          — Swami Sivananda — and therefore disabled the Settings menu item, which previously allowed 
          selection of translators and commentators.
       </p>
@@ -83,14 +83,12 @@ function Page() {
         Creating Gita API: Static JSON files API hosted on GitHub Pages; Regular REST and GraphQL APIs using SQL DB - ChatGPT
         </a>
         &nbsp;shares an approach for using available public domain Gita data to create a static Gita JSON files API hosted on
-        GitHub Pages with very generous free-tier. As of now, I am not planning to take up this work. But if anybody else would like to do it, this post could provide useful guidance.
+        GitHub Pages with very generous free-tier. I have started the initial work for this API with first chunk sponsorship provided by a donor.
       </p>
       <p className="mt-4 mb-4">
-        Once such a very generous free-tier API is available, my regular functionality app can be modified to use that API
-        instead of the currently down graphQL data service (API). Once again, if at that time I am in a position to modify my regular
-        functionality app myself, I will do so.
+        Once this very generous free-tier API is fully developed, my regular functionality app can be modified to use it instead of the currently down graphQL data service (API). Once again, if at that time I am in a position to modify my regular functionality app myself, I will do so.
       </p>
-      <p className="mt-4">Author: Ravi S. Iyer, Date: 14th December 2025</p>
+      <p className="mt-4">Author: Ravi S. Iyer, Date: 8th January 2026</p>
       <p className="mt-4 mb-4">
         The contents below are from the previous version of the app, before the original graphql backend data service went down.
       </p>

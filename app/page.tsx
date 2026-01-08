@@ -57,7 +57,12 @@ export default function Home() {
           </span>
         </h1>
         <p className="italic text-gray-900 mt-2 p-2">
-          3 Dec. 2025 — Note: Regular backend service is down. The app now uses a simpler alternate service, so functionality is limited. See the
+          8 Jan. 2026 — Note: Regular backend service is down. This version of the app uses 
+          <a href="https://github.com/ravisiyer/gita-data"
+            className="mx-1 text-blue-600 hover:text-blue-800 underline">
+            gita-data JSON API
+          </a>
+          which is under development. So app functionality is limited. See the
           <Link href="/about"
             className="mx-1 text-blue-600 hover:text-blue-800 underline">
             About page
@@ -68,11 +73,11 @@ export default function Home() {
           4 Jan. 2026 — Persons interested in
           <a href="https://raviswdev.blogspot.com/2025/12/are-any-persons-interested-in.html"
             className="mx-1 text-blue-600 hover:text-blue-800 underline">
-            sponsoring software development for Gita JSON files API and restoring
+            sponsoring software development for above mentioned Gita JSON files API and restoring
             this app&apos;s regular functionality by using the API 
           </a>
-          — may email me at riyer02@gmail.com. The software will be open source and the development work 
-          will be at deeply discounted rates.
+          — may email me at riyer02@gmail.com. The software is open source and the development work 
+          is being done at deeply discounted rates.
         </p>
         {/* <p className="text-gray-900 mt-2 p-2">
           3 Dec. 2025 — Note: Regular backend service is down. The app now uses a simpler free alternate service, so functionality is limited. See the&nbsp;
