@@ -136,8 +136,8 @@ async function Page({ params }: { params: { id: string } }) {
         <p className={`my-4 text-3xl leading-10`}>{displayGitaVerse.text}</p>
         <h4 className="my-4 text-xl font-bold">Transliteration</h4>
         <p className="my-4 text-base ">{displayGitaVerse.transliteration}</p>
-        {/* <h4 className="my-4 text-xl font-bold">Word Meanings</h4>
-        <p className="my-4 text-base ">{displayGitaVerse.wordMeanings}</p> */}
+        <h4 className="my-4 text-xl font-bold">Word Meanings</h4>
+        <p className="my-4 text-base ">{displayGitaVerse.wordMeanings}</p>
         <hr className="border border-gray-400" />
         {/* <p className="my-4 text-sm text-orange-800">
           Note: To choose translators and commentators for contents below, go to{" "}

@@ -1,16 +1,10 @@
-import { parse } from "path";
 import { NUMBER_OF_VERSES_IN_CHAPTERS } from "../constants/constants";
 import { GitaChapter } from "./gqltypes-d";
 import { calcNumericVerseId, getCVNumbersFromVerseId } from "./util";
 
 // data-rest.ts
-const REST_BASE = "https://vedicscriptures.github.io";
 const REST_NEW_BASE = "https://ravisiyer.github.io/gita-data/v1";
 
-/**
- * Fetches the chapters list from vedicscriptures.github.io and
- * returns it in the same shape your frontend expects.
- */
 export async function getAllChapters() {
   try {
     const apiurl = `${REST_NEW_BASE}/chapters.json`;
@@ -222,25 +216,6 @@ async function getCommentaryForVerseAuthorLang(
   return apiCommentaryforVerse;
 }
 
-
-async function getCommentariesForVerseAndAuthor(verseId: string, authorId: string) {
-  const apiurl = `${REST_NEW_BASE}/translation.json`;
-  try {
-    const res = await fetch(apiurl);
-    const apiCommentaries = await res.json();
-    const numericverseId = parseInt(verseId);
-    const apiCommentariesForVerse = 
-      apiCommentaries.filter((t: any) => t.verse_id === numericverseId);
-    if (apiCommentariesForVerse.length === 0) {
-      throw new Error(`Commentaries not found for verse: ${verseId}`);
-    }
-    return apiCommentariesForVerse;
-  } catch (err) {
-    console.error(err);
-    throw new Error("Failed to fetch Commentaries from JSON API");
-  }
-}
-
 export async function getChapter(
   chapterNumber: string,
   translatorAuthorId: string
@@ -338,27 +313,13 @@ export async function getChapter(
   };
 }
 
-// export async function getVerse(chapterNumber: string, verseNumber: string) {
 export async function getVerse(verseId: string) {
   const chapVerseNumbers = getCVNumbersFromVerseId(verseId);
   const chapterNumber = chapVerseNumbers.chapterNumber;
   const verseNumber = chapVerseNumbers.verseNumber;
-  // const url = `https://vedicscriptures.github.io/slok/${chapterNumber}/${verseNumber}/`;
-
-  // const res = await fetch(url, { next: { revalidate: 3600 } });
-  // if (!res.ok) {
-  //   throw new Error(`Verse not found for chapter ${chapterNumber}, verse ${verseNumber}`);
-  // }
-
-  // const v = await res.json();
-  // console.log("Fetched verse data for ", verseId, v);
 
   const v = await getVerseMeta(verseId);
 
-  //
-  // ---- Translations ----
-  //
-  // const translationsRaw = v.siva ?? {};
   const authorId = "16"; // Swami Sivananda
   const languageId = "1"; // English
   const translationsForVerse = await getTranslationsForVerse(verseId);
@@ -377,35 +338,14 @@ export async function getVerse(verseId: string) {
       nodeId: `${chapterNumber}-${verseNumber}`,
       id: 1,
       authorName: translatorName ?? null,
-      // authorName: v?.siva?.author ?? null,
       description: translationByAuthorLanguage?.description ?? null,
-      // description: v?.siva?.et ?? null,
       gitaVerseByVerseId: null,
       gitaAuthorByAuthorId: null,
       gitaLanguageByLanguageId: null,
       language: "English",
       languageId: parseInt(languageId),
-      // languageId: null,
       verseId: v.id,
-      // verseId: v.verseNumber,
   }
-  // translationNodes = Object.keys(translationsRaw).map((key, idx) => {
-  //   const tr = translationsRaw[key];
-
-  //   return {
-  //     __typename: "GitaTranslation" as const,
-  //     nodeId: `${chapterNumber}-${verseNumber}-tr-${idx}`,
-  //     id: idx + 1,
-  //     authorName: tr.author ?? null,
-  //     description: tr.et ?? tr.ht ?? tr.t ?? null,
-  //     gitaVerseByVerseId: null,
-  //     gitaAuthorByAuthorId: null,
-  //     gitaLanguageByLanguageId: null,
-  //     language: tr.language ?? "English",
-  //     languageId: null,
-  //     verseId: v.verse,
-  //   };
-  // });
 
   const gitaTranslationsByVerseId = {
     __typename: "GitaTranslationsConnection" as const,
@@ -427,44 +367,20 @@ export async function getVerse(verseId: string) {
 
   const commentaryForVerseAuthorLang = await getCommentaryForVerseAuthorLang(verseId, authorId, languageId);
 
-  //
-  // ---- Commentaries ----
-  //
-  // const commentariesRaw = v.commentaries ?? {};
   let commentaryNodes = [];
   commentaryNodes[0] = {
       __typename: "GitaCommentary" as const,
       nodeId: `${chapterNumber}-${verseNumber}`,
       id: 1,
       authorName: translatorName ?? null,
-      // authorName: v?.siva?.author ?? null,
       description: commentaryForVerseAuthorLang?.description ?? null,
-      // description: v?.siva?.ec ?? null,
       gitaVerseByVerseId: null,
       gitaAuthorByAuthorId: null,
       gitaLanguageByLanguageId: null,
       language: "English",
       languageId: null,
       verseId: v.id,
-      // verseId: v.verseNumber,
   }
-  // const commentaryNodes = Object.keys(commentariesRaw).map((key, idx) => {
-  //   const c = commentariesRaw[key];
-
-  //   return {
-  //     __typename: "GitaCommentary" as const,
-  //     nodeId: `${v.chapter}-${v.verse}-com-${idx}`,
-  //     id: idx + 1,
-  //     authorName: c.author ?? null,
-  //     description: c.text ?? null,
-  //     language: c.language ?? "English",
-  //     languageId: null,
-  //     verseId: v.verse,
-  //     gitaVerseByVerseId: null,
-  //     gitaAuthorByAuthorId: null,
-  //     gitaLanguageByLanguageId: null,
-  //   };
-  // });
 
   const gitaCommentariesByVerseId = {
     __typename: "GitaCommentariesConnection" as const,
@@ -484,16 +400,11 @@ export async function getVerse(verseId: string) {
     },
   };
 
-  //
-  // ---- Final Verse Node ----
-  //
   const verseNode = {
     __typename: "GitaVerse" as const,
     nodeId: `${v.chapter}-${v.verse}`,
     id: v.id,
-    // id: v.verse,
     chapterId: v.chapter_number,
-    // chapterId: parseInt(chapterNumber),
     chapterNumber: v.chapter_number,
     verseNumber: v.verse_number,
     text: v.text,
