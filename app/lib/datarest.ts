@@ -1,3 +1,4 @@
+import { parse } from "path";
 import { NUMBER_OF_VERSES_IN_CHAPTERS } from "../constants/constants";
 import { GitaChapter } from "./gqltypes-d";
 import { calcNumericVerseId, getCVNumbersFromVerseId } from "./util";
@@ -98,6 +99,23 @@ async function getVersesForChapter(chapterNumber: string) {
   }
 }
 
+async function getVerseMeta(verseId: string) {
+  const apiurl = `${REST_NEW_BASE}/verse.json`;
+  try {
+    const res = await fetch(apiurl);
+    const apiVerses = await res.json();
+    const numericVerseId = parseInt(verseId);
+    const apiVerse = apiVerses.find((v: any) => v.id === numericVerseId);
+    if (!apiVerse) {
+      throw new Error(`Verse not found for verseId: ${verseId}`);
+    }
+    return apiVerse;
+  } catch (err) {
+    console.error(err);
+    throw new Error("Failed to fetch verse from JSON API");
+  }
+}
+
 /**
  * Groups translation entries by verse_id.
  *
@@ -143,6 +161,83 @@ async function getTranslationsForChapter(chapterNumber: string) {
   } catch (err) {
     console.error(err);
     throw new Error("Failed to fetch translations from JSON API");
+  }
+}
+
+async function getTranslationsForVerse(verseId: string) {
+  const apiurl = `${REST_NEW_BASE}/translation.json`;
+  try {
+    const res = await fetch(apiurl);
+    const apiTranslations = await res.json();
+    const numericverseId = parseInt(verseId);
+    const apiTranslationsForVerse = 
+      apiTranslations.filter((t: any) => t.verse_id === numericverseId);
+    if (apiTranslationsForVerse.length === 0) {
+      throw new Error(`Translations not found for verse: ${verseId}`);
+    }
+    return apiTranslationsForVerse;
+  } catch (err) {
+    console.error(err);
+    throw new Error("Failed to fetch translations from JSON API");
+  }
+}
+
+async function getCommentariesForChapterAuthorLang(
+  chapterNumber: string,
+  authorId: string,
+  langId: string
+) {
+  const apiurl =
+    `${REST_NEW_BASE}/commentaries/author${authorId}` +
+    `/lang${langId}` +
+    `/chapter${chapterNumber}.json`;
+
+  const res = await fetch(apiurl);
+
+  if (!res.ok) {
+    throw new Error(
+      `Failed to load commentaries: author=${authorId}, lang=${langId}, chapter=${chapterNumber}`
+    );
+  }
+  const apiCommentaries = await res.json();
+  return apiCommentaries;
+}
+
+async function getCommentaryForVerseAuthorLang(
+  verseId: string,
+  authorId: string,
+  langId: string
+) {
+  const chapVerseNumbers = getCVNumbersFromVerseId(verseId);
+  const chapterNumber = chapVerseNumbers.chapterNumber;
+  const numericVerseId = parseInt(verseId);
+  const apiCommentaries = await getCommentariesForChapterAuthorLang(chapterNumber,
+  authorId, langId);
+  const apiCommentaryforVerse = apiCommentaries.find((c: any) => c.verse_id === numericVerseId);
+  if (!apiCommentaryforVerse) {
+    throw new Error(
+      `Failed to load commentary for author=${authorId}, lang=${langId}, verse=${verseId}`
+    );
+  }
+  return apiCommentaryforVerse;
+}
+
+
+async function getCommentariesForVerseAndAuthor(verseId: string, authorId: string) {
+  const apiurl = `${REST_NEW_BASE}/translation.json`;
+  try {
+    const res = await fetch(apiurl);
+    const apiCommentaries = await res.json();
+    const numericverseId = parseInt(verseId);
+    const apiCommentariesForVerse = 
+      apiCommentaries.filter((t: any) => t.verse_id === numericverseId);
+    if (apiCommentariesForVerse.length === 0) {
+      throw new Error(`Commentaries not found for verse: ${verseId}`);
+    }
+    return apiCommentariesForVerse;
+  } catch (err) {
+    console.error(err);
+    throw new Error("Failed to fetch Commentaries from JSON API");
   }
 }
 
@@ -248,33 +343,51 @@ export async function getVerse(verseId: string) {
   const chapVerseNumbers = getCVNumbersFromVerseId(verseId);
   const chapterNumber = chapVerseNumbers.chapterNumber;
   const verseNumber = chapVerseNumbers.verseNumber;
-  const url = `https://vedicscriptures.github.io/slok/${chapterNumber}/${verseNumber}/`;
+  // const url = `https://vedicscriptures.github.io/slok/${chapterNumber}/${verseNumber}/`;
 
-  const res = await fetch(url, { next: { revalidate: 3600 } });
-  if (!res.ok) {
-    throw new Error(`Verse not found for chapter ${chapterNumber}, verse ${verseNumber}`);
-  }
+  // const res = await fetch(url, { next: { revalidate: 3600 } });
+  // if (!res.ok) {
+  //   throw new Error(`Verse not found for chapter ${chapterNumber}, verse ${verseNumber}`);
+  // }
 
-  const v = await res.json();
+  // const v = await res.json();
   // console.log("Fetched verse data for ", verseId, v);
+
+  const v = await getVerseMeta(verseId);
 
   //
   // ---- Translations ----
   //
   // const translationsRaw = v.siva ?? {};
+  const authorId = "16"; // Swami Sivananda
+  const languageId = "1"; // English
+  const translationsForVerse = await getTranslationsForVerse(verseId);
+  const translationByAuthorLanguage = translationsForVerse.find(
+    (tr: any) => tr.author_id.toString() === authorId && tr.language_id.toString() === languageId
+  );
+
+  const translatorName = TRANSLATOR_AUTHORS[authorId];
+  if (!translatorName) {
+    throw new Error(`Unknown authorId: ${authorId}`);
+  }
+
   let translationNodes = [];
   translationNodes[0] = {
       __typename: "GitaTranslation" as const,
       nodeId: `${chapterNumber}-${verseNumber}`,
       id: 1,
-      authorName: v?.siva?.author ?? null,
-      description: v?.siva?.et ?? null,
+      authorName: translatorName ?? null,
+      // authorName: v?.siva?.author ?? null,
+      description: translationByAuthorLanguage?.description ?? null,
+      // description: v?.siva?.et ?? null,
       gitaVerseByVerseId: null,
       gitaAuthorByAuthorId: null,
       gitaLanguageByLanguageId: null,
       language: "English",
-      languageId: null,
-      verseId: v.verseNumber,
+      languageId: languageId,
+      // languageId: null,
+      verseId: v.id,
+      // verseId: v.verseNumber,
   }
   // translationNodes = Object.keys(translationsRaw).map((key, idx) => {
   //   const tr = translationsRaw[key];
@@ -312,6 +425,8 @@ export async function getVerse(verseId: string) {
     },
   };
 
+  const commentaryForVerseAuthorLang = await getCommentaryForVerseAuthorLang(verseId, authorId, languageId);
+
   //
   // ---- Commentaries ----
   //
@@ -321,14 +436,17 @@ export async function getVerse(verseId: string) {
       __typename: "GitaCommentary" as const,
       nodeId: `${chapterNumber}-${verseNumber}`,
       id: 1,
-      authorName: v?.siva?.author ?? null,
-      description: v?.siva?.ec ?? null,
+      authorName: translatorName ?? null,
+      // authorName: v?.siva?.author ?? null,
+      description: commentaryForVerseAuthorLang?.description ?? null,
+      // description: v?.siva?.ec ?? null,
       gitaVerseByVerseId: null,
       gitaAuthorByAuthorId: null,
       gitaLanguageByLanguageId: null,
       language: "English",
       languageId: null,
-      verseId: v.verseNumber,
+      verseId: v.id,
+      // verseId: v.verseNumber,
   }
   // const commentaryNodes = Object.keys(commentariesRaw).map((key, idx) => {
   //   const c = commentariesRaw[key];
@@ -372,13 +490,15 @@ export async function getVerse(verseId: string) {
   const verseNode = {
     __typename: "GitaVerse" as const,
     nodeId: `${v.chapter}-${v.verse}`,
-    id: v.verse,
-    chapterId: parseInt(chapterNumber),
-    chapterNumber: v.chapter,
-    verseNumber: v.verse,
-    text: v.slok,
+    id: v.id,
+    // id: v.verse,
+    chapterId: v.chapter_number,
+    // chapterId: parseInt(chapterNumber),
+    chapterNumber: v.chapter_number,
+    verseNumber: v.verse_number,
+    text: v.text,
     transliteration: v.transliteration,
-    wordMeanings: v.tepa ?? null,
+    wordMeanings: v.word_meanings ?? null,
     slug: null,
 
     gitaTranslationsByVerseId,
