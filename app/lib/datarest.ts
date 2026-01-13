@@ -384,7 +384,7 @@ export async function getVerse(verseId: string) {
       gitaAuthorByAuthorId: null,
       gitaLanguageByLanguageId: null,
       language: "English",
-      languageId: languageId,
+      languageId: parseInt(languageId),
       // languageId: null,
       verseId: v.id,
       // verseId: v.verseNumber,
