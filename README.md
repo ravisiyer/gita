@@ -1,16 +1,15 @@
-## Note: Regular app backend data service is not working and so using simpler backend data service
-On 30 Nov. 2025, I found that the free graphql backend data service -https://gql.bhagavadgita.io/graphql- used by the regular app, is not working. The regular app is dependent on this service to get Bhagavad Gita data to be shown to the user. This graphql backend data service is provided by somebody else, and so not in my control. I do not think an alternative free graphql backend service for Bhagavad Gita data is available, as of now.
+## Note: This datajson branch is a test frontend app used for testing Gita JSON files API
 
-For the time being, I am using an alternate, simpler and free JSON backend service https://vedicscriptures.github.io which provides Bhagavad Gita data in quite a different manner from the original graphql service. So I had to simplify the app to use translation and commentary for Gita verses of only one author — Swami Sivananda — and therefore disabled the Settings menu item, which previously allowed selection of translators and commentators.
+This datajson branch Gita frontend app version uses [Bhagavad Gita Static JSON files API - gita-data](https://github.com/ravisiyer/gita-data#readme) and shows only Swami Sivananda translation and commentary. It is live at: https://gita-test.vercel.app/. But it has not been tested thoroughly. For this frontend app, I created a new Vercel project whose production site is mapped to this datajson branch of Gita frontend app.
 
-The basic app functionality of showing Gita chapters and verses with Swami Sivananda translation and commentary is working. But I have not been able to test the app thoroughly and so there may be some issues.
+This frontend app code is unnecessarily complex as it is based on the full Gita frontend app code which used a graphQL API earlier and which is no longer available. So the key data access functions in it have been modified to use above mentioned gita-data JSON API and then populate the required data in the structures and formats returned by earlier graphQL API, which is then returned to UI components. This way, the existing UI components could be reused with minimal or no changes.
 
-I have [put up an issue](https://github.com/gita/bhagavad-gita-graphql/issues/3) in this GitHub repo - https://github.com/gita/bhagavad-gita-graphql - which seems to be associated with the original graphql service. But I do not know if or when it will be fixed.
+Even though this frontend app seems to be functional with its limited functionality of only one translator and commentator (Swami Sivananda), I view this frontend app as a temporary test frontend app to test the gita-data JSON API. Eventually it should be replaced by a better demo and test frontend project that uses the gita-data JSON files API.
 
-To see screenshots of the app when the original graphql backend data service was working, please visit my blog post [Gita web app (Next.js, open source) v1.4.1...](https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html).
+This frontend app does not use the optimizations of chapters.json, verse.json and translation.json being directly imported into the (Next.js) frontend project as constant JSON objects, which is discussed in the section: *Summary of best option for generous free-tier Gita API implementation* in [this blog post](https://raviswdev.blogspot.com/2025/12/create-gita-json-file-rest-api-hosted.html). Even without these optimizations, this frontend app usually has acceptable performance with chapter and verse pages being loaded within few seconds (less than 2 seconds in one test). On occassion, it took slightly longer but which too, if I recall correctly, was still less than 5 or max. 10 seconds.
 
-[This blog post](https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html) has more details about the original graphql service being down issue. Once the graphql backend data service is working again, any Next.js developer can refer to its section [Resetting app to regular functionality](https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html#resetapptomain) to easily deploy the regular functionality app (Open Source, MIT license) on any host. Of course, if at that time I am in a position to update this app deployment myself, I will do so.
 
+# Previous version of this Gita frontend app
 The contents below are from the previous version of the app, before the original graphql backend data service went down.
 
 ---

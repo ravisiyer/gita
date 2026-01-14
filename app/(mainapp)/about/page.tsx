@@ -10,85 +10,47 @@ export const metadata: Metadata = {
 function Page() {
   return (
     <div>
-      <h1 className="mt-2 text-2xl">Note: Regular app backend data service is not working and so using under-development JSON API</h1>
+      <h1 className="mt-2 text-2xl">Note: This app version is a test frontend app used for testing Gita JSON files API</h1>
       <p className="italic text-gray-900 mt-2 p-2">
         Persons interested in
         <a href="https://raviswdev.blogspot.com/2025/12/are-any-persons-interested-in.html"
           className="mx-1 text-blue-600 hover:text-blue-800 underline">
           sponsoring software development for in-progress Gita JSON files API and restoring
-          this app&apos;s regular functionality by using the API 
+          the orignal Gita frontend app&apos;s regular functionality by using the API 
         </a>
         — may email me at riyer02@gmail.com. The software is open source and the development work 
         is being done at deeply discounted rates.
       </p>
-      <p className="mt-4 mb-4"> On 30 Nov. 2025, I found that the free graphql backend data service - 
-        <a href="https://gql.bhagavadgita.io/graphql" 
+      <p className="mt-4 mb-4"> This Gita frontend app version uses
+        <a href="https://github.com/ravisiyer/gita-data#readme" 
         className="mx-1 bg-orange-400 hover:bg-orange-300 active:scale-95">
-         https://gql.bhagavadgita.io/graphql
+         Bhagavad Gita Static JSON files API - gita-data
         </a>
-        - used by the regular app, is not working. The regular app is dependent on this service 
-        to get Bhagavad Gita data to be shown to the user. This graphql backend data service is provided
-        by somebody else, and so not in my control.
-        I do not think an alternative free graphql backend service for Bhagavad Gita data is available, as of now. 
+        and shows only Swami Sivananda translation and commentary.  
       </p>
       <p className="mt-4 mb-4">
-        This app version is using 
-        <a href="https://github.com/ravisiyer/gita-data"
-          className="mx-1 text-blue-600 hover:text-blue-800 underline">
-          gita-data JSON API
-        </a>
-        which is under development. For verse details page, it uses another API which I plan to migrate to above API after its development is completed.
-        I had to simplify the app to use translation and commentary for Gita verses of only one author
-         — Swami Sivananda — and therefore disabled the Settings menu item, which previously allowed 
-         selection of translators and commentators.
+        Even though this frontend app seems to be functional with its limited functionality of only one translator 
+        and commentator (Swami Sivananda), I view this frontend app as a temporary test frontend app to test the 
+        gita-data JSON API. Eventually it should be replaced by a better demo and test frontend project that uses 
+        the gita-data JSON files API.
       </p>
       <p className="mt-4 mb-4">
-        The basic app functionality of showing Gita chapters and verses with Swami Sivananda translation
-        and commentary is working.
-        But I have not been able to test the app thoroughly and so there may be some issues. 
+        This frontend app does not use the optimizations of chapters.json, verse.json and translation.json being 
+        directly imported into the (Next.js) frontend project as constant JSON objects, which is discussed in the 
+        section: Summary of best option for generous free-tier Gita API implementation in 
+        <a href="https://raviswdev.blogspot.com/2025/12/create-gita-json-file-rest-api-hosted.html" 
+        className="mx-1 bg-orange-400 hover:bg-orange-300 active:scale-95">
+        this blog post
+        </a>.
+        Even without these optimizations, this frontend app usually has acceptable performance with chapter and verse pages being loaded within few seconds (less than 2 seconds in one test). On occassion, it took slightly longer but which too, if I recall correctly, was still less than 5 or max. 10 seconds.
       </p>
       <p className="mt-4 mb-4">
-        I have&nbsp; 
-        <a href="https://github.com/gita/bhagavad-gita-graphql/issues/3"
-        className="text-blue-600 hover:text-blue-800 underline">
-        put up an issue
-        </a>
-        &nbsp;in the GitHub repo -&nbsp; 
-        <a href="https://github.com/gita/bhagavad-gita-graphql"
-        className="bg-orange-400 hover:bg-orange-300 active:scale-95">
-            https://github.com/gita/bhagavad-gita-graphql</a>
-          &nbsp;- which seems to be associated with the original graphql service. But I do not know if or when it will be fixed.
+        For implentation details about this app version, please see the
+        <a href="https://github.com/ravisiyer/gita/tree/datajson#readme" className="mx-1 bg-orange-400 hover:bg-orange-300 active:scale-95">
+          README in this app's datajson branch in its GitHub repository
+        </a>.
       </p>
-      <p className="mt-4 mb-4">
-        To see screenshots of the app when the original graphql backend data service was working, please visit my blog post&nbsp; 
-        <a href="https://raviswdev.blogspot.com/2024/08/gita-web-app-nextjs-open-source-v14.html"
-        className="text-blue-600 hover:text-blue-800 underline">
-        Gita web app (Next.js, open source) v1.4.1...</a>.
-      </p>
-      <p className="mt-4 mb-4">
-        <a href="https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html"
-        className="text-blue-600 hover:text-blue-800 underline">
-        This blog post</a>
-        &nbsp;has more details about the original graphql service being down issue. Once the graphql backend data service is working again, any Next.js developer can refer to its section&nbsp;
-        <a href="https://raviswdev.blogspot.com/2025/12/my-gita-web-app-backend-data-service.html#resetapptomain"
-        className="text-blue-600 hover:text-blue-800 underline">
-        Resetting app to regular functionality</a>
-        &nbsp;to easily deploy the regular functionality app (Open Source, MIT license) on any host. 
-        Of course, if at that time I am in a position to update this app deployment myself, I will do so.
-      </p>
-      <p className="mt-4 mb-4">
-        My blog post:&nbsp; 
-        <a href="https://raviswdev.blogspot.com/2025/12/create-gita-json-file-rest-api-hosted.html"
-        className="text-blue-600 hover:text-blue-800 underline">
-        Creating Gita API: Static JSON files API hosted on GitHub Pages; Regular REST and GraphQL APIs using SQL DB - ChatGPT
-        </a>
-        &nbsp;shares an approach for using available public domain Gita data to create a static Gita JSON files API hosted on
-        GitHub Pages with very generous free-tier. I have started the initial work for this API with first chunk sponsorship provided by a donor.
-      </p>
-      <p className="mt-4 mb-4">
-        Once this very generous free-tier API is fully developed, my regular functionality app can be modified to use it instead of the currently down graphQL data service (API). Once again, if at that time I am in a position to modify my regular functionality app myself, I will do so.
-      </p>
-      <p className="mt-4">Author: Ravi S. Iyer, Date: 8th January 2026</p>
+      <p className="mt-4">Author: Ravi S. Iyer, Date: 14th January 2026</p>
       <p className="mt-4 mb-4">
         The contents below are from the previous version of the app, before the original graphql backend data service went down.
       </p>

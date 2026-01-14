@@ -57,12 +57,13 @@ export default function Home() {
           </span>
         </h1>
         <p className="italic text-gray-900 mt-2 p-2">
-          8 Jan. 2026 — Note: Regular backend service is down. This version of the app uses 
-          <a href="https://github.com/ravisiyer/gita-data"
-            className="mx-1 text-blue-600 hover:text-blue-800 underline">
-            gita-data JSON API
+          14 Jan. 2026 — Note: 
+          This is a test Gita frontend app version for testing
+          <a href="https://github.com/ravisiyer/gita-data#readme" 
+            className="mx-1 bg-orange-400 hover:bg-orange-300 active:scale-95">
+            Bhagavad Gita Static JSON files API - gita-data
           </a>
-          which is under development. So app functionality is limited. See the
+          but is functional with some limitations.See the
           <Link href="/about"
             className="mx-1 text-blue-600 hover:text-blue-800 underline">
             About page
