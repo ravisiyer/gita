@@ -46,8 +46,8 @@ function Page() {
       </p>
       <p className="mt-4 mb-4">
         For implentation details about this app version, please see the
-        <a href="https://github.com/ravisiyer/gita/tree/datajson#readme" className="mx-1 bg-orange-400 hover:bg-orange-300 active:scale-95">
-          README in this app's datajson branch in its GitHub repository
+        <a href="https://github.com/ravisiyer/gita/tree/datajson#readme" className="ml-1 bg-orange-400 hover:bg-orange-300 active:scale-95">
+          README in this app&apos;s datajson branch in its GitHub repository
         </a>.
       </p>
       <p className="mt-4">Author: Ravi S. Iyer, Date: 14th January 2026</p>
